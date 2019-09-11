@@ -20,6 +20,7 @@ public class Pharmacy {
     @Column
     private String name;
     @Column
+<<<<<<< HEAD
     private int phoneNumber;
     @Column
     private String address;
@@ -27,5 +28,8 @@ public class Pharmacy {
     private String openAt;
     @Column
     private String closeAt;
+=======
+
+>>>>>>> 4687108c2b80af8d52b9b89bf978c76cd074b1d0
 
 }
