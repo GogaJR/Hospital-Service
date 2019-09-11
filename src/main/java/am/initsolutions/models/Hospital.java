@@ -14,8 +14,10 @@ public class Hospital {
     private String phoneNumber;
     private String openAt;
     private String closeAt;
-    private List<Department> departments;
 
-    public Hospital() {
-    }
+    @OneToMany(mappedBy = "hospital")
+    private List<Department> departments;
+    
+    @OneToMany(mappedBy = "hospital")
+    private List<Doctor> doctors;
 }
