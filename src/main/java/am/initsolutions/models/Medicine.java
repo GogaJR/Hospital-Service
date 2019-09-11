@@ -6,29 +6,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
-@Table(name = "hospital")
-public class Hospital {
+@Table(name="medicine")
+public class Medicine {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String name;
-    @Column
-    private String address;
-    @Column
-    private String phoneNumber;
-    @Column
-    private String openAt;
-    @Column
-    private String closeAt;
-
-    private List<Department> departments;
-
-
 }
