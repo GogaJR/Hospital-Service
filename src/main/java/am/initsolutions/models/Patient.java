@@ -28,6 +28,10 @@ public class Patient {
     private String address;
     private String phoneNumber;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToMany
     @JoinTable(
             name = "patient_doctor",
@@ -37,6 +41,4 @@ public class Patient {
 
     @OneToMany(mappedBy = "patient")
     private List<PatientHistory> histories;
-    
-    //TODO
 }

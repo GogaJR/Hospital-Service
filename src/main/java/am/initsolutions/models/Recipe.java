@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,5 +26,11 @@ public class Recipe {
     @OneToOne(mappedBy = "recipe")
     private PatientHistory patientHistory;
 
-    //TODO
+    @ManyToMany
+    @JoinTable(
+            name = "recipe_medicine",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "medicine_id")
+    )
+    private List<Medicine> medicines;
 }

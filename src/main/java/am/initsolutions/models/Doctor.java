@@ -35,6 +35,10 @@ public class Doctor {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToMany(mappedBy = "doctors")
     private List<Patient> patients;
 
@@ -43,6 +47,4 @@ public class Doctor {
 
     @OneToMany(mappedBy = "doctor")
     private List<Recipe> recipes;
-
-    //TODO
 }

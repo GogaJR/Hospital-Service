@@ -27,8 +27,7 @@ public class PatientHistory {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    @OneToOne(mappedBy = "patientHistory")
+    @OneToOne
+    @JoinColumn(name = "recipe_id", referencedColumnName = "id")
     private Recipe recipe;
-
-    //TODO
 }
