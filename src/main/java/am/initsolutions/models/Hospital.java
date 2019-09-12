@@ -27,17 +27,10 @@ public class Hospital {
     private String openAt;
     @Column
     private String closeAt;
-<<<<<<< HEAD
 
     @OneToMany(mappedBy = "hospital")
     private List<Department> departments;
     
     @OneToMany(mappedBy = "hospital")
     private List<Doctor> doctors;
-=======
-
-    private List<Department> departments;
-
-
->>>>>>> 4687108c2b80af8d52b9b89bf978c76cd074b1d0
 }
