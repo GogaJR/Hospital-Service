@@ -6,26 +6,32 @@
 </head>
 <body>
 <a href="/logout">Logout</a>
+
 <h3>Hospital List:</h3>
 <table border="1">
     <tr>
-        <td>Id</td>
+
         <td>Name</td>
         <td>Address</td>
         <td>phoneNumber</td>
-        <td>openAt</td>
-        <td>closeAt</td>
+        <td>Site</td>
+        <td>Executive</td>
+        <td colspan="2">Action</td>
     </tr>
     <tr th:each="h: ${hospitalList}">
-        <td th:text="${h.id}"></td>
         <td th:text="${h.name}"></td>
         <td th:text="${h.address}"></td>
         <td th:text="${h.phoneNumber}"></td>
-        <td th:text="${h.openAt}"></td>
-        <td th:text="${h.closeAt}"></td>
+        <td th:text="${h.site}"></td>
+        <td th:text="${h.executive}"></td>
+        <td><a  th:href="@{/delete(id=${h.id})}" >Delete Hospital</a></td>
+        <td><a  th:href="@{/edit(id=${h.id})}">Edit Hospital</a></td>
+
 <!--        <td><span th:each="l: ${h.doctors}" th:text="${l.name + ' '}"></span></td>-->
 <!--        <td><span th:each="l: ${h.departments}" th:text="${l.name + ' '}"></span></td>-->
     </tr>
 </table>
+
+<a role="button" class="btn btn-success" href="/mainAdmin/add" style="text-decoration: none;"> Add Hospital </a>
 </body>
 </html>

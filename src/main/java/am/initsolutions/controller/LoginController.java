@@ -1,6 +1,7 @@
 package am.initsolutions.controller;
 
 import am.initsolutions.models.Hospital;
+import am.initsolutions.models.enums.UserType;
 import am.initsolutions.repository.HospitalRepository;
 import am.initsolutions.repository.UserRepository;
 import am.initsolutions.security.SpringUser;
@@ -47,13 +48,13 @@ public class LoginController {
     public String loginSuccess(@AuthenticationPrincipal
                                        SpringUser springUser) {
         System.out.println(springUser.getUser().getUserType());
-        if (springUser.getUser().getUserType().name().equals("ADMIN")) {
+        if (springUser.getUser().getUserType().equals(UserType.ADMIN)) {
             return "redirect:/mainAdmin";
-        }else if(springUser.getUser().getUserType().name().equals("HOSPITAL_ADMIN")){
+        }else if(springUser.getUser().getUserType().equals(UserType.HOSPITAL_ADMIN)){
             return "redirect:/hospitalAdmin";
-        }else if(springUser.getUser().getUserType().name().equals("PHARMACY_ADMIN")){
+        }else if(springUser.getUser().getUserType().equals(UserType.PHARMACY_ADMIN)){
             return "redirect:/pharmacyAdmin";
-        } else if (springUser.getUser().getUserType().name().equals("DOCTOR")) {
+        } else if (springUser.getUser().getUserType().equals(UserType.DOCTOR)) {
             return "redirect:/doctor";
         }else {
             return "redirect:/patient";

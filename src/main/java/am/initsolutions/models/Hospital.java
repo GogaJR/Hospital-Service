@@ -24,9 +24,9 @@ public class Hospital {
     @Column
     private String phoneNumber;
     @Column
-    private String openAt;
+    private String site;
     @Column
-    private String closeAt;
+    private String executive;
 
     @OneToMany(mappedBy = "hospital")
     private List<Department> departments;

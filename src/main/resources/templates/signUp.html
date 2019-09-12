@@ -1,21 +1,56 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Hospital Services</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <div class="card" style=" width: 50%;">
+        <div class="card-body px-lg-5 pt-0">
+    <h3>Add Patient!</h3>
     <td th:if="${error == null}" th:text="Sign Up Error"></td>
     <form method="post" action="/register">
-        Patient Name: <input type="text" name="name" required/><br>
-        Patient Surname: <input type="text" name="surname" required/><br>
-        Age: <input type="number" name="age" min="0" required/><br>
-        Gender: <input type="radio" name="gender" value="MALE" checked/>Male
-                <input type="radio" name="gender" value="FEMALE"/>Female<br>
-        Address: <input type="text" name="address" required/><br>
-        Phone Number: <input type="text" name="phoneNumber" pattern="[0-9]{9}" required="true"/><br>
-        E-Mail: <input type="email" name="mail" required/><br>
-        Password: <input type="password" name="password" required/><br>
+        <div class="md-form">
+            <input type="text" name="name" class="form-control" placeholder="Name" required/><br>
+        </div>
+        <div class="md-form">
+         <input type="text" name="surname" class="form-control" placeholder="Patient Surname:" required/><br>
+        </div>
+        <div class="md-form">
+       <input type="number" name="age" min="0" class="form-control" placeholder="Age" required/><br>
+        </div>
 
-        <button type="submit" name="btn">Sign Up</button>
+
+        <!-- Default unchecked -->
+        <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="defaultUnchecked" name="gender" value="MALE">
+            <label class="custom-control-label" for="defaultUnchecked">MALE</label>
+        </div>
+
+        <!-- Default checked -->
+        <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="defaultChecked" name="gender" checked value="FEMALE">
+            <label class="custom-control-label" for="defaultChecked">FEMALE</label>
+        </div>
+        <div class="md-form">
+         <input type="text" name="address" placeholder="Address" class="form-control" required/><br>
+        </div>
+        <div class="md-form">
+        <input type="text" name="phoneNumber" pattern="[0-9]{9}" class="form-control" placeholder="Phone Number" required="true"/><br>
+        </div>
+        <div class="md-form">
+         <input type="email" name="mail" placeholder="E-Mail"  class="form-control" required/><br>
+        </div>
+        <div class="md-form">
+         <input type="password" name="password" placeholder="Password" class="form-control" required/><br>
+        </div>
+
+        <button type="submit" name="btn" class="btn btn-success">Sign Up</button>
     </form>
+</div>
+</div>
+</div>
 </body>
 </html>
