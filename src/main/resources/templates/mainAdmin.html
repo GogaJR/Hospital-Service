@@ -5,27 +5,27 @@
     <title>Title</title>
 </head>
 <body>
-
+<a href="/logout">Logout</a>
 <h3>Hospital List:</h3>
-<!--<table border="1">-->
-<!--    <tr>-->
-<!--        <td>Id</td>-->
-<!--        <td>Name</td>-->
-<!--        <td>Address</td>-->
-<!--        <td>phoneNumber</td>-->
-<!--        <td>openAt</td>-->
-<!--        <td>closeAt</td>-->
-<!--    </tr>-->
-<!--    <tr th:each="u: ${users}">-->
-<!--        <td th:text="${u.id}"></td>-->
-<!--        <td th:text="${u.name}"></td>-->
-<!--        <td th:text="${u.address}"></td>-->
-<!--        <td th:text="${u.phoneNumber}"></td>-->
-<!--        <td th:text="${u.openAt}"></td>-->
-<!--        <td th:text="${u.closeAt}"></td>-->
-<!--        <td><span th:each="l: ${u.doctors}" th:text="${l.name + ' '}"></span></td>-->
-<!--        <td><span th:each="l: ${u.departments}" th:text="${l.name + ' '}"></span></td>-->
-<!--    </tr>-->
-<!--</table>-->
+<table border="1">
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Address</td>
+        <td>phoneNumber</td>
+        <td>openAt</td>
+        <td>closeAt</td>
+    </tr>
+    <tr th:each="h: ${hospitalList}">
+        <td th:text="${h.id}"></td>
+        <td th:text="${h.name}"></td>
+        <td th:text="${h.address}"></td>
+        <td th:text="${h.phoneNumber}"></td>
+        <td th:text="${h.openAt}"></td>
+        <td th:text="${h.closeAt}"></td>
+<!--        <td><span th:each="l: ${h.doctors}" th:text="${l.name + ' '}"></span></td>-->
+<!--        <td><span th:each="l: ${h.departments}" th:text="${l.name + ' '}"></span></td>-->
+    </tr>
+</table>
 </body>
 </html>
