@@ -28,12 +28,9 @@ public class Hospital {
     @Column
     private String closeAt;
 
-
     @OneToMany(mappedBy = "hospital")
     private List<Department> departments;
     
     @OneToMany(mappedBy = "hospital")
     private List<Doctor> doctors;
-
-
 }

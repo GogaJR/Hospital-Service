@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hospital Services</title>
+</head>
+<body>
+    <td th:if="${error == null}" th:text="Sign Up Error"></td>
+    <form method="post" action="/register">
+        Patient Name: <input type="text" name="name" required/><br>
+        Patient Surname: <input type="text" name="surname" required/><br>
+        Age: <input type="number" name="age" min="0" required/><br>
+        Gender: <input type="radio" name="gender" value="MALE" checked/>Male
+                <input type="radio" name="gender" value="FEMALE"/>Female<br>
+        Address: <input type="text" name="address" required/><br>
+        Phone Number: <input type="text" name="phoneNumber" pattern="[0-9]{9}" required="true"/><br>
+        E-Mail: <input type="email" name="mail" required/><br>
+        Password: <input type="password" name="password" required/><br>
+
+        <button type="submit" name="btn">Sign Up</button>
+    </form>
+</body>
+</html>

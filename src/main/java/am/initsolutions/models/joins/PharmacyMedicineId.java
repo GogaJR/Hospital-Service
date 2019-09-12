@@ -1,6 +1,5 @@
 package am.initsolutions.models.joins;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
