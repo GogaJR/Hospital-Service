@@ -20,8 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .formLogin()
-                //.loginPage("/login")
-                .usernameParameter("username")
+                .usernameParameter("mail")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/loginSuccess")
                 .permitAll()
@@ -30,8 +29,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .and()
                 .authorizeRequests()
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/register").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/register").permitAll()
                 .antMatchers("/user").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/admin").hasAuthority("ADMIN");
     }

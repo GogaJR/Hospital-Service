@@ -46,5 +46,10 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <version>1.5.12.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.21</version>
+        </dependency>
     </dependencies>
 </project>
