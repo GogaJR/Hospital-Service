@@ -22,7 +22,7 @@ public class PharmacyMedicine {
     @MapsId("pharmacyId")
     private Pharmacy pharmacy;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @MapsId("medicineId")
     private Medicine medicine;
 

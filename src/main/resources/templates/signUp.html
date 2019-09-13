@@ -10,7 +10,7 @@
     <div class="card" style=" width: 50%;">
         <div class="card-body px-lg-5 pt-0">
     <h3>Add Patient!</h3>
-    <td th:if="${error == null}" th:text="Sign Up Error"></td>
+    <td th:if="${error}" th:text="Sign Up Error"></td>
     <form method="post" action="/register">
         <div class="md-form">
             <input type="text" name="name" class="form-control" placeholder="Name" required/><br>

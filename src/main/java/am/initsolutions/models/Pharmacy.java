@@ -20,7 +20,7 @@ public class Pharmacy {
     @Column
     private String name;
     @Column
-    private int phoneNumber;
+    private String phoneNumber;
     @Column
     private String address;
     @Column
