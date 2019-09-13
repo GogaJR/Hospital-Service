@@ -10,21 +10,19 @@
 <h3>Hospital List:</h3>
 <table border="1">
     <tr>
-
         <td>Name</td>
+        <td>Executive</td>
         <td>Address</td>
         <td>phoneNumber</td>
         <td>Site</td>
-        <td>Executive</td>
         <td colspan="2">Action</td>
     </tr>
     <tr th:each="h: ${hospitalList}">
-        <td th:text="${h.executive}"></td>
         <td th:text="${h.name}"></td>
+        <td th:text="${h.executive}"></td>
         <td th:text="${h.address}"></td>
         <td th:text="${h.phoneNumber}"></td>
         <td th:text="${h.site}"></td>
-        <td th:text="${h.executive}"></td>
         <td><a  th:href="@{/delete(id=${h.id})}" >Delete Hospital</a></td>
         <td><a  th:href="@{/edit(id=${h.id})}">Edit Hospital</a></td>
     </tr>

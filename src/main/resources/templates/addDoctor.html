@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Department</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="card" style=" width: 50%;">
+        <div class="card-body px-lg-5 pt-0">
+            <h3>Add Doctor!</h3>
+            <td th:if="${error == null}" th:text=" Error !"></td>
+            <form  th:action="@{/addDoctor}"  method="post">
+                <div class="md-form">
+                <input type="text" name="name" class="form-control" placeholder="Name" required/><br>
+            </div>
+                <div class="md-form">
+                    <input type="text" name="surname" class="form-control" placeholder="surname" required/><br>
+                </div>
+
+                <div class="md-form">
+                    <input type="text" name="phoneNumber"  class="form-control" placeholder="Phone Number" required="true"/><br>
+                </div>
+                <div class="md-form">
+                    <input type="number" name="age" min="0" class="form-control" placeholder="Age" required/><br>
+                </div>
+
+
+                <!-- Default unchecked -->
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="defaultUnchecked" name="gender" value="MALE">
+                    <label class="custom-control-label" for="defaultUnchecked">MALE</label>
+                </div>
+
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="defaultChecked" name="gender" checked value="FEMALE">
+                    <label class="custom-control-label" for="defaultChecked">FEMALE</label>
+                </div>
+                <div class="md-form">
+                    <input type="email" name="mail" placeholder="E-Mail"  class="form-control" required/><br>
+                </div>
+                <div class="md-form">
+                    <input type="password" name="password" placeholder="Password" class="form-control" required/><br>
+                </div>
+
+
+
+                <div class="form-group">
+                    <select name="hospitalId"  class="form-control"><br>
+                        <option th:each="h : ${hospitaltList}" th:value="${h.id}" th:text="${h.name }">
+                        </option>
+                    </select><br>
+                </div>
+
+                <div class="form-group">
+                    <select name="departmentId"  class="form-control"><br>
+                        <option th:each="d : ${departmentList}" th:value="${d.id}" th:text="${d.name }">
+                        </option>
+                    </select><br>
+                </div>
+                <input class="btn btn-success" type="submit" value="Add Doctor"> <br>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

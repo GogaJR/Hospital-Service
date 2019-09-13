@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Department</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="card" style=" width: 50%;">
+        <div class="card-body px-lg-5 pt-0">
+            <h3>Add Department!</h3>
+
+            <form  th:action="@{/addDepartment}"  method="post">
+                <div class="md-form">
+                    <input type="text" name="name" class="form-control" placeholder="Name" required/><br>
+                </div>
+                <div class="form-group">
+               <select name="hospital.id"  class="form-control"><br>
+                <option th:each="h : ${hospitaltList}" th:value="${h.id}" th:text="${h.name }">
+                </option>
+            </select><br>
+                </div>
+                <input class="btn btn-success" type="submit" value="Add Department"> <br>
+         </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

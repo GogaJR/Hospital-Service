@@ -26,18 +26,10 @@ public class Hospital {
     private String address;
     @Column
     private String phoneNumber;
-
     @Column
     private String site;
-<<<<<<< HEAD
-=======
-    @Column
-    private String executive;
->>>>>>> 943f8ce757bbbb25dbc51fd3e82566abfdeb9ca2
-
     @OneToMany(mappedBy = "hospital")
     private List<Department> departments;
-    
     @OneToMany(mappedBy = "hospital")
     private List<Doctor> doctors;
 }
