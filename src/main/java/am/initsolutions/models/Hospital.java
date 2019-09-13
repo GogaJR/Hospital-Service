@@ -29,15 +29,10 @@ public class Hospital {
 
     @Column
     private String site;
-<<<<<<< HEAD
-=======
-    @Column
-    private String executive;
->>>>>>> 943f8ce757bbbb25dbc51fd3e82566abfdeb9ca2
 
-    @OneToMany(mappedBy = "hospital")
+    @OneToMany(mappedBy = "hospital", orphanRemoval = true)
     private List<Department> departments;
     
-    @OneToMany(mappedBy = "hospital")
+    @OneToMany(mappedBy = "hospital", orphanRemoval = true)
     private List<Doctor> doctors;
 }
