@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hospital Services</title>
+</head>
+<body>
+<td th:if="${error == null}" th:text="Add Error"></td>
+<form method="post" action="/mainAdmin/add">
+    Hospital Name: <input type="text" name="name" required/><br>
+    Executive: <input type="text" name="executive" required/><br>
+    Address: <input type="text" name="address" required/><br>
+    Phone Number: <input type="text" name="phoneNumber" pattern="[0-9]{9}" required/><br>
+    Site: <input type="text" name="site" required/><br>
+
+    <button type="submit" name="btn">Add</button>
+</form>
+</body>
+</html>

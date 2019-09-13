@@ -17,16 +17,18 @@ public class Hospital {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
+    private String executive;
     @Column
     private String name;
     @Column
     private String address;
     @Column
     private String phoneNumber;
+
     @Column
-    private String openAt;
-    @Column
-    private String closeAt;
+    private String site;
 
     @OneToMany(mappedBy = "hospital")
     private List<Department> departments;

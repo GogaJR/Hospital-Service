@@ -18,14 +18,20 @@
     </tr>
     <tr th:each="h: ${hospitalList}">
         <td th:text="${h.id}"></td>
+        <td th:text="${h.executive}"></td>
         <td th:text="${h.name}"></td>
         <td th:text="${h.address}"></td>
         <td th:text="${h.phoneNumber}"></td>
-        <td th:text="${h.openAt}"></td>
-        <td th:text="${h.closeAt}"></td>
+        <td th:text="${h.site}"></td>
 <!--        <td><span th:each="l: ${h.doctors}" th:text="${l.name + ' '}"></span></td>-->
 <!--        <td><span th:each="l: ${h.departments}" th:text="${l.name + ' '}"></span></td>-->
     </tr>
 </table>
+
+<form method="post" action="/mainAdmin">
+    <button type="submit" name="add">Add Hospital</button>
+    <button type="submit" name="edit">Edit Hospital</button>
+    <button type="submit" name="edit">Delete Hospital</button>
+</form>
 </body>
 </html>
