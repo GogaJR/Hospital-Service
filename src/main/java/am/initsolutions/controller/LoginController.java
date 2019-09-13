@@ -18,27 +18,20 @@ import java.util.List;
 public class LoginController {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private HospitalRepository hospitalRepository;
-
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-
-
+    
     @GetMapping("/mainAdmin")
     public String admin(Model map) {
         List<Hospital> all = hospitalRepository.findAll();
         map.addAttribute("hospitalList", all);
         return "mainAdmin";
     }
+    
     @GetMapping("/patient")
     public String patient(){
         return "patient";
     }
+    
     @GetMapping("/hospitalAdmin")
     public String hospital(){
         return "hospitalAdmin";
@@ -47,7 +40,6 @@ public class LoginController {
     @GetMapping("/loginSuccess")
     public String loginSuccess(@AuthenticationPrincipal
                                        SpringUser springUser) {
-        System.out.println(springUser.getUser().getUserType());
         if (springUser.getUser().getUserType().equals(UserType.ADMIN)) {
             return "redirect:/mainAdmin";
         }else if(springUser.getUser().getUserType().equals(UserType.HOSPITAL_ADMIN)){
