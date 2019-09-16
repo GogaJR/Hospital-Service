@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:if="${!pharmacyMedicines.isEmpty()}">
+        <table>
+            <tr>
+                <td>Medicine Name</td>
+                <td>Medicine Count</td>
+            </tr>
+            <tr th:each="pharmacyMedicine : ${pharmacyMedicines}">
+                <td th:text="${pharmacyMedicine.medicine.name}"></td>
+                <td th:text="${pharmacyMedicine.medicineCount}"></td>
+                <td><a  th:href="@{'/pharmacyAdmin/medicines/' + ${pharmacyMedicine.pharmacyId} + '/delete/' + ${pharmacyMedicine.medicine.id}}" >Delete Medicine</a></td>
+                <td><a  th:href="@{'/pharmacyAdmin/medicines/' + ${pharmacyMedicine.pharmacyId} + '/edit/' + ${pharmacyMedicine.medicine.id}}" >Edit Medicine</a></td>
+            </tr>
+        </table>
+    </div>
+    <div th:unless="${!pharmacyMedicines.isEmpty()}">
+        <h2>There are no medicines in this pharmacy!</h2>
+    </div>
+</body>
+</html>

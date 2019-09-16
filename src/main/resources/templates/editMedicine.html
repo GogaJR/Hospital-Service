@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="post" th:action="'/pharmacyAdmin/medicines/' + ${pharmacyMedicine.pharmacyId} + '/edit'">
+        <input type="text" name="name" th:value="${pharmacyMedicine.medicine.name}" required>
+        <input type="number" name="count" min="1" th:value="${pharmacyMedicine.medicineCount}" required>
+        <input type="hidden" name="id" th:value="${pharmacyMedicine.medicine.id}">
+        <input type="hidden" name="pharmacyId" th:value="${pharmacyMedicine.pharmacyId}">
+
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>
