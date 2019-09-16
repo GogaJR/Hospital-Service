@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/logout">Logout</a><br><br>
+<h3>Department List:</h3>
+<table border="1">
+    <tr><td>Name</td>
+        <td colspan="3" >Action</td>
+    </tr>
+    <tr th:each="d: ${departmentList}">
+        <td th:text="${d.name}"></td>
+        <td><a  th:href="@{/delete(id=${d.id})}" >Delete Department</a></td>
+        <td><a  th:href="@{/edit(id=${d.id})}">Edit Department</a></td>
+        <td><a  th:href="@{/byDepartment(departmentId=${d.id})}">DoctorList</a></td>
+    </tr>
+</table>
+<br>
+<a role="button" class="btn btn-success" href="/addDepartment" style="text-decoration: none;"> Add Department </a>
+<br>
+<a role="button" class="btn btn-success" href="/addDoctor" style="text-decoration: none;"> Add Doctor </a>
+</body>
+</html>

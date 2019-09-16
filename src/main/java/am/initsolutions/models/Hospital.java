@@ -26,13 +26,12 @@ public class Hospital {
     private String address;
     @Column
     private String phoneNumber;
-
     @Column
     private String site;
 
     @OneToMany(mappedBy = "hospital", orphanRemoval = true)
     private List<Department> departments;
     
-    @OneToMany(mappedBy = "hospital", orphanRemoval = true)
+    @OneToMany(mappedBy = "hospital")
     private List<Doctor> doctors;
 }

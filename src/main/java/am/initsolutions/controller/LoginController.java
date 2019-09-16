@@ -43,7 +43,7 @@ public class LoginController {
         if (springUser.getUser().getUserType().equals(UserType.ADMIN)) {
             return "redirect:/mainAdmin";
         }else if(springUser.getUser().getUserType().equals(UserType.HOSPITAL_ADMIN)){
-            return "redirect:/hospitalAdmin";
+            return "redirect:/departmentAdmin";
         }else if(springUser.getUser().getUserType().equals(UserType.PHARMACY_ADMIN)){
             return "redirect:/pharmacyAdmin";
         } else if (springUser.getUser().getUserType().equals(UserType.DOCTOR)) {

@@ -33,7 +33,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/mainAdmin").hasAuthority("ADMIN")
                 .antMatchers("/hospitalAdmin").hasAuthority("HOSPITAL_ADMIN");
-    }
+
+        }
+
+
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

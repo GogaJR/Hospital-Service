@@ -42,6 +42,6 @@ public class PatientServiceImpl implements PatientService {
                 .user(savedUser)
                 .build();
 
-        return patientRepository.save(newPatient);
+           return patientRepository.save(newPatient);
     }
 }
