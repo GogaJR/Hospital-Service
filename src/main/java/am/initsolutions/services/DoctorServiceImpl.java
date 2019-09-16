@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 
 
 @Service
@@ -55,6 +56,21 @@ public class DoctorServiceImpl implements DoctorService {
                 .build();
 
         return doctorRepository.save(newDoctor);
+    }
+
+    @Override
+    public List<Doctor> getAll() {
+        return doctorRepository.findAll();
+    }
+
+    @Override
+    public Doctor get(Long id) {
+        return doctorRepository.findOne(id);
+    }
+
+    @Override
+    public void deleteDoctor(Long id) {
+             doctorRepository.delete(id);
     }
 
 

@@ -19,13 +19,16 @@
 
                     <form  th:action="@{/editDepartment}"  method="post">
                         <div class="md-form">
-                            <input type="text" name="name" class="form-control" placeholder="Name" required th:field="*{name}"/><br>
+                            <input type="hidden" name="id" th:value="${department.id}"></div>
+                        <div class="md-form">
+                            <input type="text" name="name" class="form-control" placeholder="Name" required th:value="${department.name}"/><br>
                         </div>
                         <div class="form-group">
-                            <select th:field="*{hospital.id}" name="hospital.id"  class="form-control"><br>
-                                <option th:each="h : ${hospitaltList}" th:value="${h.id}" th:text="${h.name }">
+                            <select name="hospital.id"   class="form-control"><br>
+                                <option th:each="h : ${hospitaltList}" th:value="${h.id}" th:text="${h.name}" th:selected="${h.id} == ${department.hospital.id}">
                                 </option>
-                            </select><br>
+                            </select>
+                            <br>
                         </div>
                         <input class="btn btn-success" type="submit" value="Add Department">
                     </form>
