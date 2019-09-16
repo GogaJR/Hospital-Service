@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-pharmacy
+    <div th:if="${!pharmacies.isEmpty()}">
+        <h2>Pharmacy List</h2>
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>Address</td>
+                <td>Phone Number</td>
+                <td>Open At</td>
+                <td>Close At</td>
+                <td colspan="2">Action</td>
+            </tr>
+            <tr th:each="pharmacy: ${pharmacies}">
+                <td th:text="${pharmacy.name}"></td>
+                <td th:text="${pharmacy.address}"></td>
+                <td th:text="${pharmacy.phoneNumber}"></td>
+                <div th:if="${pharmacy.openAt} == '24/7' OR ${pharmacy.closeAt} == '24/7'">
+                    <td th:text="'24/7'" colspan="2"></td>
+                </div>
+                <div th:unless="${pharmacy.openAt} == '24/7' OR ${pharmacy.closeAt} == '24/7'">
+                    <td th:text="${pharmacy.openAt}"></td>
+                    <td th:text="${pharmacy.closeAt}"></td>
+                </div>
+                <td><a  th:href="@{'/pharmacyAdmin/delete/' + ${pharmacy.id}}" >Delete Pharmacy</a></td>
+                <td><a  th:href="@{'/pharmacyAdmin/edit/' + ${pharmacy.id}}">Edit Pharmacy</a></td>
+                <td><a  th:href="@{'/pharmacyAdmin/addMedicine/' + ${pharmacy.id}}">Add Medicine</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div th:unless="${!pharmacies.isEmpty()}">
+        <h2>There is no pharmacies</h2>
+    </div>
+
+<form method="get" action="/pharmacyAdmin/add">
+    <button type="submit">Add Pharmacy</button>
+</form>
 </body>
 </html>

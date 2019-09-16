@@ -28,8 +28,10 @@ public class Hospital {
     private String phoneNumber;
     @Column
     private String site;
-    @OneToMany(mappedBy = "hospital")
+
+    @OneToMany(mappedBy = "hospital", orphanRemoval = true)
     private List<Department> departments;
+    
     @OneToMany(mappedBy = "hospital")
     private List<Doctor> doctors;
 }

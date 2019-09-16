@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pharmacy</title>
+</head>
+<body>
+   <form method="post" action="/pharmacyAdmin/edit">
+       Pharmacy Name: <input type="text" name="name" th:value="${pharmacy.name}" required/><br>
+       Address: <input type="text" name="address" th:value="${pharmacy.address}" required/><br>
+       Phone Number: <input type="text" name="phoneNumber" th:value="${pharmacy.phoneNumber}" pattern="[0-9]{9}" required/><br>
+       Open At: <select name="openAt">
+                <option value="24/7" th:selected="${pharmacy.openAt == '24/7'}">24/7</option>
+                <option value="08:00" th:selected="${pharmacy.openAt == '08:00'}">08:00</option>
+                <option value="08:30" th:selected="${pharmacy.openAt == '08:30'}">08:30</option>
+                <option value="09:00" th:selected="${pharmacy.openAt == '09:00'}">09:00</option>
+                <option value="09:30" th:selected="${pharmacy.openAt == '09:30'}">09:30</option>
+                <option value="10:00" th:selected="${pharmacy.openAt == '10:00'}">10:00</option>
+                <option value="10:30" th:selected="${pharmacy.openAt == '10:30'}">10:30</option>
+                <option value="11:00" th:selected="${pharmacy.openAt == '11:00'}">11:00</option>
+               </select>
+
+       Close At: <select name="closeAt">
+                   <option value="24/7" th:selected="${pharmacy.closeAt == '24/7'}"> 24/7</option>
+                   <option value="18:00" th:selected="${pharmacy.closeAt == '18:00'}">18:00</option>
+                   <option value="18:30" th:selected="${pharmacy.closeAt == '18:30'}">18:30</option>
+                   <option value="19:00" th:selected="${pharmacy.closeAt == '19:00'}">19:00</option>
+                   <option value="19:30" th:selected="${pharmacy.closeAt == '19:30'}">19:30</option>
+                   <option value="20:00" th:selected="${pharmacy.closeAt == '20:00'}">20:00</option>
+                   <option value="20:30" th:selected="${pharmacy.closeAt == '20:30'}">20:30</option>
+                   <option value="21:00" th:selected="${pharmacy.closeAt == '21:00'}">21:00</option>
+               </select>
+       <input type="hidden" name="id" th:value="${pharmacy.id}">
+
+       <button type="submit">Save Changes</button>
+   </form>
+</body>
+</html>

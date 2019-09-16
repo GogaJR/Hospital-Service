@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+    <form method="post" action="/mainAdmin/edit">
+        Hospital Name: <input type="text" name="name" th:value="${hospital.name}" required/><br>
+        Executive: <input type="text" name="executive" th:value="${hospital.executive}" required/><br>
+        Address: <input type="text" name="address" th:value="${hospital.address}" required/><br>
+        Phone Number: <input type="text" name="phoneNumber" th:value="${hospital.phoneNumber}" pattern="[0-9]{9}" required/><br>
+        Site: <input type="text" name="site" th:value="${hospital.site}" required/><br>
+        <input type="hidden" name="id" th:value="${hospital.id}">
+
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>

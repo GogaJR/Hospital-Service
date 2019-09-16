@@ -12,6 +12,28 @@ public class HospitalServiceImpl implements HospitalService {
     private HospitalRepository hospitalRepository;
 
     @Override
+    public void delete(Long id) {
+        hospitalRepository.delete(id);
+    }
+
+    @Override
+    public void update(Hospital hospital) {
+        Hospital existingHospital = hospitalRepository.findOne(hospital.getId());
+        existingHospital.setName(hospital.getName());
+        existingHospital.setAddress(hospital.getAddress());
+        existingHospital.setExecutive(hospital.getExecutive());
+        existingHospital.setPhoneNumber(hospital.getPhoneNumber());
+        existingHospital.setSite(hospital.getSite());
+
+        hospitalRepository.save(existingHospital);
+    }
+
+    @Override
+    public Hospital get(Long id) {
+        return hospitalRepository.findOne(id);
+    }
+
+    @Override
     public Hospital add(HospitalForm hospitalForm) {
         Hospital newHospital = Hospital.builder()
                 .name(hospitalForm.getName())

@@ -1,0 +1,15 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hospital Services</title>
+</head>
+<body>
+<td th:if="${error == null}" th:text="Add Error"></td>
+<form method="post" action="/pharmacyAdmin/addMedicine">
+    Medicine Name: <input type="text" name="name" required/><br>
+    Medicine Count: <input type="number" name="medicineCount" min="1" required/><br>
+
+    <input type="hidden" name="pharmacyId" th:value="${pharmacyId}">
+    <button type="submit" name="btn">Add</button>
+</form>
+</body>
+</html>
