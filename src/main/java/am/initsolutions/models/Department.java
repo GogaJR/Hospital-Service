@@ -20,11 +20,11 @@ public class Department {
     @Column
     private String name;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department",cascade = CascadeType.ALL )
     private List<Doctor> doctors;
 
 

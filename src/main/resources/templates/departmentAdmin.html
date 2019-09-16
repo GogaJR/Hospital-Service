@@ -2,25 +2,52 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Department part</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<a href="/logout">Logout</a><br><br>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+<a class="btn btn-info" role="button" href="/logout">Logout</a><br><br>
 <h3>Department List:</h3>
-<table border="1">
-    <tr><td>Name</td>
-        <td colspan="3" >Action</td>
+<table class="department table table-hover">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th colspan="3" >Action</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="d: ${departmentList}">
         <td th:text="${d.name}"></td>
-        <td><a  th:href="@{/delete(id=${d.id})}" >Delete Department</a></td>
-        <td><a  th:href="@{/edit(id=${d.id})}">Edit Department</a></td>
-        <td><a  th:href="@{/byDepartment(departmentId=${d.id})}">DoctorList</a></td>
+        <td class="delete"><a  th:href="@{/delete(id=${d.id})}" >Delete Department</a></td>
+        <td class="edit"><a  th:href="@{/editDepartment(id=${d.id})}">Edit Department</a></td>
+        <td class="doctorsList"><a  th:href="@{/byDepartment(departmentId=${d.id})}">DoctorList</a></td>
     </tr>
+    </tbody>
 </table>
 <br>
-<a role="button" class="btn btn-success" href="/addDepartment" style="text-decoration: none;"> Add Department </a>
-<br>
-<a role="button" class="btn btn-success" href="/addDoctor" style="text-decoration: none;"> Add Doctor </a>
+
+<a class="btn btn-info" role="button" href="/addDepartment" style="text-decoration: none;"> Add Department </a>
+
+<a class="btn btn-info" role="button" href="/addDoctor" style="text-decoration: none;"> Add Doctor </a>
+</div>
+</div>
+</div>
 </body>
 </html>
+<style>
+ .department  td.delete a{
+     color:red;
+ }
+
+ .department  td.edit a{
+     color:#f0ad4e;
+ }
+
+ .department  td.doctorsList a{
+     color:#5bc0de;
+ }
+</style>

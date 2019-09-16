@@ -59,12 +59,12 @@ public class DoctorController {
     }
 
     @PostMapping("/addDoctor")
-    public String addDepartment(DoctorForm doctorForm, ModelMap modelMap) {
+    public String addDepartment(DoctorForm doctorForm, ModelMap map) {
         Doctor doctorNew = doctorService.add(doctorForm);
         if (doctorNew != null) {
             return "redirect:/departmentAdmin";
         }
-        modelMap.addAttribute("error", true);
+        map.addAttribute("error", true);
         return "addDoctor";
     }
 }

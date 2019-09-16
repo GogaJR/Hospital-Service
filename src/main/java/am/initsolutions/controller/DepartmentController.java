@@ -41,8 +41,9 @@ public class DepartmentController {
     }
 
     @PostMapping("/addDepartment")
-    public String addDepartment(@ModelAttribute Department department) {
+    public String addDepartment(@ModelAttribute Department department,ModelMap map) {
         departmentRepository .save(department);
+        map.addAttribute("error", true);
         return "redirect:/departmentAdmin";
     }
 
@@ -62,14 +63,16 @@ public class DepartmentController {
         return "doctorsByDepartment";
     }
 
-//    @GetMapping("/editDepartment")
-//    public String editDepartment(@RequestParam("id") Long id, ModelMap model){
-//        Optional<Department> dId = Optional.ofNullable(departmentRepository.findOne(id));
-//        if (dId.isPresent()) {
-//            model.addAttribute("department", dId);
-//        }
-//        return "editDepartment";
-//    }
+    @GetMapping("/editDepartment")
+    public String editDepartment(@RequestParam("id") Long id, ModelMap model){
+        Optional<Department> dId = Optional.ofNullable(departmentRepository.findOne(id));
+        if (dId.isPresent()) {
+            model.addAttribute("department", dId);
+            List<Hospital> all = hospitalRepository.findAll();
+            model.addAttribute("hospitaltList", all);
+        }
+        return "editDepartment";
+    }
 
 
 }
