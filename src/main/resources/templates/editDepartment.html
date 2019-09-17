@@ -12,10 +12,10 @@
 <div class="container">
     <div class="row">
         <div class="jumbotron">
-            <a class="btn btn-warning" role="button" href="/departmentAdmin" style="text-decoration: none;"> Go back to Department! </a>
+            <a class="btn btn-warning" role="button" href="/departmentAdmin" style="text-decoration: none;"> Go back to Department! </a><br>
             <div class="card" style=" width: 50%;">
                 <div class="card-body px-lg-5 pt-0">
-                    <h3>Add Department!</h3>
+                    <h3>Edit Department!</h3>
 
                     <form  th:action="@{/editDepartment}"  method="post">
                         <div class="md-form">
@@ -23,14 +23,14 @@
                         <div class="md-form">
                             <input type="text" name="name" class="form-control" placeholder="Name" required th:value="${department.name}"/><br>
                         </div>
-                        <div class="form-group">
-                            <select name="hospital.id"   class="form-control"><br>
-                                <option th:each="h : ${hospitaltList}" th:value="${h.id}" th:text="${h.name}" th:selected="${h.id} == ${department.hospital.id}">
-                                </option>
-                            </select>
-                            <br>
-                        </div>
-                        <input class="btn btn-success" type="submit" value="Add Department">
+<!--                        <div class="form-group">-->
+<!--                            <select name="hospital.id"   class="form-control"><br>-->
+<!--                                <option th:each="h : ${hospitaltList}" th:value="${h.id}" th:text="${h.name}" th:selected="${h.id} == ${department.hospital.id}">-->
+<!--                                </option>-->
+<!--                            </select>-->
+<!--                            <br>-->
+<!--                        </div>-->
+                        <input class="btn btn-warning" type="submit" value="Edit Department">
                     </form>
                 </div>
             </div>

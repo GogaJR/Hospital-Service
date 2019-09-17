@@ -21,13 +21,6 @@
                 <div class="md-form">
                     <input type="text" name="name" class="form-control" placeholder="Name" required/><br>
                 </div>
-                <div class="form-group">
-               <select name="hospitalId"   class="form-control"><br>
-                <option th:each="h : ${hospitaltList}" th:value="${h.id}" th:text="${h.name }">
-                </option>
-            </select>
-                    <br>
-                </div>
                 <input class="btn btn-success" type="submit" value="Add Department">
          </form>
         </div>

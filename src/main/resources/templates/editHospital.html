@@ -1,17 +1,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <a class="btn btn-warning" role="button" href="/mainAdmin" style="text-decoration: none;"> Go back to Department! </a><br>
+            <div class="card" style=" width: 50%;">
+                <div class="card-body px-lg-5 pt-0">
+                    <h3>Edit Hospital!</h3>
     <form method="post" action="/mainAdmin/edit">
-        Hospital Name: <input type="text" name="name" th:value="${hospital.name}" required/><br>
-        Executive: <input type="text" name="executive" th:value="${hospital.executive}" required/><br>
-        Address: <input type="text" name="address" th:value="${hospital.address}" required/><br>
-        Phone Number: <input type="text" name="phoneNumber" th:value="${hospital.phoneNumber}" pattern="[0-9]{9}" required/><br>
-        Site: <input type="text" name="site" th:value="${hospital.site}" required/><br>
-        <input type="hidden" name="id" th:value="${hospital.id}">
-
-        <button type="submit">Save Changes</button>
+        <div class="md-form">
+            <input type="text" name="name" class="form-control" placeholder="Hospital Name" required th:value="${hospital.name}"/><br>
+        </div>
+        <div class="md-form">
+            <input type="text" name="executive" class="form-control" placeholder="Executive" required th:value="${hospital.executive}"/><br>
+        </div>
+        <div class="md-form">
+            <input type="text" name="address" class="form-control" placeholder="Address" required th:value="${hospital.address}"/><br>
+        </div>
+        <div class="md-form">
+            <input type="text" name="phoneNumber" class="form-control" placeholder="Phone Number" required th:value="${hospital.phoneNumber}" pattern="[0-9]{9}"/><br>
+        </div>
+        <div class="md-form">
+            <input type="text" name="site" class="form-control" placeholder="Site" required th:value="${hospital.site}"/><br>
+        </div>
+        <div class="md-form">
+            <input type="hidden" name="id" th:value="${hospital.id}">
+        </div>
+        <button class="btn btn-warning" type="submit">Edit Hospital</button>
     </form>
+                </div></div>
+        </div></div></div>
 </body>
 </html>
