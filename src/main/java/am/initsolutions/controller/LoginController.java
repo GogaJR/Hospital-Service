@@ -19,7 +19,10 @@ public class LoginController {
 
     @Autowired
     private HospitalRepository hospitalRepository;
-    
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
     @GetMapping("/mainAdmin")
     public String admin(Model map) {
         List<Hospital> all = hospitalRepository.findAll();

@@ -1,17 +1,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Hospital Services</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <a class="btn btn-warning" role="button" href="/mainAdmin" style="text-decoration: none;"> Go back to Department! </a>
+            <div class="card" style=" width: 50%;">
+                <div class="card-body px-lg-5 pt-0">
+                    <h3>Add Hospital!</h3>
 <td th:if="${error == null}" th:text="Add Error"></td>
-<form method="post" action="/mainAdmin/add">
-    Hospital Name: <input type="text" name="name" required/><br>
-    Executive: <input type="text" name="executive" required/><br>
-    Address: <input type="text" name="address" required/><br>
-    Phone Number: <input type="text" name="phoneNumber" pattern="[0-9]{9}" required/><br>
-    Site: <input type="text" name="site" required/><br>
+    <form method="post" action="/mainAdmin/add">
+            <div class="md-form">
+                <input type="text" name="name" class="form-control" placeholder="Hospital Name" required/><br>
+            </div>
+            <div class="md-form">
+                <input type="text" name="executive" class="form-control" placeholder="Executive" required/><br>
+            </div>
+        <div class="md-form">
+            <input type="text" name="address" class="form-control" placeholder="Address" required /><br>
+        </div>
 
-    <button type="submit" name="btn">Add</button>
+        <div class="md-form">
+            <input type="text" name="phoneNumber" class="form-control" placeholder="Phone Number" required pattern="[0-9]{9}"/><br>
+        </div>
+        <div class="md-form">
+            <input type="text" name="site" class="form-control" placeholder="Site" required/><br>
+        </div>
+        <button class="btn btn-success" type="submit" name="btn">Add Hospital</button>
 </form>
+
+                </div></div></div></div></div>
 </body>
 </html>
