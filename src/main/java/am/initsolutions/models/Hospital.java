@@ -29,9 +29,6 @@ public class Hospital {
     @Column
     private String site;
 
-    @OneToMany(mappedBy = "hospital", orphanRemoval = true)
-    private List<Department> departments;
-    
     @OneToMany(mappedBy = "hospital")
     private List<Doctor> doctors;
 }
