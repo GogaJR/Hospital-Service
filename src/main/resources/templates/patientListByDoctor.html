@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DoctorsByDepartment</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <a class="btn btn-warning" role="button" href="/logout" style="text-decoration: none;"> Logout </a><br>
+            <h3>Patient List:</h3>
+            <table class="table table-hover">
+                <thead>
+                <tr><th>Name</th>
+                    <th>Surname</th>
+                    <th>Age</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody><tr th:each="patient: ${doctor.patients}">
+                   <td th:text="${patient.name}"></td>
+                    <td th:text="${patient.surname}"></td>
+                    <td th:text="${patient.age}"></td>
+                    <td style="color:#5bc0de;"><a  th:href="@{/byPatient(patientId=${patient.id})}">Patient History</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+
+            <a class="btn btn-warning" role="button" href="/doctorPage" style="text-decoration: none;"> Go back to Doctor page! </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

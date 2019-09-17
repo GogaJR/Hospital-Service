@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class DepartmentController {
+public class DepartmentAdminController {
     @Autowired
     private HospitalService hospitalService;
     @Autowired

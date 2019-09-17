@@ -41,7 +41,7 @@ public class Doctor {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(mappedBy = "doctors")
+    @ManyToMany(mappedBy = "doctors", fetch = FetchType.EAGER)
     private List<Patient> patients;
 
     @OneToMany(mappedBy = "doctor")
