@@ -1,15 +1,21 @@
 package am.initsolutions.services;
 
 import am.initsolutions.forms.PatientForm;
+import am.initsolutions.models.Doctor;
 import am.initsolutions.models.Patient;
 import am.initsolutions.models.User;
 import am.initsolutions.models.enums.UserType;
+import am.initsolutions.repository.DoctorRepository;
 import am.initsolutions.repository.PatientRepository;
 import am.initsolutions.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.print.Doc;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PatientServiceImpl implements PatientService {
@@ -20,7 +26,34 @@ public class PatientServiceImpl implements PatientService {
     private UserRepository userRepository;
 
     @Autowired
+    private DoctorRepository doctorRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
+
+
+    @Override
+    public Patient update(Patient patient) {
+        Patient existedPatient = patientRepository.findOne(patient.getId());
+        existedPatient.setName(patient.getName());
+        existedPatient.setSurname(patient.getSurname());
+        existedPatient.setGender(patient.getGender());
+        existedPatient.setAge(patient.getAge());
+        existedPatient.setAddress(patient.getAddress());
+        existedPatient.setPhoneNumber(patient.getPhoneNumber());
+
+        return patientRepository.save(existedPatient);
+    }
+
+    @Override
+    public Patient get(Long id) {
+        return patientRepository.findOne(id);
+    }
+
+    @Override
+    public Patient getByUserId(Long userId) {
+        return patientRepository.findByUserId(userId);
+    }
 
     @Override
     @Transactional
@@ -43,5 +76,16 @@ public class PatientServiceImpl implements PatientService {
                 .build();
 
            return patientRepository.save(newPatient);
+    }
+
+    @Override
+    public List<Doctor> getDoctors(Long id) {
+        List<Long> doctorsId = patientRepository.getDoctors(id);
+        List<Doctor> doctors = new ArrayList<>();
+        for (Long doctorId : doctorsId) {
+            doctors.add(doctorRepository.findOne(doctorId));
+        }
+
+        return doctors;
     }
 }

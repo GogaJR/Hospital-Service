@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <form method="post" th:action="'/patient/' + ${patient.id} + '/edit'" style="width: 50%">
+                <div class="md-form">
+                    <input class="form-control" type="text" name="name" th:value="${patient.name}"><br>
+                </div>
+                <div class="md-form">
+                    <input class="form-control" type="text" name="surname" th:value="${patient.surname}"><br>
+                </div>
+                <div class="md-form">
+                    <input class="form-control" type="number" name="age" min="0" th:value="${patient.age}"><br>
+                </div>
+                <div class="md-form">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" id="defaultUnchecked" name="gender" th:checked="${patient.gender.name()  == 'MALE'}" value="MALE">
+                        <label class="custom-control-label" for="defaultUnchecked">MALE</label>
+                    </div>
+                </div>
+                <div class="md-form">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" id="defaultChecked" name="gender" th:checked="${patient.gender.name() == 'FEMALE'}">
+                        <label class="custom-control-label" for="defaultChecked">FEMALE</label><br>
+                    </div>
+                </div>
+                <div class="md-form">
+                    <input class="form-control" type="text" name="address" th:value="${patient.address}"><br>
+                </div>
+                <div class="md-form">
+                    <input class="form-control" type="text" name="phoneNumber" pattern="[0-9]{9}" th:value="${patient.phoneNumber}"><br>
+                </div>
+
+                <button class="btn btn-warning" type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
