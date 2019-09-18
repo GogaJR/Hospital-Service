@@ -44,8 +44,7 @@ public class LoginController {
     }
     
     @GetMapping("/patient")
-    public String patient(@ModelAttribute("userId") Long userId, ModelMap modelMap){
-        Patient patient = patientService.getByUserId(userId);
+    public String patient(@ModelAttribute("currentUser") Patient patient, ModelMap modelMap){
         PatientDto patientDto = PatientDto.from(patient);
         modelMap.addAttribute("patient", patientDto);
 
@@ -69,14 +68,27 @@ public class LoginController {
         }else if(springUser.getUser().getUserType().equals(UserType.PHARMACY_ADMIN)){
             return "redirect:/pharmacyAdmin";
         } else if (springUser.getUser().getUserType().equals(UserType.DOCTOR)) {
-            long userId=springUser.getUser().getId();
+            Long userId=springUser.getUser().getId();
             Doctor user=doctorService.getByUserId(userId);
+
+            if (user == null) {
+                return "redirect:/login";
+            }
+
             request.getSession().setAttribute("user",user);
             redirectAttributes.addFlashAttribute("user", user);
+
             return "redirect:/doctorPage";
         }else {
             Long userId = springUser.getUser().getId();
-            redirectAttributes.addFlashAttribute("userId", userId);
+            Patient patient = patientService.getByUserId(userId);
+
+            if (patient == null) {
+                return "redirect:/login";
+            }
+
+            request.getSession().setAttribute("user", patient);
+            redirectAttributes.addFlashAttribute("user", patient);
 
             return "redirect:/patient";
         }

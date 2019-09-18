@@ -19,9 +19,4 @@ public class Department {
     private Long id;
     @Column
     private String name;
-
-    @OneToMany(mappedBy = "department",cascade = CascadeType.ALL )
-    private List<Doctor> doctors;
-
-
 }

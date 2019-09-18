@@ -22,7 +22,4 @@ public class Medicine {
 
     @Column
     private String name;
-
-    @ManyToMany(mappedBy = "medicines")
-    private List<Recipe> recipes;
 }

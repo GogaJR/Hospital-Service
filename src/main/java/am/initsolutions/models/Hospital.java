@@ -28,7 +28,4 @@ public class Hospital {
     private String phoneNumber;
     @Column
     private String site;
-
-    @OneToMany(mappedBy = "hospital")
-    private List<Doctor> doctors;
 }

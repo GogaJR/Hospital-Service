@@ -14,12 +14,14 @@ public class PatientHistoryDto {
     private Long id;
     private String complaints;
     private String diagnose;
+    private DoctorDto doctorDto;
 
     public static PatientHistoryDto from(PatientHistory patientHistory) {
         return PatientHistoryDto.builder()
                 .id(patientHistory.getId())
                 .complaints(patientHistory.getComplaints())
                 .diagnose(patientHistory.getDiagnose())
+                .doctorDto(DoctorDto.from(patientHistory.getDoctor()))
                 .build();
     }
 }

@@ -1,7 +1,7 @@
 package am.initsolutions.controller;
 
 
-import am.initsolutions.models.ParentModel;
+import am.initsolutions.models.usersParentModel.ParentModel;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;

@@ -23,9 +23,6 @@ public class Recipe {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    @OneToOne(mappedBy = "recipe")
-    private PatientHistory patientHistory;
-
     @ManyToMany
     @JoinTable(
             name = "recipe_medicine",

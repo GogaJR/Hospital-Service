@@ -27,10 +27,4 @@ public class User {
 
     @Column
     private String hashPassword;
-
-    @OneToMany(mappedBy = "user")
-    private List<Doctor> doctors;
-
-    @OneToMany(mappedBy = "user")
-    private List<Patient> patients;
 }
