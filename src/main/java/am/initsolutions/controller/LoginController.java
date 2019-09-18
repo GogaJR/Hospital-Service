@@ -51,21 +51,21 @@ public class LoginController {
     }
 
     @GetMapping("/loginSuccess")
-    public RedirectView loginSuccess(@AuthenticationPrincipal
+    public String loginSuccess(@AuthenticationPrincipal
                                        SpringUser springUser, RedirectAttributes attributes) {
         if (springUser.getUser().getUserType().equals(UserType.ADMIN)) {
-            return new RedirectView("/mainAdmin");
+            return "redirect:/mainAdmin";
         }else if(springUser.getUser().getUserType().equals(UserType.HOSPITAL_ADMIN)){
-            return new RedirectView("/departmentAdmin");
+            return "redirect:/departmentAdmin";
         }else if(springUser.getUser().getUserType().equals(UserType.PHARMACY_ADMIN)){
-            return new RedirectView("/pharmacyAdmin");
+            return "redirect:/pharmacyAdmin";
         } else if (springUser.getUser().getUserType().equals(UserType.DOCTOR)) {
-            return new RedirectView("/doctor");
+            return "redirect:/doctor";
         }else {
             Long userId = springUser.getUser().getId();
             attributes.addFlashAttribute("userId", userId);
 
-            return new RedirectView("/patient");
+            return "redirect:/patient";
         }
 
 
