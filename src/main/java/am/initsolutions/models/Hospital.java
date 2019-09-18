@@ -29,5 +29,4 @@ public class Hospital {
     @Column
     private String site;
 
-
 }

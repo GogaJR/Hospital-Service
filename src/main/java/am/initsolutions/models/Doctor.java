@@ -1,7 +1,9 @@
 package am.initsolutions.models;
 
 import am.initsolutions.models.enums.Gender;
+
 import am.initsolutions.models.userParentModel.ParentModel;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +26,7 @@ public class Doctor extends ParentModel {
     private String surname;
     private String phoneNumber;
     private int age;
+    private int experience;
 
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
@@ -35,8 +38,6 @@ public class Doctor extends ParentModel {
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
-
-
 
     @ManyToOne
     @JoinColumn(name = "user_id")

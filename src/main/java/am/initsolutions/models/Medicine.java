@@ -23,5 +23,4 @@ public class Medicine {
     @Column
     private String name;
 
-
 }

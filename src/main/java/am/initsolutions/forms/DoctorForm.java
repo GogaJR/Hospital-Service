@@ -17,6 +17,7 @@ public class DoctorForm {
     private int age;
     private Gender gender;
     private String phoneNumber;
+    private int experience;
     private Long hospitalId;
     private Long departmentId;
     private String mail;

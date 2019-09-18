@@ -23,7 +23,6 @@ public class Recipe {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-
     @ManyToMany
     @JoinTable(
             name = "recipe_medicine",

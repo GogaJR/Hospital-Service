@@ -20,6 +20,4 @@ public class Department {
     @Column
     private String name;
 
-
-
 }

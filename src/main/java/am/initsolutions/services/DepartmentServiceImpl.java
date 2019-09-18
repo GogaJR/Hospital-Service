@@ -13,10 +13,7 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
-//    @Autowired
-//    private HospitalRepository hospitalRepository;
 
-    //remove department
     @Override
     public void deleteDepartment(Long id) {
        departmentRepository.delete(id);
@@ -26,7 +23,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public void update(Department department) {
         Department dep = departmentRepository.findOne(department.getId());
-        System.out.println(dep + "test");
         dep.setName(department.getName());
         departmentRepository.save(dep);
     }
@@ -35,17 +31,16 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Department get(Long id) {
         return departmentRepository.findOne(id);
     }
+
     //add hospital
     @Override
     public Department add(DepartmentForm departmentForm) {
-        //Hospital hospital = hospitalRepository.findOne(departmentForm.getHospitalId());
         Department dep = Department.builder()
                 .name(departmentForm.getName())
                 .build();
              return departmentRepository.save(dep);
     }
 
-    //getAll Departments
     @Override
     public List<Department> getAll() {
         return departmentRepository.findAll();

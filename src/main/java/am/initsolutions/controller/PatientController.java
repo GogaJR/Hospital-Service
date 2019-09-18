@@ -1,10 +1,12 @@
 package am.initsolutions.controller;
 
 import am.initsolutions.dto.DoctorDto;
+import am.initsolutions.dto.DoctorDtoForPatient;
 import am.initsolutions.dto.PatientHistoryDto;
 import am.initsolutions.models.Doctor;
 import am.initsolutions.models.Patient;
 import am.initsolutions.models.PatientHistory;
+import am.initsolutions.services.DoctorService;
 import am.initsolutions.services.PatientHistoryService;
 import am.initsolutions.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
+    @Autowired
+    private DoctorService doctorService;
+
     @GetMapping("/patient/{id}/history")
     public String getDiseaseHistoryPage(@PathVariable("id") Long id, ModelMap modelMap) {
         List<PatientHistory> patientHistories = patientHistoryService.getAllByPatientId(id);
@@ -35,6 +40,8 @@ public class PatientController {
             patientHistoryDtos.add(patientHistoryDto);
         }
         modelMap.addAttribute("patientHistories", patientHistoryDtos);
+
+        //TODO
 
         return "patientHistory";
     }
@@ -65,5 +72,24 @@ public class PatientController {
 
         modelMap.addAttribute("doctors", doctorDtos);
         return "doctorList";
+    }
+
+    @GetMapping("/patient/{id}/register")
+    public String register(@PathVariable("id") Long id, ModelMap modelMap) {
+        List<Doctor> doctors = doctorService.getAll();
+        List<DoctorDtoForPatient> doctorDtoForPatients = new ArrayList<>();
+        for (Doctor doctor : doctors) {
+            doctorDtoForPatients.add(DoctorDtoForPatient.from(doctor));
+        }
+        modelMap.addAttribute("doctors", doctorDtoForPatients);
+        modelMap.addAttribute("patientId", id);
+
+        return "chooseDoctor";
+    }
+
+    @PostMapping("/patient/{id}/register")
+    public String registerForConsultation(@PathVariable("id") Long id, String doctorId, String complaints) {
+        System.out.println(doctorId + " " + complaints);
+        return "redirect:/patient";
     }
 }

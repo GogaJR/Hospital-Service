@@ -50,6 +50,7 @@ public class DoctorServiceImpl implements DoctorService {
                 .age(doctorForm.getAge())
                 .gender(doctorForm.getGender())
                 .phoneNumber(doctorForm.getPhoneNumber())
+                .experience(doctorForm.getExperience())
                 .hospital(hospital)
                 .department(department)
                 .user(savedUser)
