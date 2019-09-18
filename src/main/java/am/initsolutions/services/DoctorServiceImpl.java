@@ -36,7 +36,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Transactional
     public Doctor add(DoctorForm doctorForm) {
         User newUser = User.builder()
-                .userType(UserType.PATIENT)
+                .userType(UserType.DOCTOR)
                 .email(doctorForm.getMail())
                 .hashPassword(passwordEncoder.encode(doctorForm.getPassword()))
                 .build();
@@ -71,6 +71,11 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public void deleteDoctor(Long id) {
              doctorRepository.delete(id);
+    }
+
+    @Override
+    public Doctor getByUserId(long id) {
+       return doctorRepository.findByUserId(id);
     }
 
 

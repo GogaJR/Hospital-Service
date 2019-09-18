@@ -9,6 +9,7 @@ public interface DoctorService {
     List<Doctor> getAll();
     Doctor get(Long id);
     void deleteDoctor(Long id);
+    Doctor getByUserId(long id);
 
 
 }

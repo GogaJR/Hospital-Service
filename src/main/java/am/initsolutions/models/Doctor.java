@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "doctor")
-public class Doctor {
+public class Doctor extends ParentModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,7 +41,7 @@ public class Doctor {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(mappedBy = "doctors")
+    @ManyToMany(mappedBy = "doctors", fetch = FetchType.EAGER)
     private List<Patient> patients;
 
     @OneToMany(mappedBy = "doctor")

@@ -7,10 +7,13 @@ import am.initsolutions.models.User;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface PatientService {
     Patient update(Patient patient);
     Patient get(Long id);
     Patient getByUserId(Long userId);
     Patient add(PatientForm patientForm);
     List<Doctor> getDoctors(Long id);
+    List<Patient> patientListByDoctorId(Long doctorId);
 }
