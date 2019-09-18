@@ -2,8 +2,9 @@ package am.initsolutions.security;
 
 
 import am.initsolutions.models.User;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.authority.AuthorityUtils;
-
+@Scope("session")
 public class SpringUser extends org.springframework.security.core.userdetails.User {
 
     private User user;

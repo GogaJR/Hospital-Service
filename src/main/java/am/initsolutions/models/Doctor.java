@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "doctor")
-public class Doctor {
+public class Doctor extends ParentModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

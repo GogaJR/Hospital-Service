@@ -18,13 +18,15 @@
                 <tr><th>Name</th>
                     <th>Surname</th>
                     <th>Age</th>
+                    <th>Phone Number</th>
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody><tr th:each="patient: ${doctor.patients}">
-                   <td th:text="${patient.name}"></td>
-                    <td th:text="${patient.surname}"></td>
-                    <td th:text="${patient.age}"></td>
+                <tbody><tr th:each="patient: ${patientList}">
+                   <td th:text="${patient.getName()}"></td>
+                    <td th:text="${patient.getSurname()}"></td>
+                    <td th:text="${patient.getAge() }"></td>
+                    <td th:text="${patient.getPhoneNumber()}"></td>
                     <td style="color:#5bc0de;"><a  th:href="@{/byPatient(patientId=${patient.id})}">Patient History</a></td>
                 </tr>
                 </tbody>

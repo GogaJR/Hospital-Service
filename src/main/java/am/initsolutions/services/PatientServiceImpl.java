@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class PatientServiceImpl implements PatientService {
     @Autowired
@@ -43,5 +45,10 @@ public class PatientServiceImpl implements PatientService {
                 .build();
 
            return patientRepository.save(newPatient);
+    }
+
+    @Override
+    public List<Patient> patientListByDoctorId(Long doctorId) {
+        return patientRepository.patientListByDoctorId(doctorId);
     }
 }
