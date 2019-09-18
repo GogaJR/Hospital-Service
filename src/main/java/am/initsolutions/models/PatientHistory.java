@@ -18,6 +18,7 @@ public class PatientHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String diagnose;
+    private String complaints;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")

@@ -1,6 +1,7 @@
 package am.initsolutions.models;
 
 import am.initsolutions.models.enums.Gender;
+import am.initsolutions.models.userParentModel.ParentModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,7 +42,7 @@ public class Doctor extends ParentModel {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(mappedBy = "doctors", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "doctors")
     private List<Patient> patients;
 
     @OneToMany(mappedBy = "doctor")

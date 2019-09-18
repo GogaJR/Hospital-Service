@@ -17,12 +17,7 @@ public class PharmacyMedicineServiceImpl implements PharmacyMedicineService {
 
     @Override
     public void delete(Long pharmacyId, Long medicineId) {
-        PharmacyMedicine pharmacyMedicine = pharmacyMedicineRepository.findOne(new PharmacyMedicineId(pharmacyId, medicineId));
-        pharmacyMedicine.setMedicine(null);
-        pharmacyMedicine.setPharmacy(null);
-        PharmacyMedicine savedPharmacyMedicine = pharmacyMedicineRepository.save(pharmacyMedicine);
-
-        pharmacyMedicineRepository.delete(savedPharmacyMedicine);
+        pharmacyMedicineRepository.delete(new PharmacyMedicineId(pharmacyId, medicineId));
     }
 
     @Override

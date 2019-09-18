@@ -27,7 +27,7 @@
                     <td th:text="${patient.getSurname()}"></td>
                     <td th:text="${patient.getAge() }"></td>
                     <td th:text="${patient.getPhoneNumber()}"></td>
-                    <td style="color:#5bc0de;"><a  th:href="@{/byPatient(patientId=${patient.id})}">Patient History</a></td>
+                    <td style="color:#5bc0de;"><a  th:href="@{/patientHistoryListByPatientId(patientId=${patient.id})}">Patient History</a></td>
                 </tr>
                 </tbody>
             </table>

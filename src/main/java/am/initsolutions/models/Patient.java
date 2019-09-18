@@ -1,6 +1,7 @@
 package am.initsolutions.models;
 
 import am.initsolutions.models.enums.Gender;
+import am.initsolutions.models.userParentModel.ParentModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,6 +40,5 @@ public class Patient extends ParentModel {
             inverseJoinColumns = @JoinColumn(name = "doctor_id"))
     private List<Doctor> doctors;
 
-    @OneToMany(mappedBy = "patient")
-    private List<PatientHistory> histories;
+
 }

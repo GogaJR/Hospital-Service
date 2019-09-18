@@ -1,9 +1,14 @@
 package am.initsolutions.controller;
 
-import am.initsolutions.models.Doctor;
+import am.initsolutions.dto.PatientDto;
 import am.initsolutions.models.Hospital;
+
 import am.initsolutions.models.enums.UserType;
+
+import am.initsolutions.models.Patient;
+import am.initsolutions.models.Doctor;
 import am.initsolutions.security.SpringUser;
+import am.initsolutions.services.PatientService;
 import am.initsolutions.services.DoctorService;
 import am.initsolutions.services.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +27,14 @@ public class LoginController {
 
     @Autowired
     private HospitalService hospitalService;
+
+
+    @Autowired
+    private PatientService patientService;
+
     @Autowired
     private DoctorService doctorService;
+
     @GetMapping("/login")
     public String login(){
         return "login";
@@ -36,11 +47,14 @@ public class LoginController {
     }
     
     @GetMapping("/patient")
-    public String patient(){
+    public String patient(@ModelAttribute("userId") Long userId, ModelMap modelMap){
+        Patient patient = patientService.getByUserId(userId);
+        PatientDto patientDto = PatientDto.from(patient);
+        modelMap.addAttribute("patient", patientDto);
 
         return "patient";
     }
-    
+
     @GetMapping("/doctorPage")
     public String doctorPage(@ModelAttribute("currentUser") Doctor doctor, ModelMap modelMap){
         modelMap.addAttribute("user", doctor);
@@ -50,7 +64,7 @@ public class LoginController {
     @GetMapping("/loginSuccess")
     public String loginSuccess(@AuthenticationPrincipal
                                        SpringUser springUser, RedirectAttributes redirectAttributes,
-                               Model model, HttpServletRequest request) {
+                                 HttpServletRequest request) {
         if (springUser.getUser().getUserType().equals(UserType.ADMIN)) {
             return "redirect:/mainAdmin";
         }else if(springUser.getUser().getUserType().equals(UserType.HOSPITAL_ADMIN)){
@@ -58,7 +72,7 @@ public class LoginController {
         }else if(springUser.getUser().getUserType().equals(UserType.PHARMACY_ADMIN)){
             return "redirect:/pharmacyAdmin";
         } else if (springUser.getUser().getUserType().equals(UserType.DOCTOR)) {
-            long userId=springUser.getUser().getId();
+            Long userId=springUser.getUser().getId();
             Doctor user=doctorService.getByUserId(userId);
             request.getSession().setAttribute("user",user);
             if (user == null) {
@@ -67,9 +81,10 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("user", user);
             return "redirect:/doctorPage";
         }else {
+            Long userId = springUser.getUser().getId();
+            redirectAttributes.addFlashAttribute("userId", userId);
+
             return "redirect:/patient";
         }
-
-
     }
 }

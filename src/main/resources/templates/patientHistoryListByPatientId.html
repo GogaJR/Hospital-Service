@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <h3>Patient History Page</h3>
+            <div th:if="${!patientHistoryList.isEmpty()}">
+                <table class="department table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Complaints</th>
+                        <th>Diagnose</th>
+                        <th>Patient Name</th>
+                        <th>Doctor Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="patientHistory: ${patientHistoryList}">
+                        <td th:text="${patientHistory.complaints}"></td>
+                        <td th:text="${patientHistory.diagnose}"></td>
+                        <td th:text="${patientHistory.getPatient().name}"></td>
+                        <td th:text="${patientHistory.getDoctor().name}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:unless="${!patientHistoryList.isEmpty()}">
+                You have no history!
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
