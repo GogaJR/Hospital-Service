@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.List;
 
 public interface PatientService {
+    void setDoctor(Patient patient, Doctor doctor);
     Patient update(Patient patient);
     Patient get(Long id);
     Patient getByUserId(Long userId);

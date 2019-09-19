@@ -93,4 +93,9 @@ public class MedicineServiceImpl implements MedicineService {
 
         return medicineCandidate;
     }
+
+    @Override
+    public List<Medicine> getAll() {
+        return medicineRepository.findAll();
+    }
 }

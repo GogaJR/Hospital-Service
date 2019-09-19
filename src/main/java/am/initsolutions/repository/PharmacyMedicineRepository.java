@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface PharmacyMedicineRepository extends JpaRepository<PharmacyMedicine, PharmacyMedicineId> {
     List<PharmacyMedicine> getAllByPharmacyId(Long pharmacyId);
+    List<PharmacyMedicine> getAllByMedicineId(Long medicineId);
 }

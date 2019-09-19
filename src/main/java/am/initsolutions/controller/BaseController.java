@@ -18,4 +18,9 @@ public class BaseController {
         ParentModel parentModel=(ParentModel) request.getSession().getAttribute("user");
         return parentModel;
     }
+
+    @ModelAttribute("registered")
+    public Boolean registerToDoctor(HttpServletRequest request) {
+        return (Boolean) request.getSession().getAttribute("registered");
+    }
 }

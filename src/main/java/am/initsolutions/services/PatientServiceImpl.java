@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,15 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+    @Override
+    public void setDoctor(Patient patient, Doctor doctor) {
+        List<Doctor> doctors = new ArrayList<>();
+        doctors.add(doctor);
+        patient.setDoctors(doctors);
+
+        patientRepository.save(patient);
+    }
 
     @Override
     public Patient update(Patient patient) {
@@ -80,10 +90,11 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public List<Doctor> getDoctors(Long id) {
-        List<Long> doctorsId = patientRepository.getDoctors(id);
+        List<BigInteger> doctorsId = patientRepository.getDoctors(id);
         List<Doctor> doctors = new ArrayList<>();
-        for (Long doctorId : doctorsId) {
-            doctors.add(doctorRepository.findOne(doctorId));
+        for (BigInteger doctorId : doctorsId) {
+            Long docId = doctorId.longValue();
+            doctors.add(doctorRepository.findOne(docId));
         }
 
         return doctors;

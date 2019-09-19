@@ -1,14 +1,9 @@
 package am.initsolutions.controller;
 
-import am.initsolutions.dto.DoctorDto;
-import am.initsolutions.dto.DoctorDtoForPatient;
-import am.initsolutions.dto.PatientHistoryDto;
-import am.initsolutions.models.Doctor;
-import am.initsolutions.models.Patient;
-import am.initsolutions.models.PatientHistory;
-import am.initsolutions.services.DoctorService;
-import am.initsolutions.services.PatientHistoryService;
-import am.initsolutions.services.PatientService;
+import am.initsolutions.dto.*;
+import am.initsolutions.forms.ComplaintsForm;
+import am.initsolutions.models.*;
+import am.initsolutions.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,8 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PatientController {
@@ -30,6 +28,15 @@ public class PatientController {
 
     @Autowired
     private DoctorService doctorService;
+
+    @Autowired
+    private MedicineService medicineService;
+
+    @Autowired
+    private PharmacyMedicineService pharmacyMedicineService;
+
+    @Autowired
+    private PharmacyService pharmacyService;
 
     @GetMapping("/patient/{id}/history")
     public String getDiseaseHistoryPage(@PathVariable("id") Long id, ModelMap modelMap) {
@@ -88,8 +95,39 @@ public class PatientController {
     }
 
     @PostMapping("/patient/{id}/register")
-    public String registerForConsultation(@PathVariable("id") Long id, String doctorId, String complaints) {
-        System.out.println(doctorId + " " + complaints);
+    public String registerForConsultation(@PathVariable("id") Long id, ComplaintsForm complaintsForm, HttpServletRequest request) {
+        patientHistoryService.add(id, complaintsForm);
+        request.getSession().setAttribute("registered", true);
+
         return "redirect:/patient";
+    }
+
+    @GetMapping("/patient/{id}/order")
+    public String getOrderMedicinePage(@PathVariable("id") Long id, ModelMap modelMap) {
+        List<Medicine> medicines = medicineService.getAll();
+        Map<Medicine, List<OrderMedicineDto>> medicinesWithPharmacies = new HashMap<>();
+        for (Medicine medicine : medicines) {
+            List<OrderMedicineDto> orderMedicineDtos = new ArrayList<>();
+            List<PharmacyMedicine> pharmacyMedicines = pharmacyMedicineService.getAllByMedicineId(medicine.getId());
+            if (!pharmacyMedicines.isEmpty()) {
+                for (PharmacyMedicine pharmacyMedicine : pharmacyMedicines) {
+                    OrderMedicineDto orderMedicineDto = OrderMedicineDto.from(pharmacyMedicine);
+                    orderMedicineDtos.add(orderMedicineDto);
+                }
+
+                medicinesWithPharmacies.put(medicine, orderMedicineDtos);
+            }
+        }
+
+        List<Pharmacy> pharmacies = pharmacyService.getAll();
+        List<String> pharmacyNames = new ArrayList<>();
+        for (Pharmacy pharmacy : pharmacies) {
+            pharmacyNames.add(pharmacy.getName());
+        }
+
+        modelMap.addAttribute("pharmacyNames", pharmacyNames);
+        modelMap.addAttribute("medicinesWithPharmacies", medicinesWithPharmacies);
+
+        return "orderMedicine";
     }
 }

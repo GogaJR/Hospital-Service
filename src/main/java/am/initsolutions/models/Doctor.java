@@ -43,9 +43,6 @@ public class Doctor extends ParentModel {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(mappedBy = "doctors")
-    private List<Patient> patients;
-
     @OneToMany(mappedBy = "doctor")
     private List<PatientHistory> patientHistories;
 

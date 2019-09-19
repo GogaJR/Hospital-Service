@@ -8,6 +8,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div th:if="${registered}">
+    <script>alert("Your Complaints Send Successfully!")</script>
+</div>
 <div class="container">
     <div class="row">
         <div class="jumbotron">
@@ -18,6 +21,7 @@
         <a  th:href="@{'/patient/' + ${patient.id} + '/edit'}" >Edit Profile</a>
         <a  th:href="@{'/patient/' + ${patient.id} + '/doctors'}" >My Doctors</a>
         <a  th:href="@{'/patient/' + ${patient.id} + '/register'}" >Register for consultation</a>
+        <a  th:href="@{'/patient/' + ${patient.id} + '/order'}" >Order Medicine</a>
     </div>
 </div>
 </body>

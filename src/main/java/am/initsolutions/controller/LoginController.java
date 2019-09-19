@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -27,7 +28,6 @@ public class LoginController {
 
     @Autowired
     private HospitalService hospitalService;
-
 
     @Autowired
     private PatientService patientService;
@@ -47,9 +47,16 @@ public class LoginController {
     }
     
     @GetMapping("/patient")
-    public String patient(@ModelAttribute("currentUser") Patient patient, ModelMap modelMap){
+    public String patient(@ModelAttribute("currentUser") Patient patient,
+                          @ModelAttribute("registered") Boolean registered,
+                          ModelMap modelMap, HttpServletRequest request){
         PatientDto patientDto = PatientDto.from(patient);
         modelMap.addAttribute("patient", patientDto);
+
+        if (registered != null) {
+            modelMap.addAttribute("registered", true);
+            request.getSession().setAttribute("registered", null);
+        }
 
         return "patient";
     }

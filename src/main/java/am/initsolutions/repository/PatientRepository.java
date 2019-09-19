@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.math.BigInteger;
 import java.util.List;
 
 @Repository
@@ -19,7 +21,7 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     List<Patient> patientListByDoctorId(@Param("doctorId") long doctorId);
 
     @Query(nativeQuery = true, value = "SELECT doctor_id FROM patient_doctor WHERE patient_id = :id")
-    List<Long> getDoctors(@Param("id") Long id);
+    List<BigInteger> getDoctors(@Param("id") Long id);
 
 
 }

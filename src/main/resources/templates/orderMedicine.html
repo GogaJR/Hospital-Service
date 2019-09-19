@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <div th:if="${!medicinesWithPharmacies.isEmpty()}">
+                Filter By Pharmacy Name<br>
+                <select id="mylist" onchange="myFunction()" class='form-control'>
+                <option>All</option>
+                    <div th:each="pharmacyName: ${pharmacyNames}">
+                        <option th:text="${pharmacyName}"></option>
+                    </div>
+                </select>
+                <table id="myTable" class="medicine table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Medicine Name</th>
+                        <th>Pharmacy Name</th>
+                        <th>Medicine Count</th>
+                        <th colspan="3" >Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="medicineWithPharmacy: ${medicinesWithPharmacies}">
+                        <div th:each="pharmacyMedicine: ${medicineWithPharmacy.value}">
+                            <td th:text="${medicineWithPharmacy.key.name}"></td>
+                            <td th:text="${pharmacyMedicine.pharmacyName}"></td>
+                            <td th:text="${pharmacyMedicine.medicineCount}"></td>
+                            <td class="delete"><a  role="button" class="btn btn-success" th:href="@{/delete(id=${medicineWithPharmacy.key.id})}" >Add To Cart</a></td>
+                        </div>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            <div th:unless="${!medicinesWithPharmacies.isEmpty()}">
+                There Are No Medicine!
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("mylist");
+        filter = input.value.toUpperCase();
+
+        if (filter == "ALL") {
+            filter = "";
+        }
+
+        console.log(filter);
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
+<style>
+    .form-control{
+        width:20%;
+    }
+</style>
