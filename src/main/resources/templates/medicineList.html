@@ -3,24 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <title>Main Admin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <a class="btn btn-warning" role="button" href="/logout">Logout</a>
     <div th:if="${!pharmacyMedicines.isEmpty()}">
-        <table>
+        <h3>Medicine List:</h3>
+        <table class="mainAdmin table table-hover">
+            <thead>
             <tr>
                 <td>Medicine Name</td>
                 <td>Medicine Count</td>
             </tr>
+            </thead>
+        <tbody>
             <tr th:each="pharmacyMedicine : ${pharmacyMedicines}">
                 <td th:text="${pharmacyMedicine.medicine.name}"></td>
                 <td th:text="${pharmacyMedicine.medicineCount}"></td>
                 <td><a  th:href="@{'/pharmacyAdmin/medicines/' + ${pharmacyMedicine.pharmacyId} + '/delete/' + ${pharmacyMedicine.medicine.id}}" >Delete Medicine</a></td>
                 <td><a  th:href="@{'/pharmacyAdmin/medicines/' + ${pharmacyMedicine.pharmacyId} + '/edit/' + ${pharmacyMedicine.medicine.id}}" >Edit Medicine</a></td>
             </tr>
+        </tbody>
         </table>
     </div>
     <div th:unless="${!pharmacyMedicines.isEmpty()}">
         <h2>There are no medicines in this pharmacy!</h2>
     </div>
+        </div></div></div>
 </body>
 </html>

@@ -1,15 +1,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Hospital Services</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <a class="btn btn-warning" role="button" href="/departmentAdmin" style="text-decoration: none;"> Go back to Department! </a>
+            <div class="card" style=" width: 50%;">
+                <div class="card-body px-lg-5 pt-0">
+                    <h3>Add Medicine!</h3>
 <td th:if="${error == null}" th:text="Add Error"></td>
 <form method="post" action="/pharmacyAdmin/addMedicine">
-    Medicine Name: <input type="text" name="name" required/><br>
-    Medicine Count: <input type="number" name="medicineCount" min="1" required/><br>
-
+    <div class="md-form">
+        <input type="text" name="name" class="form-control" placeholder="Medicine Name" required/><br>
+    </div>
+    <div class="md-form">
+        <input type="number" name="medicineCount" class="form-control" placeholder="Medicine Count" min="1" required/><br>
+    </div>
     <input type="hidden" name="pharmacyId" th:value="${pharmacyId}">
-    <button type="submit" name="btn">Add</button>
+    <button type="submit" class="btn btn-success" name="btn">Add</button>
 </form>
+        </div>
+    </div>
+        </div></div></div>
 </body>
 </html>

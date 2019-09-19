@@ -3,13 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Pharmacy</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <div class="card" style=" width: 50%;">
+                <div class="card-body px-lg-5 pt-0">
+                    <h3>Edit Pharmacy!</h3>
    <form method="post" action="/pharmacyAdmin/edit">
-       Pharmacy Name: <input type="text" name="name" th:value="${pharmacy.name}" required/><br>
-       Address: <input type="text" name="address" th:value="${pharmacy.address}" required/><br>
-       Phone Number: <input type="text" name="phoneNumber" th:value="${pharmacy.phoneNumber}" pattern="[0-9]{9}" required/><br>
-       Open At: <select name="openAt">
+       <div class="md-form">
+           <input type="text" name="name" class="form-control" th:value="${pharmacy.name}" required/><br>
+       </div>
+       <div class="md-form">
+           <input type="text" name="address" class="form-control" th:value="${pharmacy.address}" required/><br>
+       </div>
+       <div class="md-form">
+           <input type="text" name="phoneNumber" class="form-control" th:value="${pharmacy.phoneNumber}" pattern="[0-9]{9}" required/><br>
+       </div>
+       <div class="form-group">
+       Open At: <select name="openAt" class="form-control">
                 <option value="24/7" th:selected="${pharmacy.openAt == '24/7'}">24/7</option>
                 <option value="08:00" th:selected="${pharmacy.openAt == '08:00'}">08:00</option>
                 <option value="08:30" th:selected="${pharmacy.openAt == '08:30'}">08:30</option>
@@ -19,8 +35,9 @@
                 <option value="10:30" th:selected="${pharmacy.openAt == '10:30'}">10:30</option>
                 <option value="11:00" th:selected="${pharmacy.openAt == '11:00'}">11:00</option>
                </select>
-
-       Close At: <select name="closeAt">
+       </div>
+       <div class="form-group">
+       Close At: <select name="closeAt" class="form-control">
                    <option value="24/7" th:selected="${pharmacy.closeAt == '24/7'}"> 24/7</option>
                    <option value="18:00" th:selected="${pharmacy.closeAt == '18:00'}">18:00</option>
                    <option value="18:30" th:selected="${pharmacy.closeAt == '18:30'}">18:30</option>
@@ -30,9 +47,11 @@
                    <option value="20:30" th:selected="${pharmacy.closeAt == '20:30'}">20:30</option>
                    <option value="21:00" th:selected="${pharmacy.closeAt == '21:00'}">21:00</option>
                </select>
+       </div>
        <input type="hidden" name="id" th:value="${pharmacy.id}">
 
-       <button type="submit">Save Changes</button>
+       <button class="btn btn-warning" type="submit">Save Changes</button>
    </form>
+                </div></div></div></div></div>
 </body>
 </html>

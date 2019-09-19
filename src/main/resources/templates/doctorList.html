@@ -2,25 +2,37 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Doctor list</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
 <div th:if="${!doctors.isEmpty()}">
-    <table>
+    <h3>Doctor List:</h3>
+    <table class="department table table-hover">
+        <thead>
         <tr>
             <td>Name</td>
             <td>Surname</td>
             <td>Phone Number</td>
         </tr>
+        </thead>
+        <tbody>
         <tr th:each="doctor : ${doctors}">
             <td th:text="${doctor.name}"></td>
             <td th:text="${doctor.surname}"></td>
             <td th:text="${doctor.phoneNumber}"></td>
         </tr>
+        </tbody>
     </table>
 </div>
 <div th:unless="${!doctors.isEmpty()}">
     <h2>You have no doctors!</h2>
 </div>
+        </div></div></div>
 </body>
 </html>
