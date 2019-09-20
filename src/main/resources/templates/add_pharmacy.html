@@ -1,42 +1,62 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Hospital Services</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <a class="btn btn-warning" role="button" href="/" style="text-decoration: none;"> Go back! </a>
+            <div class="card" style=" width: 50%;">
+                <div class="card-body px-lg-5 pt-0">
+                    <h3>Add Pharmacy!</h3>
 <td th:if="${error}" th:text="Add Error"></td>
-<form method="post" action="/pharmacyAdmin/add">
-    Pharmacy Name: <input type="text" name="name" required/><br>
-    Address: <input type="text" name="address" required/><br>
-    Phone Number: <input type="text" name="phoneNumber" pattern="[0-9]{9}" required/><br>
-    Open At: <select name="openAt">
-                <option value="24/7"> 24/7</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-             </select>
+<form method="post" th:action="@{/pharmacyAdmin/add}">
+    <div class="md-form">
+        <input type="text" name="name" class="form-control" placeholder="Pharmacy Name" required/><br>
+    </div>
+    <div class="md-form">
+        <input type="text" name="address" class="form-control" placeholder="Address" required/><br>
+    </div>
+    <div class="md-form">
+        <input type="text" name="phoneNumber" class="form-control" placeholder="Phone Number" pattern="[0-9]{9}" required/><br>
+    </div>
 
-    Close At: <select name="closeAt">
-                <option value="24/7"> 24/7</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-                <option value="00:00">00:00</option>
-              </select>
-
-    <button type="submit" name="btn">Add</button>
-</form>
+    <div class="form-group">
+        Open At:<select name="openAt"  class="form-control">
+        <option value="24/7"> 24/7</option>
+        <option value="08:00">08:00</option>
+        <option value="08:30">08:30</option>
+        <option value="09:00">09:00</option>
+        <option value="09:30">09:30</option>
+        <option value="10:00">10:00</option>
+        <option value="10:30">10:30</option>
+        <option value="11:00">11:00</option>
+    </select>
+    </div>
+    <div class="form-group">
+        Close At:<select name="closeAt"  class="form-control">
+        <option value="24/7"> 24/7</option>
+        <option value="18:00">18:00</option>
+        <option value="18:30">18:30</option>
+        <option value="19:00">19:00</option>
+        <option value="19:30">19:30</option>
+        <option value="20:00">20:00</option>
+        <option value="20:30">20:30</option>
+        <option value="21:00">21:00</option>
+        <option value="21:30">21:30</option>
+        <option value="22:00">22:00</option>
+        <option value="22:30">22:30</option>
+        <option value="23:00">23:00</option>
+        <option value="23:30">23:30</option>
+        <option value="00:00">00:00</option>
+    </select>
+    </div>
+    <button type="submit" class="btn btn-success" name="btn">Add</button>
+</form></div></div>
+        </div></div></div>
 </body>
 </html>
