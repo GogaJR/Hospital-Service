@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<a class="btn btn-warning" role="button" href="/logout">Logout</a>
     <div th:if="${!pharmacies.isEmpty()}">
         <h2>Pharmacy List</h2>
         <table>
@@ -27,8 +28,8 @@
                     <td th:text="${pharmacy.openAt}"></td>
                     <td th:text="${pharmacy.closeAt}"></td>
                 </div>
-                <td><a  th:href="@{'/pharmacyAdmin/delete/' + ${pharmacy.id}}" >Delete Pharmacy</a></td>
-                <td><a  th:href="@{'/pharmacyAdmin/edit/' + ${pharmacy.id}}">Edit Pharmacy</a></td>
+                <!--<td><a  th:href="@{'/pharmacyAdmin/delete/' + ${pharmacy.id}}" >Delete Pharmacy</a></td>-->
+                <!--<td><a  th:href="@{'/pharmacyAdmin/edit/' + ${pharmacy.id}}">Edit Pharmacy</a></td>-->
                 <td><a  th:href="@{'/pharmacyAdmin/addMedicine/' + ${pharmacy.id}}">Add Medicine</a></td>
                 <td><a  th:href="@{'/pharmacyAdmin/medicines/' + ${pharmacy.id}}">List Medicine</a></td>
             </tr>
@@ -39,8 +40,8 @@
         <h2>There is no pharmacies</h2>
     </div>
 
-<form method="get" action="/pharmacyAdmin/add">
-    <button type="submit">Add Pharmacy</button>
-</form>
+<!--<form method="get" action="/pharmacyAdmin/add">-->
+    <!--<button type="submit">Add Pharmacy</button>-->
+<!--</form>-->
 </body>
 </html>

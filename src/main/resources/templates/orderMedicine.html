@@ -11,6 +11,7 @@
 <div class="container">
     <div class="row">
         <div class="jumbotron">
+            <a class="btn btn-warning" role="button" href="/patient">Back</a>
             <div th:if="${!medicinesWithPharmacies.isEmpty()}">
                 Filter By Pharmacy Name<br>
                 <select id="mylist" onchange="myFunction()" class='form-control'>
@@ -24,21 +25,37 @@
                     <tr>
                         <th>Medicine Name</th>
                         <th>Pharmacy Name</th>
+                        <th>Pharmacy Address</th>
                         <th>Medicine Count</th>
-                        <th colspan="3" >Action</th>
+                        <th>Sale</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr th:each="medicineWithPharmacy: ${medicinesWithPharmacies}">
-                        <div th:each="pharmacyMedicine: ${medicineWithPharmacy.value}">
-                            <td th:text="${medicineWithPharmacy.key.name}"></td>
-                            <td th:text="${pharmacyMedicine.pharmacyName}"></td>
-                            <td th:text="${pharmacyMedicine.medicineCount}"></td>
-                            <td class="delete"><a  role="button" class="btn btn-success" th:href="@{/delete(id=${medicineWithPharmacy.key.id})}" >Add To Cart</a></td>
+                    <tbody th:each="medicineWithPharmacy: ${medicinesWithPharmacies}">
+                        <div th:if="${!medicineWithPharmacy.value.isEmpty()}">
+                            <tr th:each="pharmacyMedicine: ${medicineWithPharmacy.value}">
+                                <td th:text="${medicineWithPharmacy.key.name}"></td>
+                                <td th:text="${pharmacyMedicine.pharmacyName}"></td>
+                                <td th:text="${pharmacyMedicine.pharmacyAddress}"></td>
+                                <td th:text="${pharmacyMedicine.medicineCount}"></td>
+                                <td style="color: green" th:text="'In'"></td>
+                                <td class="delete"><a  role="button" class="btn btn-success" th:href="@{/delete(id=${medicineWithPharmacy.key.id})}" >Add To Cart</a></td>
+                            </tr>
                         </div>
-                    </tr>
+                        <tr th:unless="${!medicineWithPharmacy.value.isEmpty()}">
+                            <td th:text="${medicineWithPharmacy.key.name}"></td>
+                            <td th:text="'-----'"></td>
+                            <td th:text="'-----'"></td>
+                            <td th:text="'-----'"></td>
+                            <td style="color: red" th:text="'Out'"></td>
+                        </tr>
                     </tbody>
                 </table>
+                <div th:if="${!pageNumbers.isEmpty()}" class="pagination"
+                     th:each="pageNumber : ${pageNumbers}">
+                        <a th:href="@{'/patient/' + ${patientId.intValue()} + '/order/' + ${pageNumber} + '/' + ${medicines.size}}"
+                           th:text="${pageNumber}"
+                           th:class="${pageNumber==medicines.number + 1} ? active"></a>
+                </div>
                 </div>
             </div>
             <div th:unless="${!medicinesWithPharmacies.isEmpty()}">

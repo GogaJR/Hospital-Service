@@ -92,7 +92,9 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("user", user);
 
             return "redirect:/doctorPage";
-        }else {
+        } else if (springUser.getUser().getUserType().equals(UserType.PHARMACY_MEDICINE_MODERATOR)) {
+            return "redirect:/moderator";
+        } else {
             Long userId = springUser.getUser().getId();
             Patient patient = patientService.getByUserId(userId);
 

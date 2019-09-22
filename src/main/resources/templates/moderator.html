@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Moderator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:if="${added}">
+    <script>
+        alert("Pharmacy Added Successfully!")
+    </script>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <a class="btn btn-warning" role="button" href="/logout">Logout</a>
+
+            <h3>Pharmacy List</h3>
+            <table class="mainAdmin table table-hover">
+                <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Address</td>
+                    <td>Phone Number</td>
+                    <td>Open At</td>
+                    <td>Close At</td>
+                </tr></thead>
+                <tbody>
+                <tr th:each="pharmacy: ${pharmacies}">
+                    <td th:text="${pharmacy.name}"></td>
+                    <td th:text="${pharmacy.address}"></td>
+                    <td th:text="${pharmacy.phoneNumber}"></td>
+                    <td th:text="${pharmacy.openAt}"></td>
+                    <td th:text="${pharmacy.closeAt}"></td>
+
+                    <td class="delete"><a  th:href="@{'/moderator/delete/' + ${pharmacy.id}}" >Delete Pharmacy</a></td>
+                    <td class="edit"><a  th:href="@{'/moderator/edit/' + ${pharmacy.id}}">Edit Pharmacy</a></td>
+                </tr></tbody>
+            </table>
+
+            <a role="button" class="btn btn-info" href="/moderator/addPharmacy" style="text-decoration: none;"> Add Pharmacy </a>
+            <a role="button" class="btn btn-info" href="/moderator/medicines" style="text-decoration: none;"> Medicine List </a>
+        </div></div></div>
+</body>
+</html>

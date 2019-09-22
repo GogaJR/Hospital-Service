@@ -5,6 +5,8 @@ import am.initsolutions.forms.ComplaintsForm;
 import am.initsolutions.models.*;
 import am.initsolutions.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class PatientController {
@@ -102,21 +101,32 @@ public class PatientController {
         return "redirect:/patient";
     }
 
-    @GetMapping("/patient/{id}/order")
-    public String getOrderMedicinePage(@PathVariable("id") Long id, ModelMap modelMap) {
-        List<Medicine> medicines = medicineService.getAll();
+    @GetMapping("/patient/{id}/order/{page}/{size}")
+    public String getOrderMedicinePage(@PathVariable("id") Long id, ModelMap modelMap,
+                                       @PathVariable("page") Optional<Integer> page,
+                                       @PathVariable("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<Medicine> medicines = medicineService.getAll(new PageRequest(currentPage-1, pageSize));
         Map<Medicine, List<OrderMedicineDto>> medicinesWithPharmacies = new HashMap<>();
-        for (Medicine medicine : medicines) {
+
+        List<Integer> pageNumbers = MainController.getPageNumbers(medicines.getTotalPages());
+        if (pageNumbers != null) {
+            modelMap.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        Iterator iterator = medicines.iterator();
+        while (iterator.hasNext()) {
+            Medicine medicine = (Medicine) iterator.next();
             List<OrderMedicineDto> orderMedicineDtos = new ArrayList<>();
             List<PharmacyMedicine> pharmacyMedicines = pharmacyMedicineService.getAllByMedicineId(medicine.getId());
-            if (!pharmacyMedicines.isEmpty()) {
-                for (PharmacyMedicine pharmacyMedicine : pharmacyMedicines) {
-                    OrderMedicineDto orderMedicineDto = OrderMedicineDto.from(pharmacyMedicine);
-                    orderMedicineDtos.add(orderMedicineDto);
-                }
-
-                medicinesWithPharmacies.put(medicine, orderMedicineDtos);
+            for (PharmacyMedicine pharmacyMedicine : pharmacyMedicines) {
+                OrderMedicineDto orderMedicineDto = OrderMedicineDto.from(pharmacyMedicine);
+                orderMedicineDtos.add(orderMedicineDto);
             }
+
+            medicinesWithPharmacies.put(medicine, orderMedicineDtos);
         }
 
         List<Pharmacy> pharmacies = pharmacyService.getAll();
@@ -127,6 +137,8 @@ public class PatientController {
 
         modelMap.addAttribute("pharmacyNames", pharmacyNames);
         modelMap.addAttribute("medicinesWithPharmacies", medicinesWithPharmacies);
+        modelMap.addAttribute("medicines", medicines);
+        modelMap.addAttribute("patientId", id);
 
         return "orderMedicine";
     }

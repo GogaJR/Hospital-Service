@@ -23,4 +23,9 @@ public class BaseController {
     public Boolean registerToDoctor(HttpServletRequest request) {
         return (Boolean) request.getSession().getAttribute("registered");
     }
+
+    @ModelAttribute("added")
+    public Boolean addMedicine(HttpServletRequest request) {
+        return (Boolean) request.getSession().getAttribute("added");
+    }
 }

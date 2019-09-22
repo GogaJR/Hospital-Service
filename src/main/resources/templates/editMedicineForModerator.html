@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <a class="btn btn-warning" role="button" href="/moderator/medicines" style="text-decoration: none;"> Back </a><br>
+            <div class="card" style=" width: 50%;">
+                <div class="card-body px-lg-5 pt-0">
+                    <h3>Edit Medicine!</h3>
+                    <form method="post" th:action="'/moderator/medicines/edit'">
+                        <div class="md-form">
+                            <input type="text" name="name" class="form-control"  required th:value="${medicine.name}"/><br>
+                        </div>
+                        <input type="hidden" name="id" th:value="${medicine.id}">
+
+                        <button class="btn btn-success" type="submit">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div></div></div>
+</body>
+</html>

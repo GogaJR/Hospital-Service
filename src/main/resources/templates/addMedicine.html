@@ -9,23 +9,17 @@
 <div class="container">
     <div class="row">
         <div class="jumbotron">
-            <a class="btn btn-warning" role="button" href="/departmentAdmin" style="text-decoration: none;"> Go back to Department! </a>
+            <a class="btn btn-warning" role="button" href="/moderator/medicines" style="text-decoration: none;"> Back </a>
             <div class="card" style=" width: 50%;">
                 <div class="card-body px-lg-5 pt-0">
-                    <h3>Add Medicine!</h3>
-<td th:if="${error == null}" th:text="Add Error"></td>
-<form method="post" action="/pharmacyAdmin/addMedicine">
-    <div class="md-form">
-        <input type="text" name="name" class="form-control" placeholder="Medicine Name" required/><br>
-    </div>
-    <div class="md-form">
-        <input type="number" name="medicineCount" class="form-control" placeholder="Medicine Count" min="1" required/><br>
-    </div>
-    <input type="hidden" name="pharmacyId" th:value="${pharmacyId}">
-    <button type="submit" class="btn btn-success" name="btn">Add</button>
-</form>
-        </div>
-    </div>
-        </div></div></div>
+                    <h3>Add Medicine</h3>
+                    <form method="post" action="/moderator/medicines/add">
+                        <div class="md-form">
+                            <input type="text" name="name" class="form-control" placeholder="Name" required/><br>
+                        </div>
+                        <button class="btn btn-success" type="submit" name="btn">Add</button>
+                    </form>
+
+                </div></div></div></div></div>
 </body>
 </html>

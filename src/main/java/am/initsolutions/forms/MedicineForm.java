@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MedicineForm {
-    private String name;
+    private Long medicineId;
     private int medicineCount;
     private Long pharmacyId;
 }
