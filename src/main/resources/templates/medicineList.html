@@ -1,7 +1,8 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
-            <a class="btn btn-warning" role="button" href="/logout">Logout</a>
+            <a class="btn btn-warning" role="button" href="/pharmacyAdmin">Back</a>
+
     <div th:if="${!pharmacyMedicines.isEmpty()}">
         <h3>Medicine List:</h3>
         <table class="mainAdmin table table-hover">

@@ -1,10 +1,12 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
+            <a class="btn btn-warning" role="button" href="/moderator" style="text-decoration: none;"> Back </a><br>
+
             <div class="card" style=" width: 50%;">
                 <div class="card-body px-lg-5 pt-0">
-                    <h3>Edit Pharmacy!</h3>
-   <form method="post" action="/pharmacyAdmin/edit">
+                    <h3>Edit Pharmacy</h3>
+   <form method="post" action="/moderator/edit">
        <div class="md-form">
            <input type="text" name="name" class="form-control" th:value="${pharmacy.name}" required/><br>
        </div>
@@ -36,10 +38,16 @@
                    <option value="20:00" th:selected="${pharmacy.closeAt == '20:00'}">20:00</option>
                    <option value="20:30" th:selected="${pharmacy.closeAt == '20:30'}">20:30</option>
                    <option value="21:00" th:selected="${pharmacy.closeAt == '21:00'}">21:00</option>
+                   <option value="21:30" th:selected="${pharmacy.closeAt == '21:30'}">21:30</option>
+                   <option value="22:00" th:selected="${pharmacy.closeAt == '22:00'}">22:00</option>
+                   <option value="22:30" th:selected="${pharmacy.closeAt == '22:30'}">22:30</option>
+                   <option value="23:00" th:selected="${pharmacy.closeAt == '23:00'}">23:00</option>
+                   <option value="23:30" th:selected="${pharmacy.closeAt == '23:30'}">23:30</option>
+                   <option value="00:00" th:selected="${pharmacy.closeAt == '00:00'}">00:00</option>
                </select>
        </div>
        <input type="hidden" name="id" th:value="${pharmacy.id}">
 
-       <button class="btn btn-warning" type="submit">Save Changes</button>
+       <button class="btn btn-success" type="submit">Save Changes</button>
    </form>
                 </div></div></div>

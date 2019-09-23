@@ -1,15 +1,8 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
-            <h2>Pharmacy List</h2>
-            <a class="btn btn-warning" role="button" href="/logout">Logout</a><br><br>
-            <div class="panel panel-primary filterable">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Users</h3>
-                    <div class="pull-right">
-                        <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                    </div>
-                </div>
+<a class="btn btn-warning" role="button" href="/logout">Logout</a>
+
     <div th:if="${!pharmacies.isEmpty()}">
 
         <div class="table-wrapper-scroll-y my-custom-scrollbar">
@@ -37,10 +30,14 @@
                     <td th:text="${pharmacy.openAt}"></td>
                     <td th:text="${pharmacy.closeAt}"></td>
                 </div>
+
                 <td class="delete"><a  th:href="@{'/pharmacyAdmin/delete/' + ${pharmacy.id}}" >Delete Pharmacy</a></td>
                 <td class="edit"><a  th:href="@{'/pharmacyAdmin/edit/' + ${pharmacy.id}}">Edit Pharmacy</a></td>
                 <td class="pharmacyList"><a  th:href="@{'/pharmacyAdmin/addMedicine/' + ${pharmacy.id}}">Add Medicine</a></td>
                 <td class="pharmacyList"><a  th:href="@{'/pharmacyAdmin/medicines/' + ${pharmacy.id}}">List Medicine</a></td>
+                <td><a  th:href="@{'/pharmacyAdmin/addMedicine/' + ${pharmacy.id}}">Add Medicine</a></td>
+                <td><a  th:href="@{'/pharmacyAdmin/medicines/' + ${pharmacy.id}}">List Medicine</a></td>
+
             </tr>
             </tbody>
         </table>
@@ -51,10 +48,13 @@
         <h2>There is no pharmacies</h2>
     </div>
 
+
 <form method="get" action="/pharmacyAdmin/add">
     <button class="btn btn-info" type="submit">Add Pharmacy</button>
 </form>
             </div>
+
+
         </div>
 
 
@@ -154,3 +154,10 @@
 
 
 </script>
+=======
+<!--<form method="get" action="/pharmacyAdmin/add">-->
+    <!--<button type="submit">Add Pharmacy</button>-->
+<!--</form>-->
+</body>
+</html>
+>>>>>>> bf8f881b8f8d80b0b86a50800cee3c0e416a933f

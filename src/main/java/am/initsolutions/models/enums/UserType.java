@@ -5,5 +5,6 @@ public enum UserType {
     DOCTOR,
     ADMIN,
     HOSPITAL_ADMIN,
-    PHARMACY_ADMIN
+    PHARMACY_ADMIN,
+    PHARMACY_MEDICINE_MODERATOR
 }

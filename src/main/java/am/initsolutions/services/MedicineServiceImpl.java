@@ -10,7 +10,11 @@ import am.initsolutions.repository.MedicineRepository;
 import am.initsolutions.repository.PharmacyMedicineRepository;
 import am.initsolutions.repository.PharmacyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,39 +67,41 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
-    public Medicine add(MedicineForm medicineForm) {
-        Medicine medicineCandidate = medicineRepository.findByName(medicineForm.getName());
-        Pharmacy existingPharmacy = pharmacyRepository.findOne(medicineForm.getPharmacyId());
-        if (medicineCandidate == null) {
-            Medicine newMedicine = Medicine.builder()
-                    .name(medicineForm.getName())
-                    .build();
-            Medicine savedMedicine = medicineRepository.save(newMedicine);
+    public void update(Medicine medicine) {
+        Medicine existedMedicine = medicineRepository.findOne(medicine.getId());
+        existedMedicine.setName(medicine.getName());
+        medicineRepository.save(existedMedicine);
+    }
 
-            PharmacyMedicine pharmacyMedicine = PharmacyMedicine.builder()
-                    .id(new PharmacyMedicineId(existingPharmacy.getId(), savedMedicine.getId()))
-                    .medicine(savedMedicine)
-                    .pharmacy(existingPharmacy)
-                    .medicineCount(medicineForm.getMedicineCount())
-                    .build();
-            pharmacyMedicineRepository.save(pharmacyMedicine);
+    @Override
+    @Transactional
+    public void delete(Long medicineId) {
+        pharmacyMedicineRepository.deleteAllByMedicineId(medicineId);
+        medicineRepository.delete(medicineId);
+    }
 
-            return savedMedicine;
-        }
+    @Override
+    public Medicine getOne(Long medicineId) {
+        return medicineRepository.findOne(medicineId);
+    }
 
-        PharmacyMedicine pharmacyMedicine = PharmacyMedicine.builder()
-                .id(new PharmacyMedicineId(existingPharmacy.getId(), medicineCandidate.getId()))
-                .pharmacy(existingPharmacy)
-                .medicine(medicineCandidate)
-                .medicineCount(medicineForm.getMedicineCount())
+    @Override
+    public Medicine add(String name) {
+        Medicine newMedicine = Medicine.builder()
+                .name(name)
                 .build();
-        pharmacyMedicineRepository.save(pharmacyMedicine);
+        Medicine savedMedicine = medicineRepository.save(newMedicine);
 
-        return medicineCandidate;
+        return savedMedicine;
     }
 
     @Override
     public List<Medicine> getAll() {
         return medicineRepository.findAll();
+    }
+
+    @Override
+    public Page<Medicine> getAll(Pageable pageable) {
+        return  medicineRepository.findAll(pageable);
     }
 }

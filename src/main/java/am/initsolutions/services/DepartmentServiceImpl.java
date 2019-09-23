@@ -52,6 +52,4 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Page<Department> getAll(Pageable pageable) {
         return departmentRepository.findAll(pageable);
     }
-
-
 }

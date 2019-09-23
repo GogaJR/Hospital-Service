@@ -2,9 +2,11 @@ package am.initsolutions.services;
 
 import am.initsolutions.forms.PharmacyForm;
 import am.initsolutions.models.Pharmacy;
+import am.initsolutions.repository.PharmacyMedicineRepository;
 import am.initsolutions.repository.PharmacyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,8 +15,13 @@ public class PharmacyServiceImpl implements PharmacyService {
     @Autowired
     private PharmacyRepository pharmacyRepository;
 
+    @Autowired
+    private PharmacyMedicineRepository pharmacyMedicineRepository;
+
     @Override
+    @Transactional
     public void delete(Long id) {
+        pharmacyMedicineRepository.deleteAllByPharmacyId(id);
         pharmacyRepository.delete(id);
     }
 
