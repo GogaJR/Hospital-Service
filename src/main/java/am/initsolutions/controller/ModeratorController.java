@@ -26,12 +26,13 @@ public class ModeratorController {
     private MedicineService medicineService;
 
     @GetMapping("/moderator")
-    public String getModeratorPage(@ModelAttribute("added") Boolean added, ModelMap modelMap) {
+    public String getModeratorPage(@ModelAttribute("added") Boolean added, ModelMap modelMap, HttpServletRequest request) {
         List<Pharmacy> pharmacies = pharmacyService.getAll();
         modelMap.addAttribute("pharmacies", pharmacies);
 
         if (added != null) {
             modelMap.addAttribute("added", added);
+            request.getSession().setAttribute("added", false);
         }
 
         return "moderator";
