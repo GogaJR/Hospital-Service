@@ -13,7 +13,6 @@
 <table class="department table table-hover">
     <thead>
     <tr class="filters">
-<!--        <th><input type="text" class="form-control" placeholder="#" disabled></th>-->
         <th><input type="text" class="form-control" placeholder="Name" disabled></th>
 
     </tr>
@@ -35,12 +34,9 @@
                            th:class="${pageNumber==departmentList.number + 1} ? active"></a>
                 </div>
 
-<br>
-
-<a class="btn btn-info" role="button" href="/addDepartment" style="text-decoration: none;"> Add Department </a>
-            <a th:if="${!departmentList.content.isEmpty()}" class="btn btn-info" role="button" href="/addDoctor" style="text-decoration: none;"> Add Doctor </a>
-
 </div>
+    <a class="btn btn-info" role="button" href="/addDepartment" style="text-decoration: none;"> Add Department </a>
+    <a th:if="${!departmentList.content.isEmpty()}" class="btn btn-info" role="button" href="/addDoctor" style="text-decoration: none;"> Add Doctor </a>
 </div>
 
 

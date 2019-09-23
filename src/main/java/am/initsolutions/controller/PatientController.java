@@ -47,8 +47,6 @@ public class PatientController {
         }
         modelMap.addAttribute("patientHistories", patientHistoryDtos);
 
-        //TODO
-
         return "patientHistory";
     }
 

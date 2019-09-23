@@ -1,18 +1,41 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
+     <a class="btn btn-warning" role="button" href="/patient">Back</a><br>
            <div th:if="${!patientHistories.isEmpty()}">
                <table class="department table table-hover">
                    <thead>
                    <tr>
                        <th>Complaints</th>
                        <th>Diagnose</th>
+                       <th>Therapist</th>
+                       <th>Recipe</th>
+                       <th>Recipe Description</th>
                    </tr>
                    </thead>
                    <tbody>
                    <tr th:each="patientHistory: ${patientHistories}">
-                       <td th:text="${patientHistory.complaints}"></td>
-                       <td th:text="${patientHistory.diagnose}"></td>
+                       <td th:text="${patientHistory.complaints.substring(0, patientHistory.complaints.length()/4)} + '...'"></td>
+
+                       <div th:if="${patientHistory.diagnose != null}">
+                           <td th:text="${patientHistory.diagnose.substring(0, patientHistory.diagnose.length()/4) + '...'}"></td>
+                       </div>
+                       <div th:unless="${patientHistory.diagnose != null}">
+                           <td th:text="'Absent'"></td>
+                       </div>
+
+                       <td th:text="${patientHistory.doctorDto.name} + ' ' + ${patientHistory.doctorDto.surname}"></td>
+                       <div th:if="${patientHistory.recipeDto != null}">
+                           <td th:text="${patientHistory.recipeDto.medicines.subList(0, 1)} + '...'"></td>
+                           <td th:text="${patientHistory.recipeDto.description.substring(0, 15) + '...'}"></td>
+
+                           <!--TODO-->
+                       </div>
+                       <div th:unless="${patientHistory.recipeDto != null}">
+                           <td th:text="'Absent'"></td>
+                           <td th:text="'Absent'"></td>
+                       </div>
+                       <td class="see"><a  role="button" class="btn btn-success" th:href="@{'/'}" >See History </a></td>
                    </tr>
                    </tbody>
                </table>
