@@ -2,6 +2,7 @@ package am.initsolutions.controller;
 
 import am.initsolutions.forms.DepartmentForm;
 import am.initsolutions.models.Department;
+import am.initsolutions.models.Doctor;
 import am.initsolutions.models.Hospital;
 import am.initsolutions.repository.DepartmentRepository;
 import am.initsolutions.repository.DoctorRepository;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.LongStream;
+
 
 @Controller
 public class DepartmentAdminController {
@@ -34,15 +34,14 @@ public class DepartmentAdminController {
 
     @Autowired
     private DepartmentService departmentService;
-    @Autowired
-    private  DepartmentRepository departmentRepository;
+
     //SELECT DEPARTMENT
     @GetMapping("/departmentAdmin")
     public String departmentAdmin(Model map, @RequestParam("page") Optional<Integer> page,
                                   @RequestParam("size") Optional<Integer> size){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse( 5);
-        Page<Department> all = departmentRepository.findAll(new PageRequest(currentPage-1,pageSize));
+        Page<Department> all = departmentService.getAll(new PageRequest(currentPage-1,pageSize));
        // List<Department> all = departmentService.getAll();
         map.addAttribute("departmentList", all);
 
@@ -84,8 +83,22 @@ public class DepartmentAdminController {
 
 
     @GetMapping("/byDepartment")
-    public String byDepartment(@RequestParam("departmentId") Long departmentId, ModelMap modelMap) {
-        modelMap.addAttribute("doctors", doctorRepository.findAllByDepartmentId(departmentId));
+    public String byDepartment(@RequestParam("departmentId") Long departmentId, ModelMap modelMap, @RequestParam("page") Optional<Integer> page,
+                               @RequestParam("size") Optional<Integer> size) {
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse( 5);
+        Page<Doctor> all = doctorRepository.findAllByDepartmentId(new PageRequest(currentPage-1,pageSize),departmentId);
+        modelMap.addAttribute("doctors", all);
+
+        int totalPages = all.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            modelMap.addAttribute("pageNumbers", pageNumbers);
+        }
+        modelMap.addAttribute("departmentId", departmentId);
         return "doctorsByDepartment";
     }
 

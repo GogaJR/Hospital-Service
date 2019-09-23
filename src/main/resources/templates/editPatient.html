@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="jumbotron">
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
+     layout:fragment="~{body}" th:remove="tag">
             <form method="post" th:action="'/patient/' + ${patient.id} + '/edit'" style="width: 50%">
                 <div class="md-form">
                     <input class="form-control" type="text" name="name" th:value="${patient.name}"><br>
@@ -43,7 +33,3 @@
                 <button class="btn btn-warning" type="submit">Save Changes</button>
             </form>
         </div>
-    </div>
-</div>
-</body>
-</html>
