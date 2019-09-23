@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>DoctorsByDepartment</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="jumbotron">
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
+     layout:fragment="~{body}" th:remove="tag">
             <a class="btn btn-warning" role="button" href="/logout">Logout</a><br><br>
 <h3>Doctors List:</h3>
 <table class="table table-hover">
@@ -36,10 +26,13 @@
     </tr>
     </tbody>
 </table>
+
+            <div th:if="${doctors.totalPages > 0}" class="pagination"
+                 th:each="pageNumber : ${pageNumbers}">
+                    <a th:href="@{'/byDepartment?departmentId='+${departmentId.intValue()}+'&'(size=${doctors.size}, page=${pageNumber})}"
+                       th:text="${pageNumber}"
+                       th:class="${pageNumber==doctors.number + 1} ? active"></a>
+            </div>
 <br>
             <a class="btn btn-warning" role="button" href="/departmentAdmin" style="text-decoration: none;"> Go back to Department! </a>
         </div>
-    </div>
-</div>
-</body>
-</html>

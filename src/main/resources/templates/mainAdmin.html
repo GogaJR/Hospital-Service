@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Main Admin</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="jumbotron">
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
+     layout:fragment="~{body}" th:remove="tag">
 <a class="btn btn-warning" role="button" href="/logout">Logout</a>
 
 <h3>Hospital List:</h3>
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
 <table class="mainAdmin table table-hover">
     <thead>
     <tr>
@@ -35,12 +27,19 @@
         <td class="edit"><a  th:href="@{'/mainAdmin/edit/' + ${h.id}}">Edit Hospital</a></td>
     </tr></tbody>
 </table>
-
+            </div>
 <a role="button" class="btn btn-info" href="/mainAdmin/add" style="text-decoration: none;"> Add Hospital </a>
-        </div></div></div>
-</body>
+        </div>
 </html>
 <style>
+    .my-custom-scrollbar {
+        position: relative;
+        height: 200px;
+        overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+        display: block;
+    }
     .mainAdmin td.delete a{
         color:red;
     }

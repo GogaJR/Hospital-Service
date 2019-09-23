@@ -2,6 +2,7 @@ package am.initsolutions.controller;
 
 import am.initsolutions.forms.DepartmentForm;
 import am.initsolutions.models.Department;
+import am.initsolutions.models.Doctor;
 import am.initsolutions.models.Hospital;
 import am.initsolutions.repository.DepartmentRepository;
 import am.initsolutions.repository.DoctorRepository;
@@ -40,7 +41,9 @@ public class DepartmentAdminController {
                                   @RequestParam("size") Optional<Integer> size){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse( 5);
-        Page<Department> all = departmentService.getAll(new PageRequest(currentPage-1, pageSize));
+
+        Page<Department> all = departmentService.getAll(new PageRequest(currentPage-1,pageSize));
+       // List<Department> all = departmentService.getAll();
         map.addAttribute("departmentList", all);
 
         List<Integer> pageNumbers = MainController.getPageNumbers(all.getTotalPages());
@@ -79,8 +82,22 @@ public class DepartmentAdminController {
 
 
     @GetMapping("/byDepartment")
-    public String byDepartment(@RequestParam("departmentId") Long departmentId, ModelMap modelMap) {
-        modelMap.addAttribute("doctors", doctorRepository.findAllByDepartmentId(departmentId));
+    public String byDepartment(@RequestParam("departmentId") Long departmentId, ModelMap modelMap, @RequestParam("page") Optional<Integer> page,
+                               @RequestParam("size") Optional<Integer> size) {
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse( 5);
+        Page<Doctor> all = doctorRepository.findAllByDepartmentId(new PageRequest(currentPage-1,pageSize),departmentId);
+        modelMap.addAttribute("doctors", all);
+
+        int totalPages = all.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            modelMap.addAttribute("pageNumbers", pageNumbers);
+        }
+        modelMap.addAttribute("departmentId", departmentId);
         return "doctorsByDepartment";
     }
 

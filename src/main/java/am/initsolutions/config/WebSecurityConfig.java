@@ -35,6 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/mainAdmin").hasAuthority("ADMIN")
                 .antMatchers("/doctorPage").hasAuthority("DOCTOR")
                 .antMatchers("/departmentAdmin").hasAuthority("HOSPITAL_ADMIN")
+                .antMatchers("/pharmacyAdmin").hasAuthority("PHARMACY_ADMIN")
+                .antMatchers("/moderator").hasAuthority("PHARMACY_MEDICINE_MODERATOR")
                 .antMatchers("/hospitalAdmin").hasAuthority("HOSPITAL_ADMIN");
 
         }
