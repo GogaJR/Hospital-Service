@@ -1,11 +1,10 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
-            <a class="btn btn-warning" role="button" href="/mainAdmin" style="text-decoration: none;"> Go back to Department! </a>
+            <a class="btn btn-warning" role="button" href="/mainAdmin" style="text-decoration: none;"> Back </a>
             <div class="card" style=" width: 50%;">
                 <div class="card-body px-lg-5 pt-0">
                     <h3>Add Hospital!</h3>
-<td th:if="${error == null}" th:text="Add Error"></td>
     <form method="post" action="/mainAdmin/add">
             <div class="md-form">
                 <input type="text" name="name" class="form-control" placeholder="Hospital Name" required/><br>

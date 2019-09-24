@@ -1,8 +1,9 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
+    <a class="btn btn-warning" role="button" href="/patient" style="text-decoration: none;"> Back! </a>
 <div th:if="${!doctors.isEmpty()}">
-    <h3>Doctor List:</h3>
+    <h3>Doctor List</h3>
     <table class="department table table-hover">
         <thead>
         <tr>
