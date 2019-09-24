@@ -1,9 +1,6 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Hospital Services</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
+     layout:fragment="~{body}" th:remove="tag">
 
     <style>
         .my-custom-scrollbar {
@@ -38,16 +35,13 @@
             color: #333;
         }
     </style>
-</head>
-<body>
-<div th:if="${added}">
-    <script>
-        alert('Medicine Added Successfully!')
-    </script>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="jumbotron">
+
+
+    <div th:if="${added}">
+        <script>
+            alert('Medicine Added Successfully!')
+        </script>
+    </div>
             <a class="btn btn-warning" role="button" href="/pharmacyAdmin">Back</a>
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
                 <div class="panel panel-primary filterable">
@@ -78,8 +72,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
 <script>
     jQuery(document).ready(function(){
         jQuery('.filterable .btn-filter').click(function(){
@@ -123,5 +116,3 @@
         });
     });
 </script>
-</body>
-</html>
