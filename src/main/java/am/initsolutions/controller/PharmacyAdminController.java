@@ -42,13 +42,14 @@ public class PharmacyAdminController {
 
     @GetMapping("/pharmacyAdmin/addMedicine/{id}")
     public String getAddMedicinePage(@PathVariable("id") Long id, ModelMap modelMap,
-                                     @ModelAttribute("added") Boolean added) {
+                                     @ModelAttribute("added") Boolean added, HttpServletRequest request) {
         List<Medicine> medicines = medicineService.getAll();
         modelMap.addAttribute("medicineList", medicines);
         modelMap.addAttribute("pharmacyId", id);
 
         if (added != null) {
             modelMap.addAttribute("added", added);
+            request.getSession().setAttribute("added", false);
         }
 
         return "addMedicineToPharmacy";
@@ -87,23 +88,4 @@ public class PharmacyAdminController {
 
         return "redirect:/pharmacyAdmin/medicines/" + pharmacyId;
     }
-
-//    @GetMapping("/pharmacyAdmin/medicines/{pharmacyId}/edit/{medicineId}")
-//    public String getEditMedicinePage(@PathVariable("pharmacyId") Long pharmacyId,
-//                                      @PathVariable("medicineId") Long medicineId, ModelMap modelMap) {
-//        PharmacyMedicine pharmacyMedicine = pharmacyMedicineService.get(pharmacyId, medicineId);
-//        PharmacyMedicineDto pharmacyMedicineDto = PharmacyMedicineDto.from(pharmacyMedicine);
-//        modelMap.addAttribute("pharmacyMedicine", pharmacyMedicineDto);
-//
-//        //TODO
-//
-//        return "editMedicine";
-//    }
-//
-//    @PostMapping("/pharmacyAdmin/medicines/{pharmacyId}/edit")
-//    public String editMedicine(@PathVariable("pharmacyId") Long pharmacyId, MedicineFormWithId medicineForm) {
-//        medicineService.update(medicineForm);
-//
-//        return "redirect:/pharmacyAdmin/medicines/" + pharmacyId;
-//    }
 }

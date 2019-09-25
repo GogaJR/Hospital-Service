@@ -1,0 +1,59 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
+     layout:fragment="~{body}" th:remove="tag">
+    <table class="medicine table table-hover">
+        <thead>
+        <tr>
+            <th>Medicine Name</th>
+        </tr>
+        </thead>
+        <tbody id="row">
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var medicines = JSON.parse(localStorage.getItem("medicines"));
+    if (medicines != null && medicines != "null") {
+        for (var i=0; i<medicines.length; i++) {
+            var tr = document.createElement("tr");
+            var td1 = document.createElement("td");
+            var td2 = document.createElement("td");
+            var a = document.createElement("a");
+            a.setAttribute("role", "button");
+            a.setAttribute("class", "btn btn-success");
+            a.addEventListener('click', (function(i) {
+                return function() {
+                    deleteFromLocalStorage(i);
+                }
+            })(i));
+
+            var text1 = document.createTextNode(medicines[i]);
+            var text2 = document.createTextNode("Delete");
+            a.appendChild(text2);
+            td2.appendChild(a);
+            td1.appendChild(text1);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            document.getElementById("row").appendChild(tr);
+        }
+    }
+
+    function deleteFromLocalStorage(medicineIndex) {
+        var medicines = JSON.parse(localStorage.getItem("medicines"));
+        medicines.splice(medicineIndex, 1);
+        localStorage.setItem("medicines", JSON.stringify(medicines));
+
+        var index = JSON.parse(localStorage.getItem("index"));
+        index--;
+        localStorage.setItem("index", JSON.stringify(index));
+
+        printMedicinesOfPatient(medicineIndex)
+    }
+
+    function printMedicinesOfPatient(trIndex) {
+        var tr = document.getElementsByTagName("tr");
+        trIndex++;
+        tr[trIndex].parentNode.removeChild(tr[trIndex]);
+    }
+</script>

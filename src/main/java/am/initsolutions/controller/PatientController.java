@@ -46,8 +46,20 @@ public class PatientController {
             patientHistoryDtos.add(patientHistoryDto);
         }
         modelMap.addAttribute("patientHistories", patientHistoryDtos);
+        modelMap.addAttribute("patientId", id);
 
         return "patientHistory";
+    }
+
+    @GetMapping("/patient/{patientId}/history/{historyId}")
+    public String seeHistoryDetails(@PathVariable("patientId") Long patientId,
+                                    @PathVariable("historyId") Long historyId, ModelMap modelMap) {
+        PatientHistory patientHistory = patientHistoryService.get(historyId);
+        PatientHistoryDto patientHistoryDto = PatientHistoryDto.from(patientHistory);
+        modelMap.addAttribute("history", patientHistoryDto);
+        modelMap.addAttribute("patientId", patientId);
+
+        return "historyDetails";
     }
 
     @GetMapping("/patient/{id}/edit")
@@ -139,5 +151,12 @@ public class PatientController {
         modelMap.addAttribute("patientId", id);
 
         return "orderMedicine";
+    }
+
+    @GetMapping("/patient/{id}/cart")
+    public String medicinesInCart(@PathVariable("id") Long id, ModelMap modelMap) {
+        modelMap.addAttribute("patientId", id);
+
+        return "cart";
     }
 }

@@ -35,7 +35,7 @@
                            <td th:text="'Absent'"></td>
                            <td th:text="'Absent'"></td>
                        </div>
-                       <td class="see"><a  role="button" class="btn btn-success" th:href="@{'/'}" >See History </a></td>
+                       <td class="see"><a  role="button" class="btn btn-success" th:href="@{'/patient/' + ${patientId} + '/history/' + ${patientHistory.id}}">See History </a></td>
                    </tr>
                    </tbody>
                </table>

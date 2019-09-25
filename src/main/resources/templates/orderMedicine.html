@@ -1,10 +1,11 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
-            <a class="btn btn-warning" role="button" href="/patient">Back</a>
+            <a class="btn btn-warning" style="float: left;" role="button" href="/patient">Back</a>
+            <a class="btn btn-warning" style="float: right;" role="button" th:href="@{'/patient/' + ${patientId} + '/cart'}">Cart</a>
 
             <div th:if="${!medicinesWithPharmacies.isEmpty()}">
-                Filter By Pharmacy Name<br>
+                <br>Filter By Pharmacy Name<br>
                 <select id="mylist" onchange="myFunction()" class='form-control'>
                 <option>All</option>
                     <div th:each="pharmacyName: ${pharmacyNames}">
@@ -29,7 +30,7 @@
                                 <td th:text="${pharmacyMedicine.pharmacyAddress}"></td>
                                 <td th:text="${pharmacyMedicine.medicineCount}"></td>
                                 <td style="color: green" th:text="'In'"></td>
-                                <td class="delete"><a  role="button" class="btn btn-success" th:href="@{/delete(id=${medicineWithPharmacy.key.id})}" >Add To Cart</a></td>
+                                <td class="delete"><a  role="button" class="btn btn-success" th:onclick="|addToCart('${medicineWithPharmacy.key.name}')|" >Add To Cart</a></td>
                             </tr>
                         </div>
                         <tr th:unless="${!medicineWithPharmacy.value.isEmpty()}">
@@ -78,6 +79,21 @@
                     tr[i].style.display = "none";
                 }
             }
+        }
+    }
+    
+    function addToCart(medicineName) {
+        var medicines = JSON.parse(localStorage.getItem("medicines"));
+        if (medicines == null || medicines == "null") {
+            var medicineArray = new Array();
+            medicineArray[0] = medicineName;
+            localStorage.setItem("medicines", JSON.stringify(medicineArray));
+            localStorage.setItem("index", JSON.stringify(0));
+        } else {
+            var index = JSON.parse(localStorage.getItem("index"));
+            medicines[++index] = medicineName;
+            localStorage.setItem("medicines", JSON.stringify(medicines));
+            localStorage.setItem("index", JSON.stringify(index));
         }
     }
 </script>

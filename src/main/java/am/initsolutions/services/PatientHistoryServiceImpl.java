@@ -43,6 +43,11 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     }
 
     @Override
+    public PatientHistory get(Long historyId) {
+        return patientHistoryRepository.findOne(historyId);
+    }
+
+    @Override
     public List<PatientHistory> getAllByPatientId(Long patientId) {
         return patientHistoryRepository.findAllByPatientId(patientId);
     }

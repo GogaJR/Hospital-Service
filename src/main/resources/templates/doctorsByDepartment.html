@@ -7,18 +7,17 @@
     <thead>
     <tr>
         <th>Name</th>
-        <th>Age</th>
         <th>Surname</th>
-        <th>Doctor's department name</th>
-        <th>Doctor's hospital name</th>
-        <th colspan="3" >Action</th>
+        <th>Age</th>
+        <th>Department</th>
+        <th>Hospital</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="d: ${doctors}">
         <td th:text="${d.name}"></td>
-        <td th:text="${d.age}"></td>
         <td th:text="${d.surname}"></td>
+        <td th:text="${d.age}"></td>
         <td th:text="${d.department.name}"></td>
         <td th:text="${d.hospital.name}"></td>
         <td><a  th:href="@{/deleteDoctor(id=${d.id})}" >Delete Doctor</a></td>

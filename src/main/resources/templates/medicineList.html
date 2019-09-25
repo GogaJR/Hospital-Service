@@ -17,7 +17,6 @@
                 <td th:text="${pharmacyMedicine.medicine.name}"></td>
                 <td th:text="${pharmacyMedicine.medicineCount}"></td>
                 <td><a  th:href="@{'/pharmacyAdmin/medicines/' + ${pharmacyMedicine.pharmacyId} + '/delete/' + ${pharmacyMedicine.medicine.id}}" >Delete Medicine</a></td>
-                <td><a  th:href="@{'/pharmacyAdmin/medicines/' + ${pharmacyMedicine.pharmacyId} + '/edit/' + ${pharmacyMedicine.medicine.id}}" >Edit Medicine</a></td>
             </tr>
         </tbody>
         </table>

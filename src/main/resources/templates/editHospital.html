@@ -1,10 +1,10 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
-            <a class="btn btn-warning" role="button" href="/mainAdmin" style="text-decoration: none;"> Go back to Department! </a><br>
+            <a class="btn btn-warning" role="button" href="/mainAdmin" style="text-decoration: none;"> Back </a><br>
             <div class="card" style=" width: 50%;">
                 <div class="card-body px-lg-5 pt-0">
-                    <h3>Edit Hospital!</h3>
+                    <h3>Edit Hospital</h3>
     <form method="post" action="/mainAdmin/edit">
         <div class="md-form">
             <input type="text" name="name" class="form-control" placeholder="Hospital Name" required th:value="${hospital.name}"/><br>

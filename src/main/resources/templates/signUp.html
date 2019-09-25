@@ -1,10 +1,10 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
+    <a class="btn btn-warning" role="button" href="/login">Back</a>
     <div class="card" style=" width: 50%;">
         <div class="card-body px-lg-5 pt-0">
-    <h3>Add Patient!</h3>
-    <td th:if="${error}" th:text="Sign Up Error"></td>
+    <h3>Sign Up</h3>
     <form method="post" action="/register">
         <div class="md-form">
             <input type="text" name="name" class="form-control" placeholder="Name" required/><br>
@@ -16,14 +16,11 @@
        <input type="number" name="age" min="0" class="form-control" placeholder="Age" required/><br>
         </div>
 
-
-        <!-- Default unchecked -->
         <div class="custom-control custom-radio">
             <input type="radio" class="custom-control-input" id="defaultUnchecked" name="gender" value="MALE">
             <label class="custom-control-label" for="defaultUnchecked">MALE</label>
         </div>
 
-        <!-- Default checked -->
         <div class="custom-control custom-radio">
             <input type="radio" class="custom-control-input" id="defaultChecked" name="gender" checked value="FEMALE">
             <label class="custom-control-label" for="defaultChecked">FEMALE</label>

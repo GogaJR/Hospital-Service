@@ -4,18 +4,22 @@
 <a class="btn btn-warning" role="button" href="/logout">Logout</a>
 
     <div th:if="${!pharmacies.isEmpty()}">
-
         <div class="table-wrapper-scroll-y my-custom-scrollbar">
-        <table class="pharmacy table table-hover ">
+            <div class="panel panel-primary filterable">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Medicine</h3>
+                    <div class="pull-right">
+                        <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                    </div>
+                </div>
+                <table class="pharmacy table table-hover ">
             <thead>
             <tr class="filters">
                 <th><input type="text" class="form-control" placeholder="Name" disabled></th>
-                <td>Address</td>
-                <td>Phone Number</td>
-                <td>Open At</td>
-                <td>Close At</td>
-                <td colspan="2">Action</td>
-
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Open At</th>
+                <th>Close At</th>
             </tr>
             </thead>
             <tbody>
@@ -31,31 +35,20 @@
                     <td th:text="${pharmacy.closeAt}"></td>
                 </div>
 
-                <td class="delete"><a  th:href="@{'/pharmacyAdmin/delete/' + ${pharmacy.id}}" >Delete Pharmacy</a></td>
-                <td class="edit"><a  th:href="@{'/pharmacyAdmin/edit/' + ${pharmacy.id}}">Edit Pharmacy</a></td>
                 <td class="pharmacyList"><a  th:href="@{'/pharmacyAdmin/addMedicine/' + ${pharmacy.id}}">Add Medicine</a></td>
                 <td class="pharmacyList"><a  th:href="@{'/pharmacyAdmin/medicines/' + ${pharmacy.id}}">List Medicine</a></td>
-                <td><a  th:href="@{'/pharmacyAdmin/addMedicine/' + ${pharmacy.id}}">Add Medicine</a></td>
-                <td><a  th:href="@{'/pharmacyAdmin/medicines/' + ${pharmacy.id}}">List Medicine</a></td>
-
             </tr>
             </tbody>
         </table>
+            </div>
         </div>
-    </div>
+        </div>
 
     <div th:unless="${!pharmacies.isEmpty()}">
         <h2>There is no pharmacies</h2>
     </div>
 
-
-<form method="get" action="/pharmacyAdmin/add">
-    <button class="btn btn-info" type="submit">Add Pharmacy</button>
-</form>
             </div>
-
-
-        </div>
 
 
 <style>
@@ -154,10 +147,6 @@
 
 
 </script>
-=======
-<!--<form method="get" action="/pharmacyAdmin/add">-->
-    <!--<button type="submit">Add Pharmacy</button>-->
-<!--</form>-->
+
 </body>
 </html>
->>>>>>> bf8f881b8f8d80b0b86a50800cee3c0e416a933f
