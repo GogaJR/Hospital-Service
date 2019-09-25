@@ -1,28 +1,33 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
-            <h3>Patient History Page</h3>
-            <div th:if="${!patientHistoryList.isEmpty()}">
-                <table class="department table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Complaints</th>
-                        <th>Diagnose</th>
-                        <th>Patient Name</th>
-                        <th>Doctor Name</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="patientHistory: ${patientHistoryList}">
-                        <td th:text="${patientHistory.complaints}"></td>
-                        <td th:text="${patientHistory.diagnose}"></td>
-                        <td th:text="${patientHistory.getPatient().name}"></td>
-                        <td th:text="${patientHistory.getDoctor().name}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div th:unless="${!patientHistoryList.isEmpty()}">
-                You have no history!
-            </div>
-        </div>
+    <h3>Patient History Page</h3>
+    <a class="btn btn-warning" role="button" th:href="@{/doctorPage}">Back to doctor page</a><br><br>
+    <div th:if="${!patientHistoryList.isEmpty()}">
+        <table class="department table table-hover">
+            <thead>
+            <tr>
+                <th>Complaints</th>
+                <th>Diagnose</th>
+                <th>Patient Name</th>
+                <th>Doctor Name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patientHistory: ${patientHistoryList}">
+                <input type="hidden" th:value="${patientHistory.getPatient().getId()}">
+                <input type="hidden" th:value="${patientHistory.getDoctor().getId()}">
+                <td th:text="${patientHistory.complaints}"></td>
+                <td th:text="${patientHistory.diagnose}"></td>
+                <td th:text="${patientHistory.getPatient().name}"></td>
+                <td th:text="${patientHistory.getDoctor().name}"></td>
+                <td class=""><a  th:href="@{/addDiagnoseByPatientId(id=${patientHistory.id})}">Add  diagnose or Recipe</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:unless="${!patientHistoryList.isEmpty()}">
+        You have no history!
+    </div>
+</div>

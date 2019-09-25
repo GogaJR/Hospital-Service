@@ -8,4 +8,6 @@ import java.util.List;
 public interface PatientHistoryService {
     void add(Long patientId, ComplaintsForm complaintsForm);
     List<PatientHistory> getAllByPatientId(Long patientId);
+    void update(PatientHistory patientHistory);
+    PatientHistory get(Long patientHistoryId);
 }

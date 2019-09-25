@@ -16,7 +16,7 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     Patient findByUserId(Long userId);
 
     @Modifying
-    @Query(value="SELECT * FROM patient INNER JOIN patient_doctor ON patient.id=patient_doctor.patient_id where patient_doctor.doctor_id=:doctorId",
+    @Query(value="SELECT * FROM patient INNER JOIN patient_doctor ON patient.id=patient_doctor.patient_id where patient_doctor.doctor_id=:doctorId GROUP BY patient.id",
             nativeQuery = true)
     List<Patient> patientListByDoctorId(@Param("doctorId") long doctorId);
 

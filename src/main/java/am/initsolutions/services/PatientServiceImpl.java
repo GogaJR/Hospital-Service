@@ -35,7 +35,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void setDoctor(Patient patient, Doctor doctor) {
-        List<Doctor> doctors = new ArrayList<>();
+        List<Doctor> doctors = patient.getDoctors();
         doctors.add(doctor);
         patient.setDoctors(doctors);
 
