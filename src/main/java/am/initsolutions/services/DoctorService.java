@@ -12,4 +12,5 @@ public interface DoctorService {
     Doctor getByUserId(long id);
 
 
+
 }

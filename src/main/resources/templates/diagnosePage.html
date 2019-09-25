@@ -1,0 +1,54 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
+     layout:fragment="~{body}" th:remove="tag">
+
+    <a class="btn btn-warning" role="button" th:href="@{/doctorPage}">Back to doctor page</a><br><br>
+    <div class="card" style=" width: 50%;">
+        <div class="card-body px-lg-5 pt-0">
+            <h3>Add Patinet Diagnose and Recipe!</h3>
+            <form  th:action="@{/addDiagnoseByPatientId}"  method="post">
+                <input type="hidden" name="id" th:value="${patientHistory.id}">
+                <input type="hidden" name="doctorId" th:value="${patientHistory.getDoctor().id}">
+                <input type="hidden" name="patientId" th:value="${patientHistory.getPatient().id}">
+                <input type="hidden" name="complaints" th:value="${patientHistory.getComplaints()}">
+                <div class="md-form">
+                    <textarea rows="4" cols="50" name="diagnose" th:value="${patientHistory.diagnose}" class="form-control">
+                    </textarea>
+                </div>
+
+                <input class="btn btn-success" type="submit" value="Add or Edit Diagnose">
+            </form>
+
+
+            <hr>
+            <button class="btn btn-success" onclick="myFunction()">Click to add Recipe</button><br>
+            <form  th:action="@{/addRecipe}"  method="post" id="appear">
+                <input type="hidden" name="doctorId" th:value="${patientHistory.getDoctor().id}">
+                <div class="md-form">
+                    <textarea rows="4" cols="50" name="description"  class="form-control">
+                    </textarea>
+                </div>
+                <input class="btn btn-warning" type="submit" value="Add Recipe">
+            </form>
+        </div>
+    </div>
+
+
+</div>
+<style>
+    #appear{
+        display: none;
+        margin-top: 10px;
+    }
+</style>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("appear");
+        if (x.style.display == "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+</script>

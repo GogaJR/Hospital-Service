@@ -47,8 +47,6 @@ public class DoctorAdminController {
         if (doctorNew != null) {
             return "redirect:/departmentAdmin";
         }
-
-        
         map.addAttribute("error", true);
         return "addDoctor";
     }

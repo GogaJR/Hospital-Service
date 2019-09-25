@@ -10,35 +10,35 @@
                     <p th:text="'Experience - ' + ${doctor.experience}"></p>
                     <hr>
 
-                    <button type="button" class="btn btn-success" data-toggle="modal" th:data-target="'#exampleModal' + ${doctor.id}">
-                        Register to this doctor
-                    </button>
+            <button type="button" class="btn btn-success" data-toggle="modal" th:data-target="'#exampleModal' + ${doctor.id}">
+                Register to this doctor
+            </button>
 
-                    <div class="modal fade" th:id="'exampleModal' + ${doctor.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form method="post" th:action="'/patient/' + ${patientId} + '/register'">
-                                <div class="modal-body">
-                                    <input type="hidden" name="doctorId" th:value="${doctor.id}">
-                                    <textarea rows="10" cols="70" name="complaints"></textarea>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Send</button>
-                                </div>
-                                </form>
-                            </div>
+            <div class="modal fade" th:id="'exampleModal' + ${doctor.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+                        <form method="post" th:action="'/patient/' + ${patientId} + '/register'">
+                            <div class="modal-body">
+                                <input type="hidden" name="doctorId" th:value="${doctor.id}">
+                                <textarea rows="10" cols="70" name="complaints"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Send</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div th:unless="${!doctors.isEmpty()}">
-                There Are No Doctors!
-            </div>
         </div>
+    </div>
+    <div th:unless="${!doctors.isEmpty()}">
+        There Are No Doctors!
+    </div>
+</div>

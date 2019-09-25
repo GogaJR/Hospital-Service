@@ -3,15 +3,19 @@ package am.initsolutions.controller;
 import am.initsolutions.dto.*;
 import am.initsolutions.forms.ComplaintsForm;
 import am.initsolutions.models.*;
+import am.initsolutions.repository.PatientHistoryRepository;
+import am.initsolutions.security.SpringUser;
 import am.initsolutions.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +40,9 @@ public class PatientController {
 
     @Autowired
     private PharmacyService pharmacyService;
+
+    @Autowired
+    private PatientHistoryRepository patientHistoryRepository;
 
     @GetMapping("/patient/{id}/history")
     public String getDiseaseHistoryPage(@PathVariable("id") Long id, ModelMap modelMap) {

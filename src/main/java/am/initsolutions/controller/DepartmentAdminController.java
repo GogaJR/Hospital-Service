@@ -106,15 +106,13 @@ public class DepartmentAdminController {
     public String editDepartment(@RequestParam("id") Long id, ModelMap model){
         Department department = departmentService.get(id);
         model.addAttribute("department", department);
-//        List<Hospital> all = hospitalService.getAll();
-//        model.addAttribute("hospitaltList", all);
         return "editDepartment";
     }
 
 
 
     @PostMapping("/editDepartment")
-    public String editPharmacy(Department department) {
+    public String editDepartment(Department department) {
         departmentService.update(department);
         return "redirect:/departmentAdmin";
     }

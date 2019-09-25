@@ -9,4 +9,6 @@ public interface PatientHistoryService {
     void add(Long patientId, ComplaintsForm complaintsForm);
     PatientHistory get(Long historyId);
     List<PatientHistory> getAllByPatientId(Long patientId);
+    void update(PatientHistory patientHistory);
+    PatientHistory get(Long patientHistoryId);
 }

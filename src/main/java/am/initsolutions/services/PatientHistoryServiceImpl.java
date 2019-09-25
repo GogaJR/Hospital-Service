@@ -51,4 +51,16 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     public List<PatientHistory> getAllByPatientId(Long patientId) {
         return patientHistoryRepository.findAllByPatientId(patientId);
     }
+
+    @Override
+    public void update(PatientHistory patientHistory) {
+        PatientHistory pHistory = patientHistoryRepository.findOne(patientHistory.getId());
+        pHistory.setDiagnose(patientHistory.getDiagnose());
+        patientHistoryRepository.save(pHistory);
+    }
+
+    @Override
+    public PatientHistory get(Long id) {
+        return patientHistoryRepository.findOne(id);
+    }
 }
