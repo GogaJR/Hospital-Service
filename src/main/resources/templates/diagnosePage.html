@@ -2,7 +2,7 @@
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
 
-    <a class="btn btn-warning" role="button" th:href="@{/doctorPage}">Back to doctor page</a><br><br>
+    <a class="btn btn-warning" role="button" th:href="@{/doctorPage}" style="text-decoration: none;"> Back </a>
     <div class="card" style=" width: 50%;">
         <div class="card-body px-lg-5 pt-0">
             <h3>Add Patinet Diagnose and Recipe!</h3>
@@ -22,11 +22,18 @@
 
             <hr>
             <button class="btn btn-success" onclick="myFunction()">Click to add Recipe</button><br>
-            <form  th:action="@{/addRecipe}"  method="post" id="appear">
-                <input type="hidden" name="doctorId" th:value="${patientHistory.getDoctor().id}">
+            <form id="appear" th:action="@{/addRecipe}" method="post">
+                <input type="hidden" name="doctorId" th:value="${patientHistory.getDoctor().id}" id="doctorId">
                 <div class="md-form">
-                    <textarea rows="4" cols="50" name="description"  class="form-control">
+                    <textarea rows="4" cols="50" name="description"  class="form-control" id="description">
                     </textarea>
+                </div>
+
+                <div class="form-group">
+                    Medicine:<select  class="form-control"   id="medicines" name="medicines"  multiple="multiple"><br>
+                    <option th:each="m : ${medicines}" th:value="${m.id}" th:text="${m.name }" >
+                    </option>
+                </select><br>
                 </div>
                 <input class="btn btn-warning" type="submit" value="Add Recipe">
             </form>
@@ -51,4 +58,33 @@
             x.style.display = "block";
         }
     }
+
+
+
+    // function saveUser() {
+    //      var description=$('#description').val();
+    //     var medicineId=$('#medicineId').val();
+    //     var doctorId=$('#doctorId').val();
+    //     var data = {
+    //
+    //         "medicineId": medicineId,
+    //         "doctorId":doctorId,
+    //         "description":description
+    //
+    //     };
+    //     console.log(data)
+    //     $.ajax({
+    //         url: "/addRecipe",
+    //         method: "post",
+    //         contentType: "application/json",
+    //         data: JSON.stringify(data)
+    //     }).done(function (data) {
+    //         console.log(data)
+    //     }).fail(function (error) {
+    //       alert("error")
+    //     })
+    //
+    // }
+
+
 </script>

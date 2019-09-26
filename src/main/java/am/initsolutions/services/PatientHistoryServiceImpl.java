@@ -59,8 +59,8 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         patientHistoryRepository.save(pHistory);
     }
 
-    @Override
-    public PatientHistory get(Long id) {
-        return patientHistoryRepository.findOne(id);
-    }
+//    @Override
+//    public PatientHistory get(Long id) {
+//        return patientHistoryRepository.findOne(id);
+//    }
 }

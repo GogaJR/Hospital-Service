@@ -10,5 +10,5 @@ public interface PatientHistoryService {
     PatientHistory get(Long historyId);
     List<PatientHistory> getAllByPatientId(Long patientId);
     void update(PatientHistory patientHistory);
-    PatientHistory get(Long patientHistoryId);
+    //PatientHistory get(Long patientHistoryId);
 }

@@ -2,6 +2,7 @@ package am.initsolutions.controller;
 
 import am.initsolutions.models.*;
 import am.initsolutions.repository.PatientHistoryRepository;
+import am.initsolutions.repository.RecipeRepository;
 import am.initsolutions.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -31,12 +32,14 @@ public class DoctorController {
     @Autowired
     private PatientHistoryRepository patientHistoryRepository;
 
+    @Autowired
+    private RecipeRepository recipeRepository;
+
     @GetMapping("/patientListByDoctorId")
-    public String patientListByDoctorId(@RequestParam("doctorId") Long doctorId, ModelMap model, HttpSession session){
+    public String patientListByDoctorId(@RequestParam("doctorId") Long doctorId, ModelMap model){
         List<Patient> patientList= patientService.patientListByDoctorId(doctorId);
-        session.setAttribute("doctorId",patientList);
         model.addAttribute("patientList",patientList);
-        //model.addAttribute("doctorId",doctorId);
+        model.addAttribute("doctorId",doctorId);
         return "patientListByDoctor";
     }
 
@@ -44,15 +47,17 @@ public class DoctorController {
     public String patientHistoryListByPatientId(@RequestParam("patientId") Long patientId, ModelMap model){
         List<PatientHistory> patientHistoryList= patientHistoryService.getAllByPatientId(patientId);
         model.addAttribute("patientHistoryList",patientHistoryList);
+        model.addAttribute("patientId", patientId);
         return "patientHistoryListByPatientId";
     }
 
     @GetMapping("/addDiagnoseByPatientId")
-    public String editPatientHistory(@RequestParam("id") Long id,ModelMap modelMap,HttpSession session) {
+    public String editPatientHistory(@RequestParam("id") Long id,ModelMap modelMap) {
         PatientHistory patientHistory = patientHistoryService.get(id);
         modelMap.addAttribute("patientHistory", patientHistory);
-        session.setAttribute("patientId", patientHistory.getPatient().getId());
-        Long patientId= (Long) session.getAttribute("patientId");
+        List<Medicine> medicines=medicineService.getAll();
+        modelMap.addAttribute("medicines", medicines);
+        modelMap.addAttribute("id", id);
         return "diagnosePage";
     }
 
@@ -63,14 +68,13 @@ public class DoctorController {
     }
 
     @PostMapping("/addRecipe")
-    public String addRecipe(Long doctorId,Recipe recipe,Long patientId,Long id){
+    public String addRecipe(Long doctorId,Recipe recipe){
         Recipe recipe1 =  recipeService.add(doctorId,recipe);
-
         if (recipe1 != null) {
-           patientHistoryRepository.updateRecipeId(recipe1.getId());
-            return "redirect:/patientHistoryListByPatientId?patientId="+patientId;
+            patientHistoryRepository.updateRecipeId(recipe1.getId());
+            return "redirect:/doctorPage";
         }
-        return "redirect:/addDiagnoseByPatientId?id="+id;
+        return "redirect:/doctorPage";
 
     }
 

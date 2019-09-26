@@ -4,7 +4,7 @@
     <h3>Patient History Page</h3>
     <a class="btn btn-warning" role="button" th:href="@{/doctorPage}">Back to doctor page</a><br><br>
     <div th:if="${!patientHistoryList.isEmpty()}">
-        <table class="department table table-hover">
+        <table class="department table table-hover" style="table-layout: fixed; width: 100%;">
             <thead>
             <tr>
                 <th>Complaints</th>
@@ -18,11 +18,11 @@
             <tr th:each="patientHistory: ${patientHistoryList}">
                 <input type="hidden" th:value="${patientHistory.getPatient().getId()}">
                 <input type="hidden" th:value="${patientHistory.getDoctor().getId()}">
-                <td th:text="${patientHistory.complaints}"></td>
-                <td th:text="${patientHistory.diagnose}"></td>
-                <td th:text="${patientHistory.getPatient().name}"></td>
-                <td th:text="${patientHistory.getDoctor().name}"></td>
-                <td class=""><a  th:href="@{/addDiagnoseByPatientId(id=${patientHistory.id})}">Add  diagnose or Recipe</a></td>
+                <td th:text="${patientHistory.complaints}" style="width:25%;word-wrap: break-word;"></td>
+                <td th:text="${patientHistory.diagnose}" style="width:25%;word-wrap: break-word;"></td>
+                <td th:text="${patientHistory.getPatient().name}" style="width:25%;"></td>
+                <td th:text="${patientHistory.getDoctor().name}" style="width:25%;"></td>
+                <td class=""><a  th:href="@{/addDiagnoseByPatientId(id=${patientHistory.id})}" style="width:25%;">Add  diagnose or Recipe</a></td>
             </tr>
             </tbody>
         </table>

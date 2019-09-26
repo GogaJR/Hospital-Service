@@ -19,4 +19,6 @@ public interface PatientHistoryRepository extends JpaRepository<PatientHistory, 
     @Query(nativeQuery = true, value = "UPDATE patient_history,recipe SET recipe_id=:recipeId  WHERE  patient_history.doctor_id=recipe.doctor_id;")
     void updateRecipeId(@Param("recipeId") Long recipeId);
 
+
+
 }
