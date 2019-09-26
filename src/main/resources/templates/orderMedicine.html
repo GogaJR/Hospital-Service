@@ -2,10 +2,9 @@
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
             <a class="btn btn-warning" style="float: left;" role="button" href="/patient">Back</a>
-            <a class="btn btn-warning" style="float: right;" role="button" th:href="@{'/patient/' + ${patientId} + '/cart'}">Cart</a>
+            <a class="btn btn-warning" style="float: right;" role="button" th:href="@{'/patient/' + ${patientId} + '/cart'}">Cart</a><br>
 
             <div th:if="${!medicinesWithPharmacies.isEmpty()}">
-                <br>Filter By Pharmacy Name<br>
                 <select id="mylist" onchange="myFunction()" class='form-control'>
                 <option>All</option>
                     <div th:each="pharmacyName: ${pharmacyNames}">
@@ -30,7 +29,8 @@
                                 <td th:text="${pharmacyMedicine.pharmacyAddress}"></td>
                                 <td th:text="${pharmacyMedicine.medicineCount}"></td>
                                 <td style="color: green" th:text="'In'"></td>
-                                <td class="delete"><a  role="button" class="btn btn-success" th:onclick="|addToCart('${medicineWithPharmacy.key.name}')|" >Add To Cart</a></td>
+                                <td class="delete"><a  role="button" class="btn btn-success" th:onclick="|addToCart('${medicineWithPharmacy.key.name}',
+                                            '${pharmacyMedicine.pharmacyName}', '${pharmacyMedicine.pharmacyAddress}')|" >Add To Cart</a></td>
                             </tr>
                         </div>
                         <tr th:unless="${!medicineWithPharmacy.value.isEmpty()}">
@@ -81,19 +81,28 @@
             }
         }
     }
-    
-    function addToCart(medicineName) {
+
+    function addToCart(medicineName, pharmacyName, pharmacyAddress) {
         var medicines = JSON.parse(localStorage.getItem("medicines"));
+        var pharmacies = JSON.parse(localStorage.getItem("pharmacies"));
+        var addresses = JSON.parse(localStorage.getItem("addresses"));
         if (medicines == null || medicines == "null") {
             var medicineArray = new Array();
+            var pharmacyArray = new Array();
+            var addressArray = new Array();
             medicineArray[0] = medicineName;
+            pharmacyArray[0] = pharmacyName;
+            addressArray[0] = pharmacyAddress;
             localStorage.setItem("medicines", JSON.stringify(medicineArray));
-            localStorage.setItem("index", JSON.stringify(0));
+            localStorage.setItem("pharmacies", JSON.stringify(pharmacyArray));
+            localStorage.setItem("addresses", JSON.stringify(addressArray));
         } else {
-            var index = JSON.parse(localStorage.getItem("index"));
-            medicines[++index] = medicineName;
+            medicines[medicines.length] = medicineName;
+            pharmacies[pharmacies.length] = pharmacyName;
+            addresses[addresses.length] = pharmacyAddress;
             localStorage.setItem("medicines", JSON.stringify(medicines));
-            localStorage.setItem("index", JSON.stringify(index));
+            localStorage.setItem("pharmacies", JSON.stringify(pharmacies));
+            localStorage.setItem("addresses", JSON.stringify(addresses));
         }
     }
 </script>

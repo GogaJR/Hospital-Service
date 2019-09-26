@@ -1,5 +1,6 @@
 package am.initsolutions.services;
 
+import am.initsolutions.forms.OrderForm;
 import am.initsolutions.forms.PatientForm;
 import am.initsolutions.models.Doctor;
 import am.initsolutions.models.Patient;
@@ -11,6 +12,7 @@ import java.util.List;
 
 public interface PatientService {
     void setDoctor(Patient patient, Doctor doctor);
+    void orderMedicine(Long patientId, OrderForm orderForm);
     Patient update(Patient patient);
     Patient get(Long id);
     Patient getByUserId(Long userId);

@@ -2,20 +2,16 @@ package am.initsolutions.controller;
 
 import am.initsolutions.dto.*;
 import am.initsolutions.forms.ComplaintsForm;
+import am.initsolutions.forms.OrderForm;
 import am.initsolutions.models.*;
 import am.initsolutions.repository.PatientHistoryRepository;
-import am.initsolutions.security.SpringUser;
 import am.initsolutions.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -98,12 +94,19 @@ public class PatientController {
     }
 
     @GetMapping("/patient/{id}/register")
-    public String register(@PathVariable("id") Long id, ModelMap modelMap) {
+    public String register(@PathVariable("id") Long id,
+                           @ModelAttribute("exists") Boolean exists, ModelMap modelMap, HttpServletRequest request) {
         List<Doctor> doctors = doctorService.getAll();
         List<DoctorDtoForPatient> doctorDtoForPatients = new ArrayList<>();
         for (Doctor doctor : doctors) {
             doctorDtoForPatients.add(DoctorDtoForPatient.from(doctor));
         }
+
+        if (exists != null) {
+            modelMap.addAttribute("exists", exists);
+            request.getSession().setAttribute("exists", false);
+        }
+
         modelMap.addAttribute("doctors", doctorDtoForPatients);
         modelMap.addAttribute("patientId", id);
 
@@ -112,10 +115,15 @@ public class PatientController {
 
     @PostMapping("/patient/{id}/register")
     public String registerForConsultation(@PathVariable("id") Long id, ComplaintsForm complaintsForm, HttpServletRequest request) {
-        patientHistoryService.add(id, complaintsForm);
-        request.getSession().setAttribute("registered", true);
+        boolean result = patientHistoryService.add(id, complaintsForm);
+        if (result) {
+            request.getSession().setAttribute("registered", true);
 
-        return "redirect:/patient";
+            return "redirect:/patient";
+        }
+
+        request.getSession().setAttribute("exists", true);
+        return "redirect:/patient/" + id + "/register";
     }
 
     @GetMapping("/patient/{id}/order/{page}/{size}")
@@ -149,7 +157,9 @@ public class PatientController {
         List<Pharmacy> pharmacies = pharmacyService.getAll();
         List<String> pharmacyNames = new ArrayList<>();
         for (Pharmacy pharmacy : pharmacies) {
-            pharmacyNames.add(pharmacy.getName());
+            if (!pharmacyNames.contains(pharmacy.getName())) {
+                pharmacyNames.add(pharmacy.getName());
+            }
         }
 
         modelMap.addAttribute("pharmacyNames", pharmacyNames);
@@ -165,5 +175,12 @@ public class PatientController {
         modelMap.addAttribute("patientId", id);
 
         return "cart";
+    }
+
+    @PostMapping(value = "/patient/{id}/order")
+    public void orderMedicine(@PathVariable("id") Long id,
+                                @RequestBody OrderForm orderForm) {
+
+        patientService.orderMedicine(id, orderForm);
     }
 }

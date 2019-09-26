@@ -4,14 +4,13 @@
 <div th:if="${registered}">
     <script>alert("Your Complaints Send Successfully!")</script>
 </div>
-
             <a class="btn btn-warning" role="button" href="/logout">Logout</a><br><br>
             <div align="left" th:text="${patient.name} + ' ' + ${patient.surname}"><br></div>
 
-        <a  th:href="@{'/patient/' + ${patient.id} + '/history'}" >See Disease History</a>
-        <a  th:href="@{'/patient/' + ${patient.id} + '/edit'}" >Edit Profile</a>
-        <a  th:href="@{'/patient/' + ${patient.id} + '/doctors'}" >My Doctors</a>
-        <a  th:href="@{'/patient/' + ${patient.id} + '/register'}" >Register for consultation</a>
-        <a  th:href="@{'/patient/' + ${patient.id} + '/order/1/5'}" >Order Medicine</a>
+        <a  class="btn btn-info" role="button" th:href="@{'/patient/' + ${patient.id} + '/history'}" style="text-decoration: none;">See Disease History</a>
+        <a  class="btn btn-info" role="button" th:href="@{'/patient/' + ${patient.id} + '/edit'}" style="text-decoration: none;">Edit Profile</a>
+        <a  class="btn btn-info" role="button" th:href="@{'/patient/' + ${patient.id} + '/doctors'}" style="text-decoration: none;">My Doctors</a>
+        <a  class="btn btn-info" role="button" th:href="@{'/patient/' + ${patient.id} + '/register'}" style="text-decoration: none;">Register for consultation</a>
+        <a  class="btn btn-info" role="button" th:href="@{'/patient/' + ${patient.id} + '/order/1/5'}" style="text-decoration: none;">Order Medicine</a>
     </div>
 

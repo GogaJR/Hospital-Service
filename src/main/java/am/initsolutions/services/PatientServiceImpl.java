@@ -1,13 +1,10 @@
 package am.initsolutions.services;
 
+import am.initsolutions.forms.OrderForm;
 import am.initsolutions.forms.PatientForm;
-import am.initsolutions.models.Doctor;
-import am.initsolutions.models.Patient;
-import am.initsolutions.models.User;
+import am.initsolutions.models.*;
 import am.initsolutions.models.enums.UserType;
-import am.initsolutions.repository.DoctorRepository;
-import am.initsolutions.repository.PatientRepository;
-import am.initsolutions.repository.UserRepository;
+import am.initsolutions.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.math.BigInteger;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +29,15 @@ public class PatientServiceImpl implements PatientService {
     private DoctorRepository doctorRepository;
 
     @Autowired
+    private MedicineRepository medicineRepository;
+
+    @Autowired
+    private PharmacyRepository pharmacyRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
@@ -40,6 +48,23 @@ public class PatientServiceImpl implements PatientService {
         patient.setDoctors(doctors);
 
         patientRepository.save(patient);
+    }
+
+    @Override
+    public void orderMedicine(Long patientId, OrderForm orderForm) {
+        for (int i=0; i<orderForm.getMedicines().size(); i++) {
+            Patient patient = patientRepository.findOne(patientId);
+            Pharmacy pharmacy = pharmacyRepository.findByNameAndAddress(orderForm.getPharmacies().get(i), orderForm.getAddresses().get(i));
+            Medicine medicine = medicineRepository.findByName(orderForm.getMedicines().get(i));
+
+            Order order = Order.builder()
+                    .date(Date.valueOf(LocalDate.now()))
+                    .patient(patient)
+                    .medicine(medicine)
+                    .pharmacy(pharmacy)
+                    .build();
+            orderRepository.save(order);
+        }
     }
 
     @Override

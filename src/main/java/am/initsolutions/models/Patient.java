@@ -41,5 +41,4 @@ public class Patient extends ParentModel {
             joinColumns = @JoinColumn(name = "patient_id"),
             inverseJoinColumns = @JoinColumn(name = "doctor_id"))
     private List<Doctor> doctors;
-
 }

@@ -2,6 +2,9 @@
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
     <a class="btn btn-warning" role="button" th:href="@{'/patient'}" style="text-decoration: none;"> Back </a><br>
+    <div th:if="${exists}">
+        <script>alert("You have already registered to this doctor!")</script>
+    </div>
     <div th:if="${!doctors.isEmpty()}">
                 <div th:each="doctor: ${doctors}">
                     <h3 th:text="${doctor.surname} + ' ' + ${doctor.name}"></h3><br>
