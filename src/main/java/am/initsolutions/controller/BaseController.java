@@ -28,4 +28,9 @@ public class BaseController {
     public Boolean addMedicine(HttpServletRequest request) {
         return (Boolean) request.getSession().getAttribute("added");
     }
+
+    @ModelAttribute("exists")
+    public Boolean doctorExists(HttpServletRequest request) {
+        return (Boolean) request.getSession().getAttribute("exists");
+    }
 }

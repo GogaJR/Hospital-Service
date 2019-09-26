@@ -1,59 +1,106 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
+    <a class="btn btn-warning" style="float: left;" role="button" th:href="'/patient/' + ${patientId} + '/order/1/5'">Back</a>
+    <input type="hidden" th:value="${patientId}" id="patientId">
     <table class="medicine table table-hover">
         <thead>
         <tr>
             <th>Medicine Name</th>
+            <th>Pharmacy Name</th>
+            <th>Pharmacy Address</th>
         </tr>
         </thead>
         <tbody id="row">
         </tbody>
     </table>
+
+    <a class="btn btn-success goga" style="float: left;" role="button">Order</a>
 </div>
 
 <script>
     var medicines = JSON.parse(localStorage.getItem("medicines"));
+    var pharmacies = JSON.parse(localStorage.getItem("pharmacies"));
+    var addresses = JSON.parse(localStorage.getItem("addresses"));
     if (medicines != null && medicines != "null") {
         for (var i=0; i<medicines.length; i++) {
             var tr = document.createElement("tr");
             var td1 = document.createElement("td");
             var td2 = document.createElement("td");
+            var td3 = document.createElement("td");
+            var td4 = document.createElement("td");
             var a = document.createElement("a");
             a.setAttribute("role", "button");
+            a.setAttribute("id", i);
             a.setAttribute("class", "btn btn-success");
-            a.addEventListener('click', (function(i) {
-                return function() {
-                    deleteFromLocalStorage(i);
-                }
-            })(i));
+            a.addEventListener('click', function () {
+                deleteFromLocalStorage(this);
+            })
 
             var text1 = document.createTextNode(medicines[i]);
-            var text2 = document.createTextNode("Delete");
-            a.appendChild(text2);
-            td2.appendChild(a);
+            var text2 = document.createTextNode(pharmacies[i]);
+            var text3 = document.createTextNode(addresses[i]);
+            var text4 = document.createTextNode("Delete");
+            a.appendChild(text4);
+            td4.appendChild(a);
             td1.appendChild(text1);
+            td2.appendChild(text2);
+            td3.appendChild(text3);
             tr.appendChild(td1);
             tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
             document.getElementById("row").appendChild(tr);
         }
     }
 
-    function deleteFromLocalStorage(medicineIndex) {
+    function deleteFromLocalStorage(button) {
         var medicines = JSON.parse(localStorage.getItem("medicines"));
-        medicines.splice(medicineIndex, 1);
-        localStorage.setItem("medicines", JSON.stringify(medicines));
+        var pharmacies = JSON.parse(localStorage.getItem("pharmacies"));
+        var addresses = JSON.parse(localStorage.getItem("addresses"));
 
-        var index = JSON.parse(localStorage.getItem("index"));
-        index--;
-        localStorage.setItem("index", JSON.stringify(index));
-
-        printMedicinesOfPatient(medicineIndex)
-    }
-
-    function printMedicinesOfPatient(trIndex) {
         var tr = document.getElementsByTagName("tr");
-        trIndex++;
-        tr[trIndex].parentNode.removeChild(tr[trIndex]);
+        var index;
+        for (var i=1; i<tr.length; i++) {
+            if (tr[i].contains(button)) {
+                tr[i].parentNode.removeChild(tr[i]);
+                index = --i;
+                break;
+            }
+        }
+
+        medicines.splice(index, 1);
+        pharmacies.splice(index, 1);
+        addresses.splice(index, 1);
+        localStorage.setItem("medicines", JSON.stringify(medicines));
+        localStorage.setItem("pharmacies", JSON.stringify(pharmacies));
+        localStorage.setItem("addresses", JSON.stringify(addresses));
     }
+
+    $(document).ready(function() {
+        $(".goga").click(function() {
+            var id = $('#patientId').val();
+            var medicines = JSON.parse(localStorage.getItem("medicines"));
+            var pharmacies = JSON.parse(localStorage.getItem("pharmacies"));
+            var addresses = JSON.parse(localStorage.getItem("addresses"));
+            var data={
+                "medicines":medicines,
+                "pharmacies":pharmacies,
+                "addresses":addresses
+            }
+
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: '/patient/' + id + '/order',
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function(result) {
+                    alert('Your order will be done in 3 days!');
+                    localStorage.clear();
+                    location.href = "http://localhost/patient";
+                }
+            });
+        });
+    });
 </script>

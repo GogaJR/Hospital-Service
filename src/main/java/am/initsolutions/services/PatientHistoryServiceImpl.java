@@ -28,18 +28,23 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     private PatientService patientService;
 
     @Override
-    public void add(Long patientId, ComplaintsForm complaintsForm) {
+    public boolean add(Long patientId, ComplaintsForm complaintsForm) {
         Patient patient = patientRepository.findOne(patientId);
         Doctor doctor = doctorRepository.findOne(complaintsForm.getDoctorId());
 
-        PatientHistory patientHistory = PatientHistory.builder()
-                .patient(patient)
-                .doctor(doctor)
-                .complaints(complaintsForm.getComplaints())
-                .build();
-        patientHistoryRepository.save(patientHistory);
+        if (!patient.getDoctors().contains(doctor)) {
+            PatientHistory patientHistory = PatientHistory.builder()
+                    .patient(patient)
+                    .doctor(doctor)
+                    .complaints(complaintsForm.getComplaints())
+                    .build();
+            patientHistoryRepository.save(patientHistory);
+            patientService.setDoctor(patient, doctor);
 
-        patientService.setDoctor(patient, doctor);
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -57,10 +62,5 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
         PatientHistory pHistory = patientHistoryRepository.findOne(patientHistory.getId());
         pHistory.setDiagnose(patientHistory.getDiagnose());
         patientHistoryRepository.save(pHistory);
-    }
-
-    @Override
-    public PatientHistory get(Long id) {
-        return patientHistoryRepository.findOne(id);
     }
 }
