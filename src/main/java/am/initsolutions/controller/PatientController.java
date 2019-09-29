@@ -89,6 +89,7 @@ public class PatientController {
             doctorDtos.add(DoctorDto.from(doctor));
         }
 
+        modelMap.addAttribute("patientId", id);
         modelMap.addAttribute("doctors", doctorDtos);
         return "doctorList";
     }
@@ -177,10 +178,20 @@ public class PatientController {
         return "cart";
     }
 
-    @PostMapping(value = "/patient/{id}/order")
-    public void orderMedicine(@PathVariable("id") Long id,
+    @PostMapping("/patient/{id}/order")
+    public String orderMedicine(@PathVariable("id") Long id,
                                 @RequestBody OrderForm orderForm) {
 
         patientService.orderMedicine(id, orderForm);
+        return "redirect:/patient/" + id + "/cart";
+    }
+
+    @GetMapping("/patient/{patientId}/chat/{doctorId}")
+    public String chat(@PathVariable("patientId") Long patientId,
+                       @PathVariable("doctorId") Long doctorId, ModelMap modelMap) {
+        modelMap.addAttribute("patientId", patientId);
+        modelMap.addAttribute("doctorId", doctorId);
+
+        return "chat";
     }
 }

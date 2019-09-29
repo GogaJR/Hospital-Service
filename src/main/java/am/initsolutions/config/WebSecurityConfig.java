@@ -2,10 +2,13 @@ package am.initsolutions.config;
 
 import am.initsolutions.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -37,12 +40,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/departmentAdmin").hasAuthority("HOSPITAL_ADMIN")
                 .antMatchers("/pharmacyAdmin").hasAuthority("PHARMACY_ADMIN")
                 .antMatchers("/moderator").hasAuthority("PHARMACY_MEDICINE_MODERATOR")
-                .antMatchers("/hospitalAdmin").hasAuthority("HOSPITAL_ADMIN");
-
+                .antMatchers("/hospitalAdmin").hasAuthority("HOSPITAL_ADMIN")
+                .and()
+                .sessionManagement().maximumSessions(1)
+                .sessionRegistry(sessionRegistry());
         }
 
-
-
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

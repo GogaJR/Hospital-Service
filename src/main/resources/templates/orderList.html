@@ -1,0 +1,50 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
+     layout:fragment="~{body}" th:remove="tag">
+    <a class="btn btn-warning" role="button" href="/pharmacyAdmin">Back</a>
+
+    <div th:if="${!orders.isEmpty()}">
+        <h3>Orders</h3>
+        <table class="pharmacyAdmin table table-hover">
+            <thead>
+            <tr>
+                <td>Client</td>
+                <td>Client Phone Number</td>
+                <td>Order Date</td>
+                <td>Medicine</td>
+                <td>Pharmacy</td>
+                <td>Pharmacy Address</td>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="order : ${orders}">
+                <div th:each="medicines, state: ${order.orderedMedicineNames}">
+                    <div th:if="${state.index == 0}">
+                        <tr>
+                            <td th:text="${order.clientName} + ' ' + ${order.clientSurname}"></td>
+                            <td th:text="${order.clientPhoneNumber}"></td>
+                            <td th:text="${order.orderDate}"></td>
+                            <td th:text="${order.orderedMedicineNames.get(state.index)}"></td>
+                            <td th:text="${order.pharmacyNamesOfOrderedMedicines.get(state.index)}"></td>
+                            <td th:text="${order.pharmacyAddresses.get(state.index)}"></td>
+                        </tr>
+                    </div>
+                    <div th:unless="${state.index == 0}">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td th:text="${order.orderDate}"></td>
+                            <td th:text="${order.orderedMedicineNames.get(state.index)}"></td>
+                            <td th:text="${order.pharmacyNamesOfOrderedMedicines.get(state.index)}"></td>
+                            <td th:text="${order.pharmacyAddresses.get(state.index)}"></td>
+                        </tr>
+                    </div>
+                </div>
+            </div>
+            </tbody>
+        </table>
+    </div>
+    <div th:unless="${!orders.isEmpty()}">
+        <h2>There are no orders!</h2>
+    </div>
+</div>
