@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface RecipeRepository extends JpaRepository<Recipe,Long> {
-     @Transactional
+    @Transactional
     @Modifying
     @Query(value ="INSERT INTO recipe(doctorId, description) VALUES(:doctorId,:description)",
             nativeQuery = true)

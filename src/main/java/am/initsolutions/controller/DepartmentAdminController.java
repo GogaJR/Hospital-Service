@@ -73,6 +73,9 @@ public class DepartmentAdminController {
         return "redirect:/addDepartment";
     }
 
+
+    
+
     //delete department
     @GetMapping("/delete")
     public String deleteDepartment(@RequestParam("id") Long id) {
