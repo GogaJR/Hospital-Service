@@ -17,6 +17,7 @@
             <td th:text="${doctor.name}"></td>
             <td th:text="${doctor.surname}"></td>
             <td th:text="${doctor.phoneNumber}"></td>
+            <td><a class="btn btn-info" role="button" th:href="@{'/patient/' + ${patientId} + '/chat/' + ${doctor.id}}">Start Chatting</a></td>
         </tr>
         </tbody>
     </table>

@@ -1,14 +1,14 @@
 package am.initsolutions.controller;
 
+import am.initsolutions.dto.OrderDto;
 import am.initsolutions.dto.PharmacyMedicineDto;
 import am.initsolutions.forms.MedicineForm;
 import am.initsolutions.forms.MedicineFormWithId;
 import am.initsolutions.models.Medicine;
+import am.initsolutions.models.Order;
 import am.initsolutions.models.Pharmacy;
 import am.initsolutions.models.PharmacyMedicine;
-import am.initsolutions.services.MedicineService;
-import am.initsolutions.services.PharmacyMedicineService;
-import am.initsolutions.services.PharmacyService;
+import am.initsolutions.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,6 +31,12 @@ public class PharmacyAdminController {
 
     @Autowired
     private PharmacyMedicineService pharmacyMedicineService;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private PharmacyAdminService pharmacyAdminService;
 
     @GetMapping("/pharmacyAdmin")
     public String getPharmacyPage(ModelMap modelMap) {
@@ -87,5 +93,15 @@ public class PharmacyAdminController {
         pharmacyMedicineService.delete(pharmacyId, medicineId);
 
         return "redirect:/pharmacyAdmin/medicines/" + pharmacyId;
+    }
+
+    @GetMapping("/pharmacyAdmin/orders")
+    public String getOrdersPage(ModelMap modelMap) {
+        List<Order> orders = orderService.getAll();
+        List<OrderDto> orderDtos = pharmacyAdminService.getOrderDtos(orders);
+        modelMap.addAttribute("orders", orderDtos);
+        modelMap.addAttribute("index", 0);
+
+        return "orderList";
     }
 }

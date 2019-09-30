@@ -23,6 +23,7 @@
                 <td th:text="${patientHistory.getPatient().name}" style="width:25%;"></td>
                 <td th:text="${patientHistory.getDoctor().name}" style="width:25%;"></td>
                 <td class=""><a  th:href="@{/addDiagnoseByPatientId(id=${patientHistory.id})}" style="width:25%;">Add  diagnose or Recipe</a></td>
+                <td class=""><a  th:href="@{'/doctor/' + ${patientHistory.getDoctor().getId()} + '/chat/' +${patientHistory.getPatient().getId()}}" style="width:25%;">Start Chatting</a></td>
             </tr>
             </tbody>
         </table>

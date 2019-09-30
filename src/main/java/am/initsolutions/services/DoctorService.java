@@ -10,7 +10,4 @@ public interface DoctorService {
     Doctor get(Long id);
     void deleteDoctor(Long id);
     Doctor getByUserId(long id);
-
-
-
 }

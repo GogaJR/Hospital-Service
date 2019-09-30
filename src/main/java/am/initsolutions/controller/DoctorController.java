@@ -9,6 +9,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -78,4 +79,12 @@ public class DoctorController {
 
     }
 
+    @GetMapping("/doctor/{doctorId}/chat/{patientId}")
+    public String chat(@PathVariable("doctorId") Long doctorId,
+                       @PathVariable("patientId") Long patientId, ModelMap modelMap) {
+        modelMap.addAttribute("doctorId", doctorId);
+        modelMap.addAttribute("patientId", patientId);
+
+        return "chat";
+    }
 }
