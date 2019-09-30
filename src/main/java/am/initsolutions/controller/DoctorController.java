@@ -1,11 +1,13 @@
 package am.initsolutions.controller;
 
+import am.initsolutions.controller.rest.ChatController;
 import am.initsolutions.models.*;
 import am.initsolutions.repository.PatientHistoryRepository;
 import am.initsolutions.repository.RecipeRepository;
 import am.initsolutions.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +21,7 @@ import java.util.List;
 
 @Controller
 public class DoctorController {
-    @Autowired
-    private DoctorService doctorService;
+
     @Autowired
     private PatientService patientService;
     @Autowired
@@ -34,7 +35,7 @@ public class DoctorController {
     private PatientHistoryRepository patientHistoryRepository;
 
     @Autowired
-    private RecipeRepository recipeRepository;
+    private SimpUserRegistry userRegistry;
 
     @GetMapping("/patientListByDoctorId")
     public String patientListByDoctorId(@RequestParam("doctorId") Long doctorId, ModelMap model){
@@ -84,6 +85,11 @@ public class DoctorController {
                        @PathVariable("patientId") Long patientId, ModelMap modelMap) {
         modelMap.addAttribute("doctorId", doctorId);
         modelMap.addAttribute("patientId", patientId);
+
+        if (userRegistry.getUserCount() == 0) {
+            new ChatController().setPatientId(null);
+            new ChatController().setDoctorId(null);
+        }
 
         return "chat";
     }

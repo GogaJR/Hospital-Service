@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/departmentAdmin").hasAuthority("HOSPITAL_ADMIN")
                 .antMatchers("/pharmacyAdmin").hasAuthority("PHARMACY_ADMIN")
                 .antMatchers("/moderator").hasAuthority("PHARMACY_MEDICINE_MODERATOR")
-                .antMatchers("/hospitalAdmin").hasAuthority("HOSPITAL_ADMIN")
+                .antMatchers("/patient").hasAuthority("PATIENT")
                 .and()
                 .sessionManagement().maximumSessions(1)
                 .sessionRegistry(sessionRegistry());

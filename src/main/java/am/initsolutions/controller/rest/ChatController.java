@@ -24,8 +24,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class ChatController {
-    private final SessionRegistry sessionRegistry;
-    private final SimpMessagingTemplate messagingTemplate;
+    @Autowired
+    private SessionRegistry sessionRegistry;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+
+    private Long patientId;
+    private Long doctorId;
 
     @Autowired
     private PatientService patientService;
@@ -36,64 +42,78 @@ public class ChatController {
     @Autowired
     private DoctorService doctorService;
 
-    public ChatController(SessionRegistry sessionRegistry, SimpMessagingTemplate messagingTemplate) {
-        this.sessionRegistry = sessionRegistry;
-        this.messagingTemplate = messagingTemplate;
+    public ChatController() {
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
+    }
+
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
     }
 
     @PostMapping(value = "/send", consumes = "application/json")
     public ResponseEntity send(@RequestBody MessageForm message) {
         Long patientId = message.getPatientId();
         Long doctorId = message.getDoctorId();
-        User loggedInUser = (User) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
 
-        if (loggedInUser.getAuthorities().contains(new SimpleGrantedAuthority(UserType.DOCTOR.name()))) {
-            Optional<User> foundPatient = sessionRegistry.getAllPrincipals()
-                    .stream()
-                    .map(p -> (User) p)
-                    .filter(user -> patientService.getByUserId(userService.getByEmail(user.getUsername()).getId()).getId() == patientId)
-                    .findFirst();
+        if (this.patientId == null || this.doctorId == null) {
+            this.patientId = patientId;
+            this.doctorId = doctorId;
+        }
 
-            messagingTemplate.convertAndSendToUser(
-                    foundPatient.get().getUsername(),
-                    "/message",
-                    MessageFormat.format("{0}: {1}",
-                            loggedInUser.getUsername(),
-                            message.getMessage())
-            );
-        } else if (loggedInUser.getAuthorities().contains(new SimpleGrantedAuthority(UserType.PATIENT.name()))) {
-            Doctor foundDoctor = null;
-            for (Object object : sessionRegistry.getAllPrincipals()) {
-                User user = (User) object;
-                Doctor doctor = doctorService.getByUserId(userService.getByEmail(user.getUsername()).getId());
+        if (this.patientId == patientId && this.doctorId == doctorId) {
+            User loggedInUser = (User) SecurityContextHolder
+                    .getContext()
+                    .getAuthentication()
+                    .getPrincipal();
 
-                if (doctor != null) {
-                    if (doctor.getId() == doctorId) {
-                        foundDoctor = doctor;
-                        break;
+            if (loggedInUser.getAuthorities().contains(new SimpleGrantedAuthority(UserType.DOCTOR.name()))) {
+                Optional<User> foundPatient = sessionRegistry.getAllPrincipals()
+                        .stream()
+                        .map(p -> (User) p)
+                        .filter(user -> patientService.getByUserId(userService.getByEmail(user.getUsername()).getId()).getId() == patientId)
+                        .findFirst();
+
+                messagingTemplate.convertAndSendToUser(
+                        foundPatient.get().getUsername(),
+                        "/message",
+                        MessageFormat.format("{0}: {1}",
+                                loggedInUser.getUsername(),
+                                message.getMessage())
+                );
+            } else if (loggedInUser.getAuthorities().contains(new SimpleGrantedAuthority(UserType.PATIENT.name()))) {
+                Doctor foundDoctor = null;
+                for (Object object : sessionRegistry.getAllPrincipals()) {
+                    User user = (User) object;
+                    Doctor doctor = doctorService.getByUserId(userService.getByEmail(user.getUsername()).getId());
+
+                    if (doctor != null) {
+                        if (doctor.getId() == doctorId) {
+                            foundDoctor = doctor;
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (foundDoctor != null) {
-                messagingTemplate.convertAndSendToUser(
-                        foundDoctor.getUser().getEmail(),
-                        "/message",
-                        MessageFormat.format("{0}: {1}",
-                                loggedInUser.getUsername(),
-                                message.getMessage())
-                );
-            } else {
-                messagingTemplate.convertAndSendToUser(
-                        "chka",
-                        "/message",
-                        MessageFormat.format("{0}: {1}",
-                                loggedInUser.getUsername(),
-                                message.getMessage())
-                );
+                if (foundDoctor != null) {
+                    messagingTemplate.convertAndSendToUser(
+                            foundDoctor.getUser().getEmail(),
+                            "/message",
+                            MessageFormat.format("{0}: {1}",
+                                    loggedInUser.getUsername(),
+                                    message.getMessage())
+                    );
+                }
             }
         }
 

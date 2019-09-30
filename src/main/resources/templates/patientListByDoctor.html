@@ -28,6 +28,7 @@
                     <td th:text="${patient.getAge() }"></td>
                     <td th:text="${patient.getPhoneNumber()}"></td>
                     <td style="color:#5bc0de;"><a  th:href="@{/patientHistoryListByPatientId(patientId=${patient.id})}">Patient History</a></td>
+                    <td class=""><a  th:href="@{'/doctor/' + ${doctorId} + '/chat/' + ${patient.id}}" style="width:25%;">Start Chatting</a></td>
                 </tr>
                 </tbody>
             </table>

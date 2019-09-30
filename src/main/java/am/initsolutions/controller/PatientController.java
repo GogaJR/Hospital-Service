@@ -1,5 +1,6 @@
 package am.initsolutions.controller;
 
+import am.initsolutions.controller.rest.ChatController;
 import am.initsolutions.dto.*;
 import am.initsolutions.forms.ComplaintsForm;
 import am.initsolutions.forms.OrderForm;
@@ -9,6 +10,7 @@ import am.initsolutions.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +40,7 @@ public class PatientController {
     private PharmacyService pharmacyService;
 
     @Autowired
-    private PatientHistoryRepository patientHistoryRepository;
+    private SimpUserRegistry userRegistry;
 
     @GetMapping("/patient/{id}/history")
     public String getDiseaseHistoryPage(@PathVariable("id") Long id, ModelMap modelMap) {
@@ -191,6 +193,11 @@ public class PatientController {
                        @PathVariable("doctorId") Long doctorId, ModelMap modelMap) {
         modelMap.addAttribute("patientId", patientId);
         modelMap.addAttribute("doctorId", doctorId);
+
+        if (userRegistry.getUserCount() == 0) {
+            new ChatController().setPatientId(null);
+            new ChatController().setDoctorId(null);
+        }
 
         return "chat";
     }
