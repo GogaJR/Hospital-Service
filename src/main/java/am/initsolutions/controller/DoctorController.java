@@ -34,9 +34,6 @@ public class DoctorController {
     @Autowired
     private PatientHistoryRepository patientHistoryRepository;
 
-    @Autowired
-    private SimpUserRegistry userRegistry;
-
     @GetMapping("/patientListByDoctorId")
     public String patientListByDoctorId(@RequestParam("doctorId") Long doctorId, ModelMap model){
         List<Patient> patientList= patientService.patientListByDoctorId(doctorId);
@@ -45,11 +42,14 @@ public class DoctorController {
         return "patientListByDoctor";
     }
 
-    @GetMapping("/patientHistoryListByPatientId")
-    public String patientHistoryListByPatientId(@RequestParam("patientId") Long patientId, ModelMap model){
+    @GetMapping("/doctor/{doctorId}/history/{patientId}")
+    public String patientHistoryListByPatientId(@PathVariable("doctorId") Long doctorId,
+                                                @PathVariable("patientId") Long patientId, ModelMap model){
         List<PatientHistory> patientHistoryList= patientHistoryService.getAllByPatientId(patientId);
         model.addAttribute("patientHistoryList",patientHistoryList);
         model.addAttribute("patientId", patientId);
+        model.addAttribute("doctorId", doctorId);
+
         return "patientHistoryListByPatientId";
     }
 
@@ -85,11 +85,6 @@ public class DoctorController {
                        @PathVariable("patientId") Long patientId, ModelMap modelMap) {
         modelMap.addAttribute("doctorId", doctorId);
         modelMap.addAttribute("patientId", patientId);
-
-        if (userRegistry.getUserCount() == 0) {
-            new ChatController().setPatientId(null);
-            new ChatController().setDoctorId(null);
-        }
 
         return "chat";
     }

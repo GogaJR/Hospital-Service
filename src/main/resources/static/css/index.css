@@ -113,3 +113,11 @@ body {
         color: black;
     }
 }
+
+p.offline div{
+    color:red;
+
+}
+p.offline{
+    padding-left: 225px;
+}

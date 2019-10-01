@@ -26,7 +26,7 @@
 
                        <td th:text="${patientHistory.doctorDto.name} + ' ' + ${patientHistory.doctorDto.surname}"></td>
                        <div th:if="${patientHistory.recipeDto != null}">
-                           <td th:text="${patientHistory.recipeDto.medicines.subList(0, 1)} + '...'"></td>
+                           <td th:text="${patientHistory.recipeDto.medicines.get(0).name} + ', ...'"></td>
                            <td th:text="${patientHistory.recipeDto.description.substring(0, 15) + '...'}"></td>
 
                            <!--TODO-->
