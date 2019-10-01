@@ -13,25 +13,34 @@ let socket = new SockJS('/ws');
 let stompClient = Stomp.over(socket);
 
 stompClient.connect({}, function (frame) {
-    stompClient.subscribe('/user/message', function (data) {
+    stompClient.subscribe('/user/message/' + patientId.val() + "&" + doctorId.val(), function (data)
+    {
+        console.log('mtav');
         let message = data.body;
+        let $element;
+        let $div;
+        if (message.indexOf('@') == -1) {
+            $element = $('<p/>');
+            $div = $('<div/>')
+                .append(message + ' is offline');
+        } else {
+            $element = $('<li/>');
+            $div = $('<div/>')
+                .append(message);
+        }
 
-        let $li = $('<li/>');
-        let $div = $('<div/>')
-            .append(message);
-
-        $chat.append($li.append($div));
+        $chat.append($element.addClass('offline').append($div));
     });
 });
 
 function sendMessage() {
     let message = $txtMessage.val();
-    send(message);
+    if (message.toString().trim() != '') {
+        send(message);
+    }
 }
 
 function send(message) {
-    console.log(patientId.val());
-    console.log(doctorId.val());
     let data = {
         "patientId": patientId.val(),
         "doctorId": doctorId.val(),

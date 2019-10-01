@@ -39,9 +39,6 @@ public class PatientController {
     @Autowired
     private PharmacyService pharmacyService;
 
-    @Autowired
-    private SimpUserRegistry userRegistry;
-
     @GetMapping("/patient/{id}/history")
     public String getDiseaseHistoryPage(@PathVariable("id") Long id, ModelMap modelMap) {
         List<PatientHistory> patientHistories = patientHistoryService.getAllByPatientId(id);
@@ -193,11 +190,6 @@ public class PatientController {
                        @PathVariable("doctorId") Long doctorId, ModelMap modelMap) {
         modelMap.addAttribute("patientId", patientId);
         modelMap.addAttribute("doctorId", doctorId);
-
-        if (userRegistry.getUserCount() == 0) {
-            new ChatController().setPatientId(null);
-            new ChatController().setDoctorId(null);
-        }
 
         return "chat";
     }

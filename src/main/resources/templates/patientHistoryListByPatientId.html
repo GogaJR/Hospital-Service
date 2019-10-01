@@ -2,7 +2,7 @@
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
     <h3>Patient History Page</h3>
-    <a class="btn btn-warning" role="button" th:href="@{/doctorPage}">Back to doctor page</a><br><br>
+    <a class="btn btn-warning" role="button" th:href="@{/patientListByDoctorId(doctorId=${doctorId})}">Back</a><br><br>
     <div th:if="${!patientHistoryList.isEmpty()}">
         <table class="department table table-hover" style="table-layout: fixed; width: 100%;">
             <thead>
@@ -10,8 +10,7 @@
                 <th>Complaints</th>
                 <th>Diagnose</th>
                 <th>Patient Name</th>
-                <th>Doctor Name</th>
-                <th>Action</th>
+                <th>Therapist</th>
             </tr>
             </thead>
             <tbody>
@@ -21,8 +20,10 @@
                 <td th:text="${patientHistory.complaints}" style="width:25%;word-wrap: break-word;"></td>
                 <td th:text="${patientHistory.diagnose}" style="width:25%;word-wrap: break-word;"></td>
                 <td th:text="${patientHistory.getPatient().name}" style="width:25%;"></td>
-                <td th:text="${patientHistory.getDoctor().name}" style="width:25%;"></td>
-                <td class=""><a  th:href="@{/addDiagnoseByPatientId(id=${patientHistory.id})}" style="width:25%;">Add  diagnose or Recipe</a></td>
+                <td th:text="${patientHistory.getDoctor().name} + ' ' + ${patientHistory.getDoctor().surname}" style="width:25%;"></td>
+                <div th:if="${doctorId == patientHistory.getDoctor().getId()}">
+                    <td class=""><a  th:href="@{/addDiagnoseByPatientId(id=${patientHistory.id})}" style="width:25%;">Add  diagnose or Recipe</a></td>
+                </div>
             </tr>
             </tbody>
         </table>
