@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class DepartmentForm {
+    private Long id;
     private String name;
-    private Long hospitalId;
+   // private Long hospitalId;
 }

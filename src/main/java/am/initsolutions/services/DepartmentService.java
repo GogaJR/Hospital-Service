@@ -8,10 +8,18 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface DepartmentService {
+
     void deleteDepartment(Long id);
+
     void update(Department department);
+
     Department get(Long id);
+
     Department add(DepartmentForm departmentForm);
+
     List<Department> getAll();
+
     Page<Department> getAll(Pageable pageable);
+
+    Department add(Department department);
 }
