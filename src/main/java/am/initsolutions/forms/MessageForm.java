@@ -10,5 +10,7 @@ import lombok.NoArgsConstructor;
 public class MessageForm {
     private Long patientId;
     private Long doctorId;
+    private Long senderId;
+    private String sender;
     private String message;
 }

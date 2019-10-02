@@ -17,22 +17,20 @@
     <input id="txtMessage" type="text" placeholder="Type your message"/>
     <input id="patientId" type="hidden" th:value="${patientId}"/>
     <input id="doctorId" type="hidden" th:value="${doctorId}"/>
+    <input id="url" type="hidden"/>
 </section>
 <script th:src="@{/js/main.js}"></script>
 </body>
 </html>
 <script>
-
+document.getElementById("url").value = window.location.href;
 
  function redirect(){
      let url=window.location.href;
-     let doctorId=document.getElementById("doctorId").value;
-     let patientId=document.getElementById("patientId").value;
-     console.log(url);
-     if(url.indexOf("doctor")!=-1){
-         location.href = "http://localhost:8090/patientListByDoctorId?doctorId="+doctorId;
+     if(url.indexOf("doctor")!= -1){
+         location.href = "http://localhost/doctorPage";
      }else{
-         location.href = "http://localhost:8090/patient/"+patientId+"/doctors";
+         location.href = "http://localhost/patient";
      }
  }
 

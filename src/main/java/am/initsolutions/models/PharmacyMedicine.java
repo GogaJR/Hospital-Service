@@ -25,7 +25,4 @@ public class PharmacyMedicine {
     @ManyToOne
     @MapsId("medicineId")
     private Medicine medicine;
-
-    @Column
-    private int medicineCount;
 }

@@ -3,18 +3,14 @@ package am.initsolutions.controller.rest;
 import am.initsolutions.forms.MessageForm;
 import am.initsolutions.models.Doctor;
 import am.initsolutions.models.Patient;
-import am.initsolutions.models.enums.UserType;
+import am.initsolutions.models.User;
 import am.initsolutions.services.ChatService;
 import am.initsolutions.services.DoctorService;
 import am.initsolutions.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.user.SimpUser;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,20 +39,24 @@ public class ChatController {
         Long patientId = message.getPatientId();
         Long doctorId = message.getDoctorId();
 
-        User loggedInUser = (User) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
+        User messageSender;
+        boolean isPatient;
+        if (message.getSender().equals("doctor")) {
+            messageSender = doctorService.get(message.getSenderId()).getUser();
+            isPatient = false;
+        } else {
+            messageSender = patientService.get(message.getSenderId()).getUser();
+            isPatient = true;
+        }
 
         Set<SimpUser> users = userRegistry.getUsers();
-        boolean isPatient = loggedInUser.getAuthorities().contains(new SimpleGrantedAuthority(UserType.PATIENT.name()));
         if (users.size() == 1) {
             if (isPatient) {
                 Doctor doctor = doctorService.get(doctorId);
-                chatService.sendMessage(loggedInUser.getUsername(), patientId, doctorId, doctor.getName());
+                chatService.sendMessage(messageSender.getEmail(), patientId, doctorId, doctor.getName());
             } else {
                 Patient patient = patientService.get(patientId);
-                chatService.sendMessage(loggedInUser.getUsername(), patientId, doctorId, patient.getName());
+                chatService.sendMessage(messageSender.getEmail(), patientId, doctorId, patient.getName());
             }
 
             return ResponseEntity.ok().build();
@@ -64,18 +64,18 @@ public class ChatController {
 
         if (isPatient) {
             Doctor doctor = doctorService.get(doctorId);
-            boolean result = chatService.findUserAndSendMessage(users, doctor, patientId, doctorId, loggedInUser.getUsername(), message.getMessage());
+            boolean result = chatService.findUserAndSendMessage(users, doctor, patientId, doctorId, messageSender.getEmail(), message.getMessage());
 
 
             if (!result) {
-                chatService.sendMessage(loggedInUser.getUsername(), patientId, doctorId, doctor.getName());
+                chatService.sendMessage(messageSender.getEmail(), patientId, doctorId, doctor.getName());
             }
         } else {
             Patient patient = patientService.get(patientId);
-            boolean result = chatService.findUserAndSendMessage(users, patient, patientId, doctorId, loggedInUser.getUsername(), message.getMessage());
+            boolean result = chatService.findUserAndSendMessage(users, patient, patientId, doctorId, messageSender.getEmail(), message.getMessage());
 
             if (!result) {
-                chatService.sendMessage(loggedInUser.getUsername(), patientId, doctorId, patient.getName());
+                chatService.sendMessage(messageSender.getEmail(), patientId, doctorId, patient.getName());
             }
         }
 

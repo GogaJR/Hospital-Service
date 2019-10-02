@@ -20,7 +20,6 @@ public class PharmacyMedicineDto {
         return PharmacyMedicineDto.builder()
                 .pharmacyId(pharmacyMedicine.getPharmacy().getId())
                 .medicine(pharmacyMedicine.getMedicine())
-                .medicineCount(pharmacyMedicine.getMedicineCount())
                 .build();
     }
 }

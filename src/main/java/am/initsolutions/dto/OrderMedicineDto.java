@@ -21,7 +21,6 @@ public class OrderMedicineDto {
                 .pharmacyId(pharmacyMedicine.getPharmacy().getId())
                 .pharmacyName(pharmacyMedicine.getPharmacy().getName())
                 .pharmacyAddress(pharmacyMedicine.getPharmacy().getAddress())
-                .medicineCount(pharmacyMedicine.getMedicineCount())
                 .build();
     }
 }

@@ -50,7 +50,6 @@ public class MedicineServiceImpl implements MedicineService {
                     .id(new PharmacyMedicineId(medicineForm.getPharmacyId(), savedMedicine.getId()))
                     .medicine(savedMedicine)
                     .pharmacy(existedPharmacy)
-                    .medicineCount(medicineForm.getCount())
                     .build();
             pharmacyMedicineRepository.save(newPharmacyMedicine);
 
@@ -61,7 +60,6 @@ public class MedicineServiceImpl implements MedicineService {
                 .id(new PharmacyMedicineId(medicineForm.getPharmacyId(), medicineCandidate.getId()))
                 .medicine(medicineCandidate)
                 .pharmacy(existedPharmacy)
-                .medicineCount(medicineForm.getCount())
                 .build();
         pharmacyMedicineRepository.save(newPharmacyMedicine);
     }

@@ -39,7 +39,6 @@ public class PharmacyMedicineServiceImpl implements PharmacyMedicineService {
                 .id(new PharmacyMedicineId(medicineForm.getPharmacyId(), medicineForm.getMedicineId()))
                 .pharmacy(pharmacy)
                 .medicine(medicine)
-                .medicineCount(medicineForm.getMedicineCount())
                 .build();
 
         return pharmacyMedicineRepository.save(newPharmacyMedicine);
