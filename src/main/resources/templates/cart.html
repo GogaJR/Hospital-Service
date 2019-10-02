@@ -9,19 +9,21 @@
             <th>Medicine Name</th>
             <th>Pharmacy Name</th>
             <th>Pharmacy Address</th>
+            <th>Count</th>
         </tr>
         </thead>
         <tbody id="row">
         </tbody>
     </table>
 
-    <a class="btn btn-success goga" style="float: left;" role="button">Order</a>
+    <a class="btn btn-success order" style="float: left;" role="button">Order</a>
 </div>
 
 <script>
     var medicines = JSON.parse(localStorage.getItem("medicines"));
     var pharmacies = JSON.parse(localStorage.getItem("pharmacies"));
     var addresses = JSON.parse(localStorage.getItem("addresses"));
+    var medicineCounts = JSON.parse(localStorage.getItem("medicineCounts"));
     if (medicines != null && medicines != "null") {
         for (var i=0; i<medicines.length; i++) {
             var tr = document.createElement("tr");
@@ -29,6 +31,7 @@
             var td2 = document.createElement("td");
             var td3 = document.createElement("td");
             var td4 = document.createElement("td");
+            var td5 = document.createElement("td");
             var a = document.createElement("a");
             a.setAttribute("role", "button");
             a.setAttribute("id", i);
@@ -40,16 +43,19 @@
             var text1 = document.createTextNode(medicines[i]);
             var text2 = document.createTextNode(pharmacies[i]);
             var text3 = document.createTextNode(addresses[i]);
-            var text4 = document.createTextNode("Delete");
-            a.appendChild(text4);
-            td4.appendChild(a);
+            var text4 = document.createTextNode(medicineCounts[i]);
+            var text5 = document.createTextNode("Delete");
+            a.appendChild(text5);
+            td5.appendChild(a);
             td1.appendChild(text1);
             td2.appendChild(text2);
             td3.appendChild(text3);
+            td4.appendChild(text4);
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
             tr.appendChild(td4);
+            tr.appendChild(td5);
             document.getElementById("row").appendChild(tr);
         }
     }
@@ -58,6 +64,7 @@
         var medicines = JSON.parse(localStorage.getItem("medicines"));
         var pharmacies = JSON.parse(localStorage.getItem("pharmacies"));
         var addresses = JSON.parse(localStorage.getItem("addresses"));
+        var medicineCounts = JSON.parse(localStorage.getItem("medicineCounts"));
 
         var tr = document.getElementsByTagName("tr");
         var index;
@@ -72,21 +79,25 @@
         medicines.splice(index, 1);
         pharmacies.splice(index, 1);
         addresses.splice(index, 1);
+        medicineCounts.splice(index, 1);
         localStorage.setItem("medicines", JSON.stringify(medicines));
         localStorage.setItem("pharmacies", JSON.stringify(pharmacies));
         localStorage.setItem("addresses", JSON.stringify(addresses));
+        localStorage.setItem("medicineCounts", JSON.stringify(medicineCounts));
     }
 
     $(document).ready(function() {
-        $(".goga").click(function() {
+        $(".order").click(function() {
             var id = $('#patientId').val();
             var medicines = JSON.parse(localStorage.getItem("medicines"));
             var pharmacies = JSON.parse(localStorage.getItem("pharmacies"));
             var addresses = JSON.parse(localStorage.getItem("addresses"));
+            var medicineCounts = JSON.parse(localStorage.getItem("medicineCounts"));
             var data={
                 "medicines":medicines,
                 "pharmacies":pharmacies,
-                "addresses":addresses
+                "addresses":addresses,
+                "counts":medicineCounts
             }
 
             $.ajax({

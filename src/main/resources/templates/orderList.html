@@ -12,6 +12,7 @@
                 <td>Client Phone Number</td>
                 <td>Order Date</td>
                 <td>Medicine</td>
+                <td>Count</td>
                 <td>Pharmacy</td>
                 <td>Pharmacy Address</td>
             </tr>
@@ -25,6 +26,7 @@
                             <td th:text="${order.clientPhoneNumber}"></td>
                             <td th:text="${order.orderDate}"></td>
                             <td th:text="${order.orderedMedicineNames.get(state.index)}"></td>
+                            <td th:text="${order.medicineCounts.get(state.index)}"></td>
                             <td th:text="${order.pharmacyNamesOfOrderedMedicines.get(state.index)}"></td>
                             <td th:text="${order.pharmacyAddresses.get(state.index)}"></td>
                         </tr>
@@ -35,6 +37,7 @@
                             <td></td>
                             <td th:text="${order.orderDate}"></td>
                             <td th:text="${order.orderedMedicineNames.get(state.index)}"></td>
+                            <td th:text="${order.medicineCounts.get(state.index)}"></td>
                             <td th:text="${order.pharmacyNamesOfOrderedMedicines.get(state.index)}"></td>
                             <td th:text="${order.pharmacyAddresses.get(state.index)}"></td>
                         </tr>

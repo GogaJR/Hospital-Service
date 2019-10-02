@@ -86,23 +86,43 @@
         var medicines = JSON.parse(localStorage.getItem("medicines"));
         var pharmacies = JSON.parse(localStorage.getItem("pharmacies"));
         var addresses = JSON.parse(localStorage.getItem("addresses"));
-        if (medicines == null || medicines == "null") {
+        var medicineCounts = JSON.parse(localStorage.getItem("medicineCounts"));
+        if (medicines == null || medicines == "null" || medicines.length == 0) {
             var medicineArray = new Array();
             var pharmacyArray = new Array();
             var addressArray = new Array();
+            var countsArray = new Array();
             medicineArray[0] = medicineName;
             pharmacyArray[0] = pharmacyName;
             addressArray[0] = pharmacyAddress;
+            countsArray[0] = 1;
             localStorage.setItem("medicines", JSON.stringify(medicineArray));
             localStorage.setItem("pharmacies", JSON.stringify(pharmacyArray));
             localStorage.setItem("addresses", JSON.stringify(addressArray));
+            localStorage.setItem("medicineCounts", JSON.stringify(countsArray));
         } else {
-            medicines[medicines.length] = medicineName;
-            pharmacies[pharmacies.length] = pharmacyName;
-            addresses[addresses.length] = pharmacyAddress;
-            localStorage.setItem("medicines", JSON.stringify(medicines));
-            localStorage.setItem("pharmacies", JSON.stringify(pharmacies));
-            localStorage.setItem("addresses", JSON.stringify(addresses));
+            for (var i=0; i<addresses.length; i++) {
+                if (addresses[i] == pharmacyAddress) {
+                    var addressIndex = i;
+                    var medicine = medicines[addressIndex];
+
+                    if (addressIndex != -1 && medicineName == medicine) {
+                        medicineCounts[addressIndex]++;
+                        localStorage.setItem("medicineCounts", JSON.stringify(medicineCounts));
+                        break;
+                    }
+                } else if (i == addresses.length-1) {
+                    medicines[medicines.length] = medicineName;
+                    pharmacies[pharmacies.length] = pharmacyName;
+                    addresses[addresses.length] = pharmacyAddress;
+                    medicineCounts[medicineCounts.length] = 1;
+                    localStorage.setItem("medicines", JSON.stringify(medicines));
+                    localStorage.setItem("pharmacies", JSON.stringify(pharmacies));
+                    localStorage.setItem("addresses", JSON.stringify(addresses));
+                    localStorage.setItem("medicineCounts", JSON.stringify(medicineCounts));
+                    break;
+                }
+            }
         }
     }
 </script>

@@ -23,9 +23,11 @@ public class OrderDto {
     private List<String> orderedMedicineNames;
     private List<String> pharmacyNamesOfOrderedMedicines;
     private List<String> pharmacyAddresses;
+    private List<Integer> medicineCounts;
     private LocalDate orderDate;
 
-    public static OrderDto from(Order order, List<String> medicineNames, List<String> pharmacyNames, List<String> pharmacyAddresses) {
+    public static OrderDto from(Order order, List<String> medicineNames, List<String> pharmacyNames,
+                                List<String> pharmacyAddresses, List<Integer> medicineCounts) {
         return OrderDto.builder()
                 .orderId(order.getId())
                 .clientId(order.getPatient().getId())
@@ -35,6 +37,7 @@ public class OrderDto {
                 .orderedMedicineNames(medicineNames)
                 .pharmacyNamesOfOrderedMedicines(pharmacyNames)
                 .pharmacyAddresses(pharmacyAddresses)
+                .medicineCounts(medicineCounts)
                 .orderDate(order.getDate().toLocalDate())
                 .build();
     }

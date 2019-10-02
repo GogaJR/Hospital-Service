@@ -32,4 +32,6 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "pharmacy_id")
     private Pharmacy pharmacy;
+
+    private int medicineCount;
 }

@@ -62,6 +62,7 @@ public class PatientServiceImpl implements PatientService {
                     .patient(patient)
                     .medicine(medicine)
                     .pharmacy(pharmacy)
+                    .medicineCount(Integer.parseInt(orderForm.getCounts().get(i)))
                     .build();
             orderRepository.save(order);
         }
