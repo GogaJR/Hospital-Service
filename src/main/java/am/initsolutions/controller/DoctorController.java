@@ -64,9 +64,9 @@ public class DoctorController {
     }
 
     @PostMapping("/addDiagnoseByPatientId")
-    public String editPatientHistory(PatientHistory patientHistory,Long patientId) {
+    public String editPatientHistory(PatientHistory patientHistory,Long patientId,@RequestParam("doctorId") long doctorId) {
        patientHistoryService.update(patientHistory);
-       return "redirect:/patientHistoryListByPatientId?patientId="+patientId;
+       return "redirect:/doctor/" + doctorId + "/history/" + patientId;
     }
 
     @PostMapping("/addRecipe")

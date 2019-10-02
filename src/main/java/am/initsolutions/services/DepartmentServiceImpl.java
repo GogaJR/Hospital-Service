@@ -13,8 +13,13 @@ import java.util.List;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-    @Autowired
+
     private DepartmentRepository departmentRepository;
+
+    @Autowired
+    public DepartmentServiceImpl(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
+    }
 
     @Override
     public void deleteDepartment(Long id) {
@@ -51,5 +56,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Page<Department> getAll(Pageable pageable) {
         return departmentRepository.findAll(pageable);
+    }
+
+    @Override
+    public Department add(Department department) {
+        return departmentRepository.save(department);
     }
 }

@@ -8,7 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body >
+<body>
     <div class="container login-container">
         <div class="row">
         <form name="f" action="/login" method="post" style="max-width:500px;margin:auto">
@@ -78,3 +78,10 @@
         box-shadow: none!important;
     }
 </style>
+<script>
+    let url=window.location.href;
+    if(url.includes("error")){
+        $( ".login-container" ).prepend( "<p style='color:red;text-align: center;'><span>Bad credentials</span> " +
+            "<br>Please check username or password</p>" );
+    }
+</script>

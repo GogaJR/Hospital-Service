@@ -16,7 +16,7 @@
         </tbody>
     </table>
 
-    <a class="btn btn-success order" style="float: left;" role="button">Order</a>
+    <a id="orderBtn" class="btn btn-success order" style="float: left;" role="button">Order</a>
 </div>
 
 <script>
@@ -84,6 +84,7 @@
         localStorage.setItem("pharmacies", JSON.stringify(pharmacies));
         localStorage.setItem("addresses", JSON.stringify(addresses));
         localStorage.setItem("medicineCounts", JSON.stringify(medicineCounts));
+        location.reload();
     }
 
     $(document).ready(function() {
@@ -114,4 +115,10 @@
             });
         });
     });
+
+    var medicines = JSON.parse(localStorage.getItem("medicines"));
+    var btn = document.getElementById('orderBtn');
+    if(medicines==''){
+        btn.remove();
+    }
 </script>

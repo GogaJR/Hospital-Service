@@ -15,6 +15,7 @@
                 <td>Count</td>
                 <td>Pharmacy</td>
                 <td>Pharmacy Address</td>
+                <td>Delete order</td>
             </tr>
             </thead>
             <tbody>
@@ -29,6 +30,8 @@
                             <td th:text="${order.medicineCounts.get(state.index)}"></td>
                             <td th:text="${order.pharmacyNamesOfOrderedMedicines.get(state.index)}"></td>
                             <td th:text="${order.pharmacyAddresses.get(state.index)}"></td>
+                            <td ><a  th:href="@{'/deleteOrder/'+ ${order.getOrderId()}}">Delete</a></td>
+
                         </tr>
                     </div>
                     <div th:unless="${state.index == 0}">
@@ -40,6 +43,7 @@
                             <td th:text="${order.medicineCounts.get(state.index)}"></td>
                             <td th:text="${order.pharmacyNamesOfOrderedMedicines.get(state.index)}"></td>
                             <td th:text="${order.pharmacyAddresses.get(state.index)}"></td>
+                            <td ><a  th:href="@{'/deleteOrder/'+ ${order.getOrderId()}}">Delete</a></td>
                         </tr>
                     </div>
                 </div>

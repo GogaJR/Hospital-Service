@@ -1,10 +1,11 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
-            <a class="btn btn-warning" style="float: left;" role="button" href="/patient">Back</a>
-            <a class="btn btn-warning" style="float: right;" role="button" th:href="@{'/patient/' + ${patientId} + '/cart'}">Cart</a><br>
+
 
             <div th:if="${!medicinesWithPharmacies.isEmpty()}">
+                <a class="btn btn-warning" style="float: left;" role="button" href="/patient">Back</a>
+                <a id="addToCart" class="btn btn-warning" style="float: right;" role="button" th:href="@{'/patient/' + ${patientId} + '/cart'}">Cart</a>
                 <select id="mylist" onchange="myFunction()" class='form-control'>
                 <option>All</option>
                     <div th:each="pharmacyName: ${pharmacyNames}">
@@ -29,7 +30,7 @@
                                 <td th:text="${pharmacyMedicine.pharmacyAddress}"></td>
                                 <td th:text="${pharmacyMedicine.medicineCount}"></td>
                                 <td style="color: green" th:text="'In'"></td>
-                                <td class="delete"><a  role="button" class="btn btn-success" th:onclick="|addToCart('${medicineWithPharmacy.key.name}',
+                                <td  class="delete"><a  role="button" class="btn btn-success" th:onclick="|addToCart('${medicineWithPharmacy.key.name}',
                                             '${pharmacyMedicine.pharmacyName}', '${pharmacyMedicine.pharmacyAddress}')|" >Add To Cart</a></td>
                             </tr>
                         </div>
@@ -101,6 +102,7 @@
             localStorage.setItem("addresses", JSON.stringify(addressArray));
             localStorage.setItem("medicineCounts", JSON.stringify(countsArray));
         } else {
+            debugger;
             for (var i=0; i<addresses.length; i++) {
                 if (addresses[i] == pharmacyAddress) {
                     var addressIndex = i;
@@ -110,6 +112,17 @@
                         medicineCounts[addressIndex]++;
                         localStorage.setItem("medicineCounts", JSON.stringify(medicineCounts));
                         break;
+                    } else if (i == addresses.length - 1) {
+                        medicines[medicines.length] = medicineName;
+                        pharmacies[pharmacies.length] = pharmacyName;
+                        addresses[addresses.length] = pharmacyAddress;
+                        medicineCounts[medicineCounts.length] = 1;
+                        localStorage.setItem("medicines", JSON.stringify(medicines));
+                        localStorage.setItem("pharmacies", JSON.stringify(pharmacies));
+                        localStorage.setItem("addresses", JSON.stringify(addresses));
+                        localStorage.setItem("medicineCounts", JSON.stringify(medicineCounts));
+                        break;
+
                     }
                 } else if (i == addresses.length-1) {
                     medicines[medicines.length] = medicineName;
@@ -124,11 +137,21 @@
                 }
             }
         }
+
+        alert("Successfully added!");
+
     }
+
 </script>
 
 <style>
     .form-control{
         width:20%;
+        display: inline;
+        margin-left: 10px;
+    }
+
+    .pagination a.active{
+        color:red;
     }
 </style>

@@ -4,7 +4,6 @@ import am.initsolutions.forms.DepartmentForm;
 import am.initsolutions.models.Department;
 import am.initsolutions.models.Doctor;
 import am.initsolutions.models.Hospital;
-import am.initsolutions.repository.DepartmentRepository;
 import am.initsolutions.repository.DoctorRepository;
 
 import am.initsolutions.services.DepartmentService;
@@ -12,7 +11,6 @@ import am.initsolutions.services.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -35,12 +33,15 @@ public class DepartmentAdminController {
     @Autowired
     private DepartmentService departmentService;
 
+
+
     //SELECT DEPARTMENT
     @GetMapping("/departmentAdmin")
     public String departmentAdmin(Model map, @RequestParam("page") Optional<Integer> page,
                                   @RequestParam("size") Optional<Integer> size){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse( 5);
+        //System.out.println(departmentService.getAll().size() + " size");
 
         Page<Department> all = departmentService.getAll(new PageRequest(currentPage-1,pageSize));
        // List<Department> all = departmentService.getAll();
@@ -63,7 +64,7 @@ public class DepartmentAdminController {
     }
 
     @PostMapping("/addDepartment")
-    public String addDepartment(DepartmentForm departmentForm, ModelMap map) {
+    public String addDepartment(Department departmentForm, ModelMap map) {
         Department addDep=departmentService.add(departmentForm);
         if (addDep != null) {
             return "redirect:/departmentAdmin";
@@ -74,7 +75,7 @@ public class DepartmentAdminController {
     }
 
 
-    
+
 
     //delete department
     @GetMapping("/delete")

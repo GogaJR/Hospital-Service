@@ -104,4 +104,10 @@ public class PharmacyAdminController {
 
         return "orderList";
     }
+
+    @GetMapping("/deleteOrder/{orderId}")
+    public String deleteOrder(@PathVariable("orderId") Long orderId) {
+        orderService.deleteOrder(orderId);
+        return "redirect:/pharmacyAdmin/orders";
+    }
 }

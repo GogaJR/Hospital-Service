@@ -17,5 +17,10 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getAll() {
         return orderRepository.findAll();
     }
+
+    @Override
+    public void deleteOrder(Long id) {
+        orderRepository.delete(id);
+    }
 }
 

@@ -2,9 +2,11 @@ package am.initsolutions.services;
 
 import am.initsolutions.forms.HospitalForm;
 import am.initsolutions.models.Hospital;
+import am.initsolutions.repository.DoctorRepository;
 import am.initsolutions.repository.HospitalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,8 +15,13 @@ public class HospitalServiceImpl implements HospitalService {
     @Autowired
     private HospitalRepository hospitalRepository;
 
+//    @Autowired
+//    private DoctorRepository doctorRepository;
+
     @Override
+//    @Transactional
     public void delete(Long id) {
+//        doctorRepository.deleteByHospitalId(id);
         hospitalRepository.delete(id);
     }
 
