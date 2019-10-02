@@ -13,7 +13,7 @@
         <td>Address</td>
         <td>Phone Number</td>
         <td>Site</td>
-        <td colspan="2">Action</td>
+
     </tr></thead>
     <tbody>
     <tr th:each="h: ${hospitalList}">
@@ -23,7 +23,7 @@
         <td th:text="${h.phoneNumber}"></td>
         <td th:text="${h.site}"></td>
 
-        <td class="delete"><a  th:href="@{'/mainAdmin/delete/' + ${h.id}}" >Delete Hospital</a></td>
+<!--        <td class="delete"><a  th:href="@{'/mainAdmin/delete/' + ${h.id}}" >Delete Hospital</a></td>-->
         <td class="edit"><a  th:href="@{'/mainAdmin/edit/' + ${h.id}}">Edit Hospital</a></td>
     </tr></tbody>
 </table>

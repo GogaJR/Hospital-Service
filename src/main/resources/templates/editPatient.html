@@ -1,6 +1,7 @@
 <div xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
+    <a class="btn btn-warning" style="float: left;" role="button" href="/patient">Back</a>
             <form method="post" th:action="'/patient/' + ${patient.id} + '/edit'" style="width: 50%">
                 <div class="md-form">
                     <input class="form-control" type="text" name="name" th:value="${patient.name}"><br>
@@ -30,6 +31,6 @@
                     <input class="form-control" type="text" name="phoneNumber" pattern="[0-9]{9}" th:value="${patient.phoneNumber}"><br>
                 </div>
 
-                <button class="btn btn-warning" type="submit">Save Changes</button>
+                <button class="btn btn-success" type="submit">Save Changes</button>
             </form>
         </div>

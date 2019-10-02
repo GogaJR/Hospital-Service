@@ -2,11 +2,11 @@
      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{base_layout}"
      layout:fragment="~{body}" th:remove="tag">
 
-    <a class="btn btn-warning" role="button" th:href="@{/doctorPage}" style="text-decoration: none;"> Back </a>
+    <a class="btn btn-warning" role="button" th:href="@{'/doctor/' + ${patientHistory.getDoctor().getId()} + '/history/' + ${patientHistory.getPatient().getId()}}" style="text-decoration: none;"> Back </a>
     <div class="card" style=" width: 50%;">
         <div class="card-body px-lg-5 pt-0">
             <h3>Add Patinet Diagnose and Recipe!</h3>
-            <form  th:action="@{/addDiagnoseByPatientId}"  method="post">
+            <form  th:action="@{/addDiagnoseByPatientId(doctorId=${patientHistory.getDoctor().id})}"  method="post">
                 <input type="hidden" name="id" th:value="${patientHistory.id}">
                 <input type="hidden" name="doctorId" th:value="${patientHistory.getDoctor().id}">
                 <input type="hidden" name="patientId" th:value="${patientHistory.getPatient().id}">

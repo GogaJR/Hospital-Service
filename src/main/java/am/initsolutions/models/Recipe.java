@@ -21,11 +21,11 @@ public class Recipe {
 
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "recipe_medicine",
             joinColumns = @JoinColumn(name = "recipe_id"),

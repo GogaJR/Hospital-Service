@@ -12,5 +12,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     //List<Doctor> findAllByDepartmentId(Long departmentId);
     Page<Doctor> findAllByDepartmentId(Pageable pageable,Long departmentId);
     Doctor findByUserId(long id);
+    void deleteByHospitalId(Long hospitalId);
 
 }
