@@ -78,8 +78,14 @@ public class ModeratorController {
     }
 
     @GetMapping("/moderator/medicines")
-    public String getMedicinesPage(ModelMap modelMap) {
+    public String getMedicinesPage(@ModelAttribute("exists") Boolean exists,
+                                   HttpServletRequest request, ModelMap modelMap) {
         List<Medicine> medicines = medicineService.getAll();
+        if (exists != null) {
+            modelMap.addAttribute("exists", exists);
+            request.getSession().setAttribute("exists", false);
+        }
+
         modelMap.addAttribute("medicines", medicines);
 
         return "medicineListForModerator";
@@ -113,8 +119,11 @@ public class ModeratorController {
     }
 
     @PostMapping("/moderator/medicines/add")
-    public String addMedicine(String name) {
-        medicineService.add(name);
+    public String addMedicine(String name, HttpServletRequest request) {
+        Medicine savedMedicine = medicineService.add(name);
+        if (savedMedicine == null) {
+            request.getSession().setAttribute("exists", true);
+        }
 
         return "redirect:/moderator/medicines";
     }

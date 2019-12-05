@@ -9,6 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MedicineForm {
     private Long medicineId;
-    private int medicineCount;
     private Long pharmacyId;
 }

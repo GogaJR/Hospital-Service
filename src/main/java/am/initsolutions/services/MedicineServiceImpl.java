@@ -85,6 +85,11 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public Medicine add(String name) {
+        Medicine existedMedicine = medicineRepository.findByName(name);
+        if (existedMedicine != null) {
+            return null;
+        }
+
         Medicine newMedicine = Medicine.builder()
                 .name(name)
                 .build();

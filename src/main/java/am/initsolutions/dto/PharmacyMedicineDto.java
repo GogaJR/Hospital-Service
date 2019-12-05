@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 public class PharmacyMedicineDto {
     private Long pharmacyId;
     private Medicine medicine;
-    private int medicineCount;
 
     public static PharmacyMedicineDto from(PharmacyMedicine pharmacyMedicine) {
         return PharmacyMedicineDto.builder()

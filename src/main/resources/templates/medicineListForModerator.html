@@ -43,6 +43,11 @@
     </style>
 </head>
 <body>
+<div th:if="${exists}">
+    <script>
+        alert("Medicine already exists!");
+    </script>
+</div>
 <div class="container">
     <div class="row">
         <div class="jumbotron">

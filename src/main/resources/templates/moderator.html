@@ -24,17 +24,12 @@
                     <td>Name</td>
                     <td>Address</td>
                     <td>Phone Number</td>
-                    <td>Open At</td>
-                    <td>Close At</td>
                 </tr></thead>
                 <tbody>
                 <tr th:each="pharmacy: ${pharmacies}">
                     <td th:text="${pharmacy.name}"></td>
                     <td th:text="${pharmacy.address}"></td>
-                    <td th:text="${pharmacy.phoneNumber}"></td>
-                    <td th:text="${pharmacy.openAt}"></td>
-                    <td th:text="${pharmacy.closeAt}"></td>
-
+                     <td th:text="${pharmacy.phoneNumber}"></td>
                     <td class="delete"><a  th:href="@{'/moderator/delete/' + ${pharmacy.id}}" >Delete Pharmacy</a></td>
                     <td class="edit"><a  th:href="@{'/moderator/edit/' + ${pharmacy.id}}">Edit Pharmacy</a></td>
                 </tr></tbody>

@@ -94,6 +94,11 @@ public class PatientServiceImpl implements PatientService {
     @Override
     @Transactional
     public Patient add(PatientForm patientForm) {
+        User user = userRepository.findByEmail(patientForm.getMail());
+        if (user != null) {
+            return null;
+        }
+
         User newUser = User.builder()
                 .userType(UserType.PATIENT)
                 .email(patientForm.getMail())

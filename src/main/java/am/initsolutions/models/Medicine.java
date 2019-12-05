@@ -21,10 +21,4 @@ public class Medicine {
 
     @Column
     private String name;
-
-
-//    @Override
-//    public String toString() {
-//        return name;
-//    }
 }
